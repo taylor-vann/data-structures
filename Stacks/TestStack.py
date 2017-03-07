@@ -1,9 +1,9 @@
-'''
+"""
 Brian Vann
 github.com/taylor-vann
 
 Unit Tests for the Stack class
-'''
+"""
 
 import unittest
 from Stack import Stack
@@ -84,7 +84,7 @@ class TestStackMethods(unittest.TestCase):
         stack = Stack()
         self.assertFalse(stack.search(1))
 
-    def testStackContains(self):
+    def testStackContainsTrue(self):
         stack = Stack()
         node1 = SLNode(None, 1)
         node2 = SLNode(None, 2)
@@ -93,5 +93,16 @@ class TestStackMethods(unittest.TestCase):
         stack.push(node2)
         stack.push(node3)
         self.assertIn(2, stack)
+
+    def testStackContainsFalse(self):
+        stack = Stack()
+        node1 = SLNode(None, 1)
+        node2 = SLNode(None, 2)
+        node3 = SLNode(None, 3)
+        stack.push(node1)
+        stack.push(node2)
+        stack.push(node3)
+        self.assertNotIn(4, stack)
+
 
 unittest.main()

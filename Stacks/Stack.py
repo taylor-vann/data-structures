@@ -2,7 +2,7 @@
 Brian Taylor Vann
 github.com/taylor-vann
 
-Base class for Stack Structures
+Base class for Stack data structure
 
 basic methods:
 push/insert
