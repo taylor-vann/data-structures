@@ -13,25 +13,31 @@ search
 
 from SLNode import SLNode
 
+
 class Stack(object):
     _head = None
 
     #overwritten methods
-    def __init__(self, nxt = None):
-        self.push(nxt);
+    def __init__(self, *args):
+        for var in args:
+            self.push(var)
+
 
     def __contains__(self, bit):
         return self.search(bit)
 
-    #custom methods
-    def push(self, nxt):
-        if isinstance(nxt, SLNode):
-            if self._head is None:
-                self._head = nxt
-                return
 
-            nxt.set_next(self._head)
-            self._head = nxt
+    #custom methods
+    def push(self, num):
+        node = SLNode(None, num)
+
+        if self._head is None:
+            self._head = node
+            return
+
+        node.set_next(self._head)
+        self._head = node
+
 
     def pop(self):
         if self._head is None:
@@ -42,11 +48,13 @@ class Stack(object):
 
         return bit
 
+
     def peek(self):
         if self._head is None:
             return None
 
         return self._head.get_data();
+
 
     def search(self, bit):
         index = self._head

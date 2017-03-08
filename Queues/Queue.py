@@ -13,30 +13,34 @@ search
 
 from SLNode import SLNode
 
+
 class Queue(object):
     _head = None
     _tail = None
 
     #overwritten methods
-    def __init__(self, nxt = None):
-        self.enqueue(nxt)
-        pass
+    def __init__(self, *args):
+        for var in args:
+            self.enqueue(var)
+
 
     def __contains__(self, bit):
         return self.search(bit)
 
+
     #custom methods
-    def enqueue(self, nxt):
-        if isinstance(nxt, SLNode):
-            #if empty
-            if self._tail is None and self._head is None:
-                self._tail = nxt
-                self._head = nxt
+    def enqueue(self, num):
+        node = SLNode(None, num)
 
-                return
+        if self._tail is None and self._head is None:
+            self._tail = node
+            self._head = node
 
-            self._head.set_next(nxt)
-            self._head = nxt
+            return
+
+        self._head.set_next(node)
+        self._head = node
+
 
     def dequeue(self):
         if self._tail is None:
@@ -51,11 +55,13 @@ class Queue(object):
 
         return bit
 
+
     def peek(self):
         if self._head is None:
             return None
 
         return self._head.get_data()
+
 
     def search(self, bit):
         if self._head is None:

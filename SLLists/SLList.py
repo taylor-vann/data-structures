@@ -1,4 +1,4 @@
-'''
+"""
 Brian Taylor Vann
 github.com/taylor-vann
 
@@ -11,19 +11,23 @@ insert
 insert after
 remove
 delete after
-'''
+"""
 
 from SLNode import SLNode
+
 
 class SLList(object):
     _head = None
 
     #overridden methods
-    def __init__(self, nxt = None):
-        self.insert(nxt)
+    def __init__(self, *args):
+        for var in args:
+            self.insert(var)
+
 
     def __contains__(self, bit):
         return self.search(bit)
+
 
     #custom methods
     def peek(self):
@@ -31,6 +35,7 @@ class SLList(object):
             return None
 
         return self._head.get_data()
+
 
     def search(self, bit):
         index = self._head
@@ -43,37 +48,42 @@ class SLList(object):
 
         return False
 
-    def insert(self, nxt):
-        if isinstance(nxt, SLNode):
-            if self._head is None:
-                self._head = nxt
-                return
 
-            index = self._head
+    def insert(self, num):
+        node = SLNode(None, num)
 
-            while index.get_next() is not None:
-                index = index.get_next()
+        if self._head is None:
+            self._head = node
+            return
 
-            index.set_next(nxt)
+        index = self._head
 
-    def insert_after(self, nxt, bit):
-        if isinstance(nxt, SLNode):
-            if self._head is None:
-                self._head = nxt
-                return
+        while index.get_next() is not None:
+            index = index.get_next()
 
-            prev = self._head
-            curr = self._head.get_next()
+        index.set_next(node)
 
-            while prev.get_data() != bit:
-                if curr is None:
-                    break
 
-                prev = curr
-                curr = prev.get_next()
+    def insert_after(self, num, bit):
+        node = SLNode(None, num)
 
-            prev.set_next(nxt)
-            nxt.set_next(curr)
+        if self._head is None:
+            self._head = node
+            return
+
+        prev = self._head
+        curr = self._head.get_next()
+
+        while prev.get_data() != bit:
+            if curr is None:
+                break
+
+            prev = curr
+            curr = prev.get_next()
+
+        prev.set_next(node)
+        node.set_next(curr)
+
 
     def remove(self):
         if self._head is None:

@@ -1,9 +1,9 @@
-'''
+"""
 Brian Taylor Vann
 github.com/taylor-vann
 
 Singly Linked Node
-'''
+"""
 
 class SLNode(object):
     #singly linked node
