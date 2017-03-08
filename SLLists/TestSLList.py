@@ -113,4 +113,40 @@ class TestSLList(unittest.TestCase):
         self.assertIn(1, slist)
 
 
+    def testRemoveValueStart(self):
+        slist = SLList(1, 2, 3)
+        slist.remove_data(1)
+        self.assertNotIn(1, slist)
+
+
+    def testRemoveValueStartContains2(self):
+        slist = SLList(1, 2, 3)
+        slist.remove_data(1)
+        self.assertIn(2, slist)
+
+
+    def testRemoveValueStartContains3(self):
+        slist = SLList(1, 2, 3)
+        slist.remove_data(1)
+        self.assertIn(3, slist)
+
+
+    def testRemoveValueMiddle(self):
+        slist = SLList(1, 2, 3)
+        slist.remove_data(2)
+        self.assertNotIn(2, slist)
+
+
+    def testRemoveValueEnd(self):
+        slist = SLList(1, 2, 3)
+        slist.remove_data(3)
+        self.assertNotIn(3, slist)
+
+
+    def testRemoveValueEndContains(self):
+        slist = SLList(1, 2, 3)
+        slist.remove_data(3)
+        self.assertIn(1, slist)
+
+
 unittest.main()        

@@ -15,6 +15,7 @@ from SLNode import SLNode
 
 
 class Stack(object):
+
     _head = None
 
     #overwritten methods

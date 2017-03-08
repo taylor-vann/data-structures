@@ -17,6 +17,7 @@ from SLNode import SLNode
 
 
 class SLList(object):
+
     _head = None
 
     #overridden methods
@@ -30,25 +31,6 @@ class SLList(object):
 
 
     #custom methods
-    def peek(self):
-        if self._head is None:
-            return None
-
-        return self._head.get_data()
-
-
-    def search(self, bit):
-        index = self._head
-
-        while index is not None:
-            if index.get_data() == bit:
-                return True
-
-            index = index.get_next()
-
-        return False
-
-
     def insert(self, num):
         node = SLNode(None, num)
 
@@ -93,3 +75,52 @@ class SLList(object):
         self._head = self._head.get_next()
 
         return bit
+
+
+    def remove_data(self, num):
+        if self._head is None:
+            return None
+            
+        prev = self._head
+        curr = prev.get_next()
+
+        if prev.get_data() == num:
+            self._head = curr
+            prev.set_next(None)
+
+            return prev.get_data();
+
+        while curr is not None:
+            if curr.get_data() == num:
+                break 
+
+            prev = curr
+            curr = prev.get_next()
+
+        if curr is None:
+            return None
+
+        prev.set_next(curr.get_next())
+        bit = curr.get_data()
+        curr.set_next(None)
+
+        return bit
+
+
+    def peek(self):
+        if self._head is None:
+            return None
+
+        return self._head.get_data()
+
+
+    def search(self, bit):
+        index = self._head
+
+        while index is not None:
+            if index.get_data() == bit:
+                return True
+
+            index = index.get_next()
+
+        return False

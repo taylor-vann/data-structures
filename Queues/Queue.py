@@ -15,6 +15,7 @@ from SLNode import SLNode
 
 
 class Queue(object):
+
     _head = None
     _tail = None
 
