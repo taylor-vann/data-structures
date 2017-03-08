@@ -1,9 +1,10 @@
-'''
+"""
 Brian Vann
 github.com/taylor-vann
 
-Unit Tests for the SLNode class
-'''
+Description:
+-Unit Tests for the SLNode class.
+"""
 
 import unittest
 from SLNode import SLNode

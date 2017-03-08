@@ -2,7 +2,7 @@
 Brian Taylor Vann
 github.com/taylor-vann
 
-Base class for a Singly Linked Node
+Singly Linked Node
 '''
 
 class SLNode(object):

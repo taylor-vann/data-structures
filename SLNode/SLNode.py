@@ -7,26 +7,29 @@ Singly Linked Node
 
 class SLNode(object):
     #singly linked node
-    _next = None
-    _data = None
+    __next = None
+    __data = None
 
     #overridden methods
     def __init__(self, nxt = None, bit = None):
         self.set_next(nxt);
         self.set_data(bit);
 
+    def __del__(self):
+        print("Deleted a node, yay!")
+
     #custom methods
     def set_next(self, nxt):
         if isinstance(nxt, SLNode):
-            self._next = nxt
+            self.__next = nxt
         else:
-            self._next = None
+            self.__next = None
 
     def get_next(self):
-        return self._next
+        return self.__next
 
     def set_data(self, bit):
-        self._data = bit
+        self.__data = bit
 
     def get_data(self):
-        return self._data
+        return self.__data
