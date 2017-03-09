@@ -3,10 +3,10 @@ Brian Taylor Vann
 github.com/taylor-vann
 
 Description:
-- Unit Tess for Sorting modules in Sorts.py
+- Unit Tess for the bubble_sort module
 
 Required:
-- Sorts.py
+- BubbleSort.py
 """
 
 import unittest
