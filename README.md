@@ -33,7 +33,7 @@ slnode = SLNode(<data>, next)
 
 slnode.set_data(<data>)
 slnode.get_data()
-slnode.set_next(SLNode())
+slnode.set_next(<SLNode>)
 slnode.get_next()
 ```
 
@@ -83,9 +83,9 @@ dlnode = DLNode(<data>, prev, next)
 
 slnode.set_data(<data>)
 slnode.get_data()
-slnode.set_prev(<data>)
+slnode.set_prev(<DLNode>)
 slnode.get_prev()
-slnode.set_next(<data>)
+slnode.set_next(<DLNode>)
 slnode.get_next()
 ```
 
