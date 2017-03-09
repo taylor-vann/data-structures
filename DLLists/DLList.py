@@ -71,15 +71,22 @@ class DLList(object):
             return None
 
         if node is self._head:
-            self._head = self._head.get_prev()
+            self._head = node.get_prev()
+            node.set_prev(None)
+
             return node.get_data()
 
         if node is self._tail:
-            self._tail = self._tail.get_next()
+            self._tail = node.get_next()
+            node.get_next(None)
+
             return node.get_data()
 
         prev = node.get_prev()
         nxt = node.get_next()
+
+        node.set_next(None)
+        node.set_prev(None)
 
         prev.set_next(nxt)
         nxt.set_prev(prev)

@@ -153,7 +153,7 @@ class TestDLListMethods(unittest.TestCase):
     def testDLListGetNodeEquals(self):
         dlist = DLList(1, 2, 3, 4)
         bit = dlist.find(4)
-        self.assertEquals(bit.get_data(), 4)
+        self.assertEqual(bit.get_data(), 4)
 
 
     def testDLListRemoveNodeIsNone(self):
@@ -165,7 +165,7 @@ class TestDLListMethods(unittest.TestCase):
     def testDLListRemoveNodeIsEqual(self):
         dlist = DLList(1, 2, 3, 4)
         bit = dlist.remove_data(4)
-        self.assertEquals(bit, 4)
+        self.assertEqual(bit, 4)
 
 
     def testDLListRemoveIsGone(self):

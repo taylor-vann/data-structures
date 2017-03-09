@@ -22,11 +22,14 @@ Unfortunately, considering yourself an artist creates a stigma that hinders your
 
 So, like I said, here's a bunch of boring-ass algorithms and unit tests.
 
+
+###Stacks, Queues, & Lists###
+
 SLNode - Singly Linked Node
 
 ```
 slnode = SLNode()
-slnode = SLNode(<nextnode>, <data>)
+slnode = SLNode(<data>, next)
 
 slnode.set_data(<data>)
 slnode.get_data()
@@ -55,7 +58,7 @@ que = Queue(<data>, <data>, ...)
 que.enqueue(<data>)
 que.dequeue()
 que.peek()
-que.search()
+que.search(<data>)
 ```
 
 SLList - Singly Linked List class
@@ -65,11 +68,25 @@ lst = SLList()
 lst = SLList(<data>, <data>, ...)
 
 lst.insert(<data>)
-lst.insert\_after(<new>, <data>)
+lst.insert_after(<new>, <data>)
 lst.remove()
-lst.remove\_data(<data>)
+lst.remove_data(<data>)
 lst.peek()
-lst.search()
+lst.search(<data>)
+```
+
+DLNode - Doubly Linked Node
+
+```
+dlnode = DLNode()
+dlnode = DLNode(<data>, prev, next)
+
+slnode.set_data(<data>)
+slnode.get_data()
+slnode.set_prev(<data>)
+slnode.get_prev()
+slnode.set_next(<data>)
+slnode.get_next()
 ```
 
 DLList - Doubly Linked List class
@@ -80,12 +97,12 @@ dlst = DLList(<data>, <data>, ...)
 
 lst.insert(<data>)
 lst.remove()
-lst.remove\_data(<data>)
+lst.remove_data(<data>)
 lst.unshift(<data>)
 lst.shift()
-lst.insert\_after(<new>, <data>)
+lst.insert_after(<insert>, <after>)
 lst.peek()
-lst.peek\_last()
+lst.peek_last()
 lst.find(<data>)
 ```
 ##License##
