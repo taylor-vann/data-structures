@@ -2,15 +2,19 @@
 Brian Taylor Vann
 github.com/taylor-vann
 
-Base class for a Singly Linked List.
+Description:
+- Base class for a Singly Linked List data structure.
+
+Required:
+-SLNode.py
 
 Basic methods:
-access
-search
-insert
-insert after
-remove
-delete after
+- access
+- search
+- insert
+- insert after
+- remove
+- remove after
 """
 
 from SLNode import SLNode
@@ -32,7 +36,7 @@ class SLList(object):
 
     #custom methods
     def insert(self, num):
-        node = SLNode(None, num)
+        node = SLNode(num)
 
         if self._head is None:
             self._head = node
@@ -47,7 +51,7 @@ class SLList(object):
 
 
     def insert_after(self, num, bit):
-        node = SLNode(None, num)
+        node = SLNode(num)
 
         if self._head is None:
             self._head = node

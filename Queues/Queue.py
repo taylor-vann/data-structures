@@ -2,13 +2,17 @@
 Brian Taylor Vann
 github.com/taylor-vann
 
-Base class for the Queue data structure.
+Description:
+- Base class for a Queue data structure.
 
-basic methods:
-enqueue/insert
-dequeue/delete
-peek/access
-search
+Requires:
+- SLNode.py
+
+Basic methods:
+- enqueue
+- dequeue
+- peek
+- search
 """
 
 from SLNode import SLNode
@@ -31,7 +35,7 @@ class Queue(object):
 
     #custom methods
     def enqueue(self, num):
-        node = SLNode(None, num)
+        node = SLNode(num)
 
         if self._tail is None and self._head is None:
             self._tail = node

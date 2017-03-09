@@ -7,7 +7,6 @@ Unit Tests for the Stack class
 
 import unittest
 from Stack import Stack
-from SLNode import SLNode
 
 
 class TestStackMethods(unittest.TestCase):
@@ -83,9 +82,6 @@ class TestStackMethods(unittest.TestCase):
 
     def testStackContainsTrue(self):
         stack = Stack()
-        node1 = SLNode(None, 1)
-        node2 = SLNode(None, 2)
-        node3 = SLNode(None, 3)
         stack.push(1)
         stack.push(2)
         stack.push(3)

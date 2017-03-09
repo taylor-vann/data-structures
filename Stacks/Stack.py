@@ -2,13 +2,17 @@
 Brian Taylor Vann
 github.com/taylor-vann
 
-Base class for Stack data structure
+Description:
+- Base class for a Stack data structure
 
-basic methods:
-push/insert
-pop/delete 
-peek/access
-search
+Required:
+- SLNode.py
+
+Basic methods:
+- push
+- pop
+- peek/access
+- search
 """
 
 from SLNode import SLNode
@@ -30,7 +34,7 @@ class Stack(object):
 
     #custom methods
     def push(self, num):
-        node = SLNode(None, num)
+        node = SLNode(num)
 
         if self._head is None:
             self._head = node
