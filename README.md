@@ -16,11 +16,29 @@ If you're studying for your comp-sci courses, you should really rely on the exam
 
 If your teaching yourself and just need help or a guide, this is just one more perspective. It's not intended to be a tutorial.
 
-This is just personal practice. I love art and computation but you really need a foundation in computer-science to do either these days.
-
 Unfortunately, considering yourself an artist creates a stigma that hinders your ability to get a technical interview let alone be taken seriously in said hypothetical interview (even if you have a solid foundation in computer science and media theory). This is one attempt to bridge that gap between creativity and professionalism. 
 
 So, like I said, here's a bunch of boring-ass algorithms and unit tests.
+
+###Sorts###
+
+BubbleSort - module to bubble sort a list
+
+```
+bubble_sort(<list>)
+```
+
+InsertionSort - module to insertion sort a list
+
+```
+insertion_sort(<list>)
+```
+
+SelectionSort - module to selection sort a list
+
+```
+selection_sort(<list>)
+```
 
 
 ###Stacks, Queues, & Lists###
@@ -105,6 +123,7 @@ lst.peek()
 lst.peek_last()
 lst.find(<data>)
 ```
+
 ##License##
 
 Licensed under the GNU [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
