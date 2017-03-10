@@ -22,5 +22,3 @@ def insertion_sort(aList):
         for j in range(i + 1, 0, -1):
             if aList[j - 1] > aList[j]:
                 aList[j - 1], aList[j] = aList[j], aList[j - 1]
-
-    return aList

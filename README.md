@@ -40,6 +40,14 @@ SelectionSort - module to selection sort a list
 selection_sort(<list>)
 ```
 
+QuickSort - module to quick sort a list
+
+```
+quick_sort(<list>, 0, len(<list>))
+
+partition(<list>, lo, hi)
+```
+
 
 ###Stacks, Queues, & Lists###
 

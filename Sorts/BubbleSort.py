@@ -20,5 +20,3 @@ def bubble_sort(aList):
         for j in range(i + 1, len(aList)):
             if aList[i] > aList[j]:
                 aList[i], aList[j] = aList[j], aList[i]
-
-    return aList

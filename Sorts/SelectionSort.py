@@ -26,5 +26,3 @@ def selection_sort(aList):
 
         if min_index != i:
             aList[min_index], aList[i] = aList[i], aList[min_index]
-
-    return aList
