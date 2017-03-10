@@ -1,1 +1,4 @@
+#simple python ignores
 __pycache__/
+*.pyc
+
