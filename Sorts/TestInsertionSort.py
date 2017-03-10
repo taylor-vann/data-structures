@@ -3,9 +3,10 @@ Brian Taylor Vann
 github.com/taylor-vann
 
 Description:
-- Unit Tess for the insertion_sort module
+- Unit Test for the insertion_sort module
 
 Required:
+- unittest
 - InsertionSort.py
 """
 

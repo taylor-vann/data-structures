@@ -3,9 +3,10 @@ Brian Taylor Vann
 github.com/taylor-vann
 
 Description:
-- Unit Tess for the bubble_sort module
+- Unit Test for the bubble_sort module
 
 Required:
+- unittest
 - BubbleSort.py
 """
 

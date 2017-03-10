@@ -3,7 +3,7 @@ Brian Taylor Vann
 github.com/taylor-vann
 
 Description:
-- Module to insertion_sort a list
+- Module to insertion sort a list
 
 Requirements:
 - None
