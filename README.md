@@ -48,6 +48,14 @@ quick_sort(<list>, 0, len(<list>))
 partition(<list>, lo, hi)
 ```
 
+MergeSort - module to merge sort a list
+
+```
+merge_sort(<list>)
+
+merge(<list>, <list>)
+```
+
 
 ###Stacks, Queues, & Lists###
 
@@ -69,10 +77,10 @@ Stack - Stack class
 stack = Stack()
 stack = Stack(<data>, <data>, ...)
 
-stack.push(<data>)
-stack.pop()
 stack.peek()
 stack.search()
+stack.push(<data>)
+stack.pop()
 ```
 
 Queue - Queue class
@@ -81,10 +89,10 @@ Queue - Queue class
 que = Queue()
 que = Queue(<data>, <data>, ...)
 
-que.enqueue(<data>)
-que.dequeue()
 que.peek()
 que.search(<data>)
+que.enqueue(<data>)
+que.dequeue()
 ```
 
 SLList - Singly Linked List class
@@ -93,12 +101,12 @@ SLList - Singly Linked List class
 lst = SLList()
 lst = SLList(<data>, <data>, ...)
 
+lst.peek()
+lst.search(<data>)
 lst.insert(<data>)
 lst.insert_after(<new>, <data>)
 lst.remove()
 lst.remove_data(<data>)
-lst.peek()
-lst.search(<data>)
 ```
 
 DLNode - Doubly Linked Node
@@ -121,15 +129,15 @@ DLList - Doubly Linked List class
 dlst = DLList()
 dlst = DLList(<data>, <data>, ...)
 
+lst.peek()
+lst.peek_last()
+lst.find(<data>)
 lst.insert(<data>)
+lst.insert_after(<insert>, <after>)
 lst.remove()
 lst.remove_data(<data>)
 lst.unshift(<data>)
 lst.shift()
-lst.insert_after(<insert>, <after>)
-lst.peek()
-lst.peek_last()
-lst.find(<data>)
 ```
 
 ##License##
