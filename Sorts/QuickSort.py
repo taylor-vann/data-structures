@@ -10,6 +10,7 @@ Requirements:
 
 Methods:
 - quick_sort
+- partition
 """
 
 

@@ -13,7 +13,7 @@ Methods:
 """
 
 def insertion_sort(aList):
-    if len(aList) == 0 or len(aList) == 1:
+    if len(aList) <= 1:
         return aList
 
     for i in range(len(aList) - 1):
