@@ -51,7 +51,7 @@ partition(<list>, lo, hi)
 MergeSort - module to merge sort a list
 
 ```
-merge_sort(<list>)
+sorted = merge_sort(<list>)
 
 merge(<list>, <list>)
 ```
