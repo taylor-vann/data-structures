@@ -14,27 +14,27 @@ Methods:
 """
 
 
-def quick_sort(l, lo, hi):
-    if len(l) <= 1:
+def quick_sort(a, lo, hi):
+    if len(a) <= 1:
         return
 
     if lo < hi:
-        p = partition(l, lo, hi)
-        quick_sort(l, lo, p - 1)
-        quick_sort(l, p + 1, hi)
+        p = partition(a, lo, hi)
+        quick_sort(a, lo, p - 1)
+        quick_sort(a, p + 1, hi)
 
 
-def partition(l, lo, hi):
+def partition(a, lo, hi):
     while True:
-        while l[lo] < l[hi]:
+        while a[lo] < a[hi]:
             lo += 1
 
-        while l[hi] > l[lo]:
+        while a[hi] > a[lo]:
             hi -= 1
 
         if lo >= hi:
             break
         else:
-            l[lo], l[hi] = l[hi], l[lo]
+            a[lo], a[hi] = a[hi], a[lo]
 
     return lo

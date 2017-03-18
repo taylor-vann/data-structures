@@ -13,16 +13,18 @@ Methods:
 """
 
 
-def selection_sort(aList):
-    if len(aList) <= 1:
-        return aList
+def selection_sort(a):
+    n = len(a)
 
-    for i in range(len(aList)):
-        min_index = i
+    if n <= 1:
+        return a
 
-        for j in range(i + 1, len(aList)):
-            if aList[j] < aList[min_index]:
-                min_index = j
+    for i in range(n):
+        mindx = i
 
-        if min_index != i:
-            aList[min_index], aList[i] = aList[i], aList[min_index]
+        for j in range(i + 1, n):
+            if a[j] < a[mindx]:
+                mindx = j
+
+        if mindx != i:
+            a[mindx], a[i] = a[i], a[mindx]

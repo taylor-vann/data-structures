@@ -22,6 +22,7 @@ def insertion_sort(a):
 
     for i in range(n):
         indx = i
+
         while a[prv] > a[indx] and indx > 0:
             a[indx], a[prv] = a[prv], a[indx]
             prv -=1

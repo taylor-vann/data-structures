@@ -12,11 +12,13 @@ Methods:
 - bubble_sort
 """
 
-def bubble_sort(aList):
-    if len(aList) <= 1:
+def bubble_sort(a):
+    n = len(a)
+
+    if n <= 1:
         return
 
-    for i in range(len(aList)):
-        for j in range(i + 1, len(aList)):
-            if aList[i] > aList[j]:
-                aList[i], aList[j] = aList[j], aList[i]
+    for i in range(n):
+        for j in range(i + 1, n):
+            if a[i] > a[j]:
+                a[i], a[j] = a[j], a[i]

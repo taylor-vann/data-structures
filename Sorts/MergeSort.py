@@ -14,14 +14,14 @@ Methods:
 """
 
 
-def merge_sort(l):
-    if len(l) <= 1:
-        return l
+def merge_sort(a):
+    if len(a) <= 1:
+        return a
 
-    p = len(l) // 2
+    p = len(a) // 2
 
-    l1 = l[:p]
-    l2 = l[p:]
+    l1 = a[:p]
+    l2 = a[p:]
 
     l1 = merge_sort(l1)
     l2 = merge_sort(l2)

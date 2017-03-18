@@ -15,14 +15,14 @@ Methods:
 """
 
 
-def radix_sort(l, base = 10):
-    if len(l) <= 1:
-        return l
+def radix_sort(a, base = 10):
+    if len(a) <= 1:
+        return a
 
-    bckt = l
+    bckt = a
     exp = base
     mod = 1
-    max_num = get_max(l)
+    max_num = get_max(a)
 
     while max_num//mod > 0:
         bckt = bucketish_sort(bckt, exp, mod)
@@ -32,7 +32,7 @@ def radix_sort(l, base = 10):
     return bckt
 
 
-def bucketish_sort(l, exp, mod, base = 10):
+def bucketish_sort(a, exp, mod, base = 10):
     bckt = []
 
     for i in range(base):
@@ -40,7 +40,7 @@ def bucketish_sort(l, exp, mod, base = 10):
 
     coll = []
 
-    for val in l:
+    for val in a:
         index = (val % exp)//mod
         bckt[index].append(val)
 
@@ -50,13 +50,13 @@ def bucketish_sort(l, exp, mod, base = 10):
     return coll
 
 
-def get_max(l):
-    if len(l) == 0:
+def get_max(a):
+    if len(a) == 0:
         return None
 
-    n = l[0]
+    n = a[0]
 
-    for v in l:
+    for v in a:
         if n < v:
             n = v
 

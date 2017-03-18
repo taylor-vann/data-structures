@@ -40,6 +40,12 @@ SelectionSort - module to selection sort a list
 selection_sort(<list>)
 ```
 
+ShellSort - module to selection sort a list
+
+```
+shell_sort(<list>)
+```
+
 QuickSort - module to quick sort a list
 
 ```
