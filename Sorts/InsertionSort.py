@@ -12,13 +12,19 @@ Methods:
 - insetion_sort
 """
 
-def insertion_sort(aList):
-    if len(aList) <= 1:
-        return aList
+def insertion_sort(a):
+    n = len(a)
 
-    for i in range(len(aList) - 1):
-        min_index = i
+    if n <= 1:
+        return
 
-        for j in range(i + 1, 0, -1):
-            if aList[j - 1] > aList[j]:
-                aList[j - 1], aList[j] = aList[j], aList[j - 1]
+    prv = 0
+
+    for i in range(n):
+        indx = i
+        while a[prv] > a[indx] and indx > 0:
+            a[indx], a[prv] = a[prv], a[indx]
+            prv -=1
+            indx -=1
+
+        prv = i

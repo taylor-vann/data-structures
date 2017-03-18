@@ -19,7 +19,7 @@ class TestInsertionSortModule(unittest.TestCase):
     def testInsertionIsNotNone(self):
         arr = []
         insertion_sort(arr)
-        self.assertIsNotNone(insertion_sort(arr))
+        self.assertIsNotNone(arr)
 
 
     def testInsertionEmpty(self):

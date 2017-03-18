@@ -1,14 +1,14 @@
-#Python Practice#
+# Python Practice #
 
-##Abstract##
+## Abstract ##
 
 Algortithms and data structures in python3.
 
-##Details##
+## Details ##
 
 This is technical practice with common algorithms and data structures in python3. The point is to not use built-in functions and classes and create homebrew stacks, queues, heaps, sorts, trees, and graphs. Of course, all of these endeavours are composed using test driven development.
 
-##Usage##
+## Usage ##
 
 Here's a bunch of boring algorithms and data structures. Cool beans.
 
@@ -20,7 +20,7 @@ Unfortunately, considering yourself an artist creates a stigma that hinders your
 
 So, like I said, here's a bunch of boring-ass algorithms and unit tests.
 
-###Sorts###
+### Sorts ###
 
 BubbleSort - module to bubble sort a list
 
@@ -44,20 +44,22 @@ QuickSort - module to quick sort a list
 
 ```
 quick_sort(<list>, 0, len(<list>))
-
-partition(<list>, lo, hi)
 ```
 
 MergeSort - module to merge sort a list
 
 ```
 sorted = merge_sort(<list>)
+```
 
-merge(<list>, <list>)
+RadixSort - module to radix sort a list
+
+```
+sorted = radix_sort(<list>)
 ```
 
 
-###Stacks, Queues, & Lists###
+### Stacks, Queues, & Lists ###
 
 SLNode - Singly Linked Node
 
@@ -140,6 +142,6 @@ lst.unshift(<data>)
 lst.shift()
 ```
 
-##License##
+## License ##
 
 Licensed under the GNU [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.

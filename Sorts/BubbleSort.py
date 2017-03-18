@@ -14,7 +14,7 @@ Methods:
 
 def bubble_sort(aList):
     if len(aList) <= 1:
-        return aList
+        return
 
     for i in range(len(aList)):
         for j in range(i + 1, len(aList)):

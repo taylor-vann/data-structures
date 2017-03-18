@@ -15,49 +15,49 @@ Methods:
 """
 
 
-def radix_sort(aList, base = 10):
-    if len(aList) <= 1:
-        return aList
+def radix_sort(l, base = 10):
+    if len(l) <= 1:
+        return l
 
-    bucket = aList
+    bckt = l
     exp = base
     mod = 1
-    max_num = get_max(aList)
+    max_num = get_max(l)
 
     while max_num//mod > 0:
-        bucket = bucketish_sort(bucket, exp, mod)
+        bckt = bucketish_sort(bckt, exp, mod)
         exp *= base
         mod *= base
 
-    return bucket
+    return bckt
 
 
-def bucketish_sort(aList, exp, mod, base = 10):
-    bucket = []
+def bucketish_sort(l, exp, mod, base = 10):
+    bckt = []
 
     for i in range(base):
-        bucket.append([])
+        bckt.append([])
 
     coll = []
 
-    for val in aList:
+    for val in l:
         index = (val % exp)//mod
-        bucket[index].append(val)
+        bckt[index].append(val)
 
-    for var in bucket:
+    for var in bckt:
         coll += var
 
     return coll
 
 
-def get_max(aList):
-    if len(aList) == 0:
+def get_max(l):
+    if len(l) == 0:
         return None
 
-    num = aList[0]
+    n = l[0]
 
-    for var in aList:
-        if num < var:
-            num = var
+    for v in l:
+        if n < v:
+            n = v
 
-    return num
+    return n
