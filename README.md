@@ -10,15 +10,11 @@ This is technical practice with common algorithms and data structures in python3
 
 ## Usage ##
 
-Here's a bunch of boring algorithms and data structures. Cool beans.
+Here's a bunch of boring algorithms and data structures.
 
 If you're studying for your comp-sci courses, you should really rely on the examples given by your professors. That's what'll give you the grade.
 
-If your teaching yourself and just need help or a guide, this is just one more perspective. It's not intended to be a tutorial.
-
-Unfortunately, considering yourself an artist creates a stigma that hinders your ability to get a technical interview let alone be taken seriously in said hypothetical interview (even if you have a solid foundation in computer science and media theory). This is one attempt to bridge that gap between creativity and professionalism. 
-
-So, like I said, here's a bunch of boring-ass algorithms and unit tests.
+If your teaching yourself and just need help or a guide, this is only one more perspective. It's not intended to be a tutorial.
 
 ### Sorts ###
 
@@ -73,10 +69,10 @@ SLNode - Singly Linked Node
 slnode = SLNode()
 slnode = SLNode(<data>, next)
 
-slnode.set_data(<data>)
 slnode.get_data()
-slnode.set_next(<SLNode>)
+slnode.set_data(<data>)
 slnode.get_next()
+slnode.set_next(<SLNode>)
 ```
 
 Stack - Stack class
@@ -123,12 +119,12 @@ DLNode - Doubly Linked Node
 dlnode = DLNode()
 dlnode = DLNode(<data>, prev, next)
 
-slnode.set_data(<data>)
 slnode.get_data()
-slnode.set_prev(<DLNode>)
+slnode.set_data(<data>)
 slnode.get_prev()
-slnode.set_next(<DLNode>)
+slnode.set_prev(<DLNode>)
 slnode.get_next()
+slnode.set_next(<DLNode>)
 ```
 
 DLList - Doubly Linked List class
@@ -146,6 +142,22 @@ lst.remove()
 lst.remove_data(<data>)
 lst.unshift(<data>)
 lst.shift()
+```
+
+### Trees ###
+
+BSTNode - Node for Binary Search Trees
+
+```
+tnode = BSTNode()
+tnode = BSTNode(<data>, left, right)
+
+tnode.get_data()
+tnode.set_data(<data>)
+tnode.get_left()
+tnode.set_left(<BSTNode>)
+tnode.get_next()
+tnode.set_next(<BSTNode>)
 ```
 
 ## License ##
