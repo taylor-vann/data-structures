@@ -8,11 +8,11 @@ Description:
 Requirements:
 - SLNode.py
 
-Basic methods:
-- enqueue
-- dequeue
-- peek
-- search
+Methods:
+- enqueue(<data>)
+- dequeue(<data>)
+- peek()
+- search(<data>)
 """
 
 from SLNode import SLNode

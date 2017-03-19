@@ -8,11 +8,11 @@ Description:
 Required:
 - SLNode.py
 
-Basic methods:
+Methods:
 - push(<data>)
 - pop()
 - peek/access()
-- search()
+- search(<data>)
 """
 
 from SLNode import SLNode
