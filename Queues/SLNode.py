@@ -4,6 +4,15 @@ github.com/taylor-vann
 
 Description:
 - Singly Linked Node class
+
+Requirements:
+- None
+
+Methods:
+- get_data()
+- set_data(<data>)
+- get_next()
+- set_next(<SLNode>)
 """
 
 class SLNode(object):
@@ -18,17 +27,18 @@ class SLNode(object):
 
 
     #custom methods
-    def set_next(self, nxt):
-        self._next = nxt
-
-
-    def get_next(self):
-        return self._next
+    def get_data(self):
+        return self._data
 
 
     def set_data(self, bit):
         self._data = bit
 
 
-    def get_data(self):
-        return self._data
+    def get_next(self):
+        return self._next
+
+
+    def set_next(self, nxt):
+        if isinstance(nxt, SLNode):
+            self._next = nxt

@@ -5,7 +5,7 @@ github.com/taylor-vann
 Description:
 - Base class for a Queue data structure.
 
-Requires:
+Requirements:
 - SLNode.py
 
 Basic methods:

@@ -2,11 +2,15 @@
 Brian Taylor Vann
 github.com/taylor-vann
 
-Unit Tests for the Queue class.
+Description:
+- Unit Tests for the Queue class.
+
+Requirements:
+- unittest
+- Queue.py
 """
 
 import unittest
-from SLNode import SLNode
 from Queue import Queue
 
 

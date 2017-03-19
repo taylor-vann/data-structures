@@ -2,7 +2,12 @@
 Brian Vann
 github.com/taylor-vann
 
-Unit Tests for the Stack class
+Description:
+- Unit Tests for the Stack class
+
+Requirements:
+- unittest
+- Stack.py
 """
 
 import unittest

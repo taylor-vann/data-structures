@@ -4,6 +4,10 @@ github.com/taylor-vann
 
 Description:
 - Unit tests for the DLNode class 
+
+Requirements:
+- unittest
+- DLNode.py
 """
 
 import unittest

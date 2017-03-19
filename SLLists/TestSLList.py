@@ -2,7 +2,12 @@
 Brian Taylor Vann
 github.com/taylor-vann
 
-Unit tests for SLList class
+Description:
+- Unit tests for SLList class
+
+Requirements:
+- unittest
+- SLList.py
 """
 
 import unittest

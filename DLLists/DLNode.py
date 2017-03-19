@@ -4,6 +4,17 @@ github.com/taylor-vann
 
 Description:
 - Doubly Linked Node base class
+
+Requirements:
+- None
+
+Methods:
+- get_data()
+- set_data(<data>)
+- get_next()
+- set_next(DLNode)
+- get_prev()
+- set_prev(DLNode)
 """
 
 class DLNode(object):
@@ -20,25 +31,25 @@ class DLNode(object):
 
 
     #custom methods
-    def set_next(self, nxt):
-        self._nxt = nxt
-
-
-    def get_next(self):
-        return self._nxt
-
-
-    def set_prev(self, prev):
-        self._prev = prev
-
-
-    def get_prev(self):
-        return self._prev
+    def get_data(self):
+        return self._data
 
 
     def set_data(self, bit):
         self._data = bit
 
 
-    def get_data(self):
-        return self._data
+    def get_next(self):
+        return self._nxt
+
+
+    def set_next(self, nxt):
+        self._nxt = nxt
+
+
+    def get_prev(self):
+        return self._prev
+
+
+    def set_prev(self, prev):
+        self._prev = prev

@@ -9,10 +9,10 @@ Required:
 - SLNode.py
 
 Basic methods:
-- push
-- pop
-- peek/access
-- search
+- push(<data>)
+- pop()
+- peek/access()
+- search()
 """
 
 from SLNode import SLNode

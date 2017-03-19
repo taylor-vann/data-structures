@@ -4,6 +4,10 @@ github.com/taylor-vann
 
 Description:
 - Unit tests for Doubly Linked List class
+
+Requirements:
+- unittest
+- DLList.py
 """
 
 import unittest
