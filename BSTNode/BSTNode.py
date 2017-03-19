@@ -19,38 +19,38 @@ Basic Methods:
 
 class BSTNode(object):
 
-    data = None
-    left = None
-    right = None
+    _data = None
+    _left = None
+    _right = None
 
     def __init__(self, bit = None, lft = None, rht = None):
-        self.data = bit
-        self.left = lft
-        self.rht = rht
+        self._data = bit
+        self._left = lft
+        self._right = rht
 
 
     def get_data(self):
-        return self.data
+        return self._data
 
 
     def set_data(self, bit):
-        self.data = bit
+        self._data = bit
 
 
     def get_left(self):
-        return self.left
+        return self._left
 
 
     def set_left(self, lft):
         if isinstance(lft, BSTNode):
-            self.left = lft
+            self._left = lft
 
 
     def get_right(self):
-        return self.right
+        return self._right
 
 
     def set_right(self, rht):
         if isinstance(rht, BSTNode):
-            self.right = rht
+            self._right = rht
 
