@@ -42,7 +42,7 @@ class BSTNode(object):
 
 
     def set_left(self, lft):
-        if isinstance(lft, BSTNode):
+        if isinstance(lft, BSTNode) or lft is None:
             self.left = lft
 
 
@@ -51,6 +51,6 @@ class BSTNode(object):
 
 
     def set_right(self, rht):
-        if isinstance(rht, BSTNode):
+        if isinstance(rht, BSTNode) or rht is None:
             self.right = rht
 
