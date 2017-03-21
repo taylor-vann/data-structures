@@ -36,6 +36,21 @@ class BSTree(object):
 
 
     #custom methods
+    def search(self, bit):
+        n = self._root
+
+        while n != None:
+            if n.get_data() == bit:
+                return n
+
+            if n.get_data() > bit:
+                n = n.get_left()
+            else:
+                n = n.get_right()
+
+        return None
+
+
     def insert(self, bit):
         if self._root == None:
             self._root = BSTNode(bit)
@@ -59,21 +74,6 @@ class BSTree(object):
             p.set_left(BSTNode(bit))
         else:
             p.set_right(BSTNode(bit))
-
-
-    def search(self, bit):
-        n = self._root
-
-        while n != None:
-            if n.get_data() == bit:
-                return n
-
-            if n.get_data() > bit:
-                n = n.get_left()
-            else:
-                n = n.get_right()
-
-        return None
 
 
     def remove(self, bit):
