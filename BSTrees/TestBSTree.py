@@ -92,7 +92,7 @@ class TestBSTreeMethods(unittest.TestCase):
         self.assertNotIn(6, bstree)
 
 
-    def testBSTreeInsertFiveRemoveStillHas(self):
+    def testBSTreeInsertFiveRemoveTwoHas(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(7)
@@ -100,6 +100,14 @@ class TestBSTreeMethods(unittest.TestCase):
         bstree.remove(6)
         self.assertIn(5, bstree)
 
+
+    def testBSTreeInsertFiveRemoveStillHas(self):
+        bstree = BSTree(4, 3, 6)
+        bstree.insert(5)
+        bstree.insert(7)
+        bstree.insert(1)
+        bstree.remove(6)
+        self.assertIn(5, bstree)
 
     def testBSTreeInsertSevenRemoveStillHasTwo(self):
         bstree = BSTree(4, 3, 6, 5, 8, 7, 9)
@@ -128,17 +136,23 @@ class TestBSTreeMethods(unittest.TestCase):
 
 
     def testBSTreeRemoveRoot(self):
+        bstree = BSTree(4)
+        bstree.remove(4)
+        self.assertNotIn(4, bstree)
+
+
+    def testBSTreeRemoveRootBigTree(self):
         bstree = BSTree(4, 2, 3, 1, 6, 10, 9, 7, 8, 11)
         bstree.remove(4)
         bstree.remove(10)
         self.assertNotIn(4, bstree)
 
 
-    def testBSTreeRemoveRoot(self):
+    def testBSTreeRemoveRootHas(self):
         bstree = BSTree(4, 2, 3, 1, 6, 10, 9, 7, 8, 11)
         bstree.remove(4)
         bstree.remove(10)
-        self.assertNotIn(4, bstree)
+        self.assertIn(8, bstree)
 
 
 

@@ -75,7 +75,7 @@ slnode.get_next()
 slnode.set_next(<SLNode>)
 ```
 
-Stack - Stack class
+Stack - Stack structure class
 
 ```
 stack = Stack()
@@ -87,7 +87,7 @@ stack.push(<data>)
 stack.pop()
 ```
 
-Queue - Queue class
+Queue - Queue structure class
 
 ```
 que = Queue()
@@ -99,7 +99,7 @@ que.enqueue(<data>)
 que.dequeue()
 ```
 
-SLList - Singly Linked List class
+SLList - Singly Linked List structure class
 
 ```
 lst = SLList()
@@ -127,7 +127,7 @@ slnode.get_next()
 slnode.set_next(<DLNode>)
 ```
 
-DLList - Doubly Linked List class
+DLList - Doubly Linked List structure class
 
 ```
 dlst = DLList()
@@ -160,6 +160,16 @@ tnode.get_next()
 tnode.set_next(<BSTNode>)
 ```
 
+BSTree - Binary Search Tree structure
+
+```
+bstree = BSTree()
+tnode = BSTree(<data>, <data>, ...)
+
+tnode.insert(<data>)
+tnode.remove(<data>)
+tnode.search(<data>)
+```
 ## License ##
 
 Licensed under the GNU [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.

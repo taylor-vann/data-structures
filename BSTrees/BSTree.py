@@ -12,6 +12,10 @@ Methods:
 - search(<data>)
 - insert(<data>)
 - remove(<data>)
+
+- _replace(parent, child)
+- _replace_node(parent, child, replacement)
+- _replace_root(child, replacement)
 """
 
 from BSTNode import BSTNode
@@ -90,51 +94,50 @@ class BSTree(object):
         if c == None:
             return
 
-        self.replace(p, c)
+        self._replace(p, c)
 
 
-    def replace(self, p, c):
+    def _replace(self, p, c):
         if c.get_left() and c.get_right():
-            m = self.find_pred(c.get_right())
+            m = self._find_pred(c.get_right())
+
+            self.remove(m.get_data())
+
             m.set_left(c.get_left())
             m.set_right(c.get_right())
 
-            c.set_left(None)
-            c.set_right(None)
-
-            self.replace_node(p, c, m)
+            self._replace_node(p, c, m)
         elif c.get_left():
-            self.replace_node(p, c, c.get_left())
+            self._replace_node(p, c, c.get_left())
         elif c.get_right():
-            self.replace_node(p, c, c.get_right())
+            self._replace_node(p, c, c.get_right())
         else:
-            self.replace_node(p, c)
+            self._replace_node(p, c)
 
 
-    def replace_node(self, p, c, val = None):
+    def _replace_node(self, p, c, r = None):
         if p == None:
-            self.replace_root(c, val)
+            self._replace_root(c, r)
             return
-
-        if p.get_left() == c:
-            p.set_left(val)
         else:
-            p.set_right(val)
+            if p.get_left() == c:
+                p.set_left(r)
+            else:
+                p.set_right(r)
 
         c.set_left(None)
         c.set_right(None)
 
 
-    def replace_root(self, c, val = None):
-        val.set_left(c.get_left())
-        val.set_right(c.get_right())
-        self._root = val
+    def _replace_root(self, c, r = None):
+        if r is not None:
+            r.set_left(c.get_left())
+            r.set_right(c.get_right())
 
-        c.set_left(None)
-        c.set_right(None)
+        self._root = r
 
 
-    def find_pred(self, n):
+    def _find_pred(self, n):
         node = n
 
         while node.get_left() != None:
