@@ -8,10 +8,12 @@ Description:
 Requirements:
 - unittest
 - Stack.py
+- SLNode.py
 """
 
 import unittest
 from Stack import Stack
+from SLNode import SLNode
 
 
 class TestStackMethods(unittest.TestCase):
@@ -37,6 +39,12 @@ class TestStackMethods(unittest.TestCase):
         stack = Stack()
         stack.push(3)
         self.assertEqual(stack.peek(), 3)
+
+
+    def testStackPopIsNode(self):
+        stack = Stack()
+        stack.push(3)
+        self.assertIsInstance(stack.pop(), SLNode)
 
 
     def testStackPushTwice(self):

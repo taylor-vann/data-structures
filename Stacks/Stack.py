@@ -48,8 +48,10 @@ class Stack(object):
         if self._head is None:
             return None
 
-        bit = self._head.get_data()
-        self._head = self._head.get_next()
+        bit = self._head
+        self._head = bit.get_next()
+
+        bit.set_next(None)
 
         return bit
 
@@ -66,8 +68,8 @@ class Stack(object):
 
         while index is not None:
             if index.get_data() == bit:
-                return True
+                break
 
             index = index.get_next();
             
-        return False
+        return index
