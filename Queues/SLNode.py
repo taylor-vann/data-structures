@@ -40,5 +40,5 @@ class SLNode(object):
 
 
     def set_next(self, nxt):
-        if isinstance(nxt, SLNode):
+        if isinstance(nxt, SLNode) or nxt == None:
             self._next = nxt
