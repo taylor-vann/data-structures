@@ -49,4 +49,18 @@ class TestHeapSortModule(unittest.TestCase):
         self.assertEqual(hp, srtd)
 
 
+    def testHeapSortFiveNeg(self):
+        hp = [-2, 1, -5, 7, 8]
+        srtd = [-5, -2, 1, 7, 8]
+        HeapSort(hp)
+        self.assertEqual(hp, srtd)
+
+
+    def testHeapSortFiveNegFloat(self):
+        hp = [-2.4, 1.3, -5.9, 7.2, 8.1]
+        srtd = [-5.9, -2.4, 1.3, 7.2, 8.1]
+        HeapSort(hp)
+        self.assertEqual(hp, srtd)
+
+
 unittest.main()
