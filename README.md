@@ -60,6 +60,12 @@ RadixSort - module to radix sort a list
 sorted = radix_sort(<list>)
 ```
 
+HeapSort - module to heap sort a list
+
+```
+heap_sort(<list>)
+```
+
 
 ### Stacks, Queues, & Lists ###
 

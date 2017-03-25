@@ -9,7 +9,7 @@ Requirements:
 - None
 """
 
-def HeapSort(a):
+def heap_sort(a):
     l = len(a) - 1
 
     if l < 1:
