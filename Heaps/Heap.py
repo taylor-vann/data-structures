@@ -6,11 +6,13 @@ Description:
 - Heap structure class
 
 Methods:
-- push()
-- pop()
-- remove()
+- __len__
+- __contains__
+
+- push(<data>)
+- pop() or pop(<index>)
+- remove() or remove(<val>)
 - peak()
-- search()
 """
 
 
@@ -29,36 +31,46 @@ class Heap(object):
 
 
     def __contains__(self, bit):
-        return self.search(bit)
+        return self._search(bit)
+
+
+    def __len__(self):
+        return len(self._h)
 
 
     #custom methods
     def push(self, bit):
-        self._h.append(bit)
-        self._perc_up(len(self._h) - 1)
+        self._h.insert(0, bit)
+        self._perc_down(0)
 
 
     def pop(self, n = 0):
-        l = len(self._h) - 1
+        l = len(self._h)
 
-        if l < 0:
+        if l == 0:
             return None
 
         if l == 1:
             return self._h.pop()
 
-        self._h[n], self._h[l] = self._h[l], self._h[n]
-        bit = self._h.pop(l)
+        if l < n:
+            return None
 
+        bit = self._h.pop(n)
         self._perc_down(n)
 
         return bit
 
 
     def remove(self, bit):
-        for i in range(self._h):
+        l = len(self._h) - 1
+
+        for i in range(0, len(self._h)):
             if self._h[i] == bit:
-               return self.pop(i)
+                pip = self._h.pop(i)
+                self._perc_down(i)
+
+                return pip
 
         return None
 
@@ -70,23 +82,19 @@ class Heap(object):
         return None
 
 
-    def search(self, bit):
+    def _search(self, bit):
         for var in self._h:
             if var == bit:
                 return var
 
 
-    def _perc_up(self, n):
-        c = n
-        p = c // 2
+    def _heapify(self):
+        l = len(self._h) - 1
+        b = l // 2
 
-        while c > 0:
-            if self._h[c] > self._h[p]:
-                self._h[c], self._h[p] = self._h[p], self._h[c]
-                c = p
-                p = c // 2
-            else:
-                break
+        while l > b:
+            self._perc_up(b)
+            l -= 1
 
 
     def _perc_down(self, i = 0):
