@@ -6,15 +6,15 @@ Algortithms and data structures in python3.
 
 ## Details ##
 
-This is technical practice with common algorithms and data structures in python3. The point is to not use built-in functions and classes and create homebrew stacks, queues, heaps, sorts, trees, and graphs. Of course, all of these endeavours are composed using test driven development.
+This is technical practice with common algorithms and data structures in python3. The point is to not use built-in functions and classes and create homebrew stacks, queues, heaps, sorts, trees, and graphs. Of course, like every good computer science student, all of these endeavours are composed using test driven development (you are using TDD, yes? of course you are, \*wink \*wink).
 
 ## Usage ##
 
-Here's a bunch of boring algorithms and data structures.
+Here's a bunch of the algorithms and data structures.
 
-If you're studying for your comp-sci courses, you should really rely on the examples given by your professors. That's what'll give you the grade.
+If you're studying for your comp-sci courses, you should rely on the examples provided by your professors. That's what'll give you the grade.
 
-If your teaching yourself and just need help or a guide, this is only one more perspective. It's not intended to be a tutorial.
+If you're teaching yourself and just need help or a delineation, here's one more perspective. It's not intended to be a tutorial.
 
 ### Sorts ###
 
@@ -57,19 +57,13 @@ sorted = merge_sort(<list>)
 HeapSort - module to heap sort a list
 
 ```
-sorted = heap_sort(<list)
+heap_sort(<list>)
 ```
 
 RadixSort - module to radix sort a list
 
 ```
 sorted = radix_sort(<list>)
-```
-
-HeapSort - module to heap sort a list
-
-```
-heap_sort(<list>)
 ```
 
 
@@ -183,16 +177,28 @@ tnode.remove(<data>)
 tnode.search(<data>)
 ```
 
-Heap - Heap structure
+MaxHeap
 
 ```Python
-heap = Heap()
-heap = Heap(<data>, <data>, ...)
+mx = MaxHeap()
+mx = MaxHeap(<data>, <data>, ...)
 
-heap.push(<data>)
-heap.pop()
-heap.remove(<data>)
-heap.peek()
+mx.push(<data>)
+mx.pop()
+mx.remove(<data>)
+mx.peek()
+```
+
+MinHeap
+
+```Python
+mn = MinHeap()
+mn = MinHeap(<data>, <data>, ...)
+
+mn.push(<data>)
+mn.pop()
+mn.remove(<data>)
+mn.peek()
 ```
 
 ## License ##

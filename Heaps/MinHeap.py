@@ -3,20 +3,20 @@ Brian Taylor Vann
 github.com/taylor-vann
 
 Description:
-- Heap structure class
+- MinHeap structure class
 
 Methods:
 - __len__
 - __contains__
 
-- push(<data>)
-- pop() or pop(<index>)
-- remove() or remove(<val>)
 - peak()
+- push(<data>)
+- pop()
+- remove(<val>)
 """
 
 
-class Heap(object):
+class MinHeap(object):
 
     _h = None
     _k = None
@@ -44,7 +44,7 @@ class Heap(object):
         self._perc_down(0)
 
 
-    def pop(self, n = 0):
+    def pop(self):
         l = len(self._h)
 
         if l == 0:
@@ -53,11 +53,8 @@ class Heap(object):
         if l == 1:
             return self._h.pop()
 
-        if l < n:
-            return None
-
-        bit = self._h.pop(n)
-        self._perc_down(n)
+        bit = self._h.pop(0)
+        self._perc_down(0)
 
         return bit
 
@@ -67,19 +64,16 @@ class Heap(object):
 
         for i in range(0, len(self._h)):
             if self._h[i] == bit:
-                pip = self._h.pop(i)
+                self._h[i], self._h[l] = self._h[l], self._h[i]
+                pip = self._h.pop()
                 self._perc_down(i)
 
                 return pip
-
-        return None
 
 
     def peek(self):
         if len(self._h):
             return self._h[0]
-
-        return None
 
 
     def _search(self, bit):
@@ -93,10 +87,10 @@ class Heap(object):
         n = self._k * c + 1
 
         while n < len(self._h):
-            if n < len(self._h) - 1 and self._h[n] < self._h[n + 1]:
+            if n < len(self._h) - 1 and self._h[n] > self._h[n + 1]:
                 n += 1
 
-            if self._h[c] < self._h[n]:
+            if self._h[c] > self._h[n]:
                 self._h[c], self._h[n] = self._h[n], self._h[c]
                 c = n
                 n = n * self._k + 1
