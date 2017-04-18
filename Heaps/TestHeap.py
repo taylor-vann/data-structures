@@ -90,4 +90,28 @@ class TestHeapMethods(unittest.TestCase):
         self.assertEqual(len(hp._h), 6)
 
 
+    def testPopInOrderStill(self):
+        hp = Heap(4, 7, 1, 2, 3, 5, 6)
+        hp.pop(5)
+
+        popped = []
+
+        for var in range(len(hp)):
+            popped.append(hp.pop())
+
+        self.assertEqual(popped, [7, 6, 5, 4, 3, 2])
+
+
+    def testRemoveInOrderStill(self):
+        hp = Heap(4, 8, 19, 2, 7, 12, 32)
+        hp.remove(7)
+
+        popped = []
+
+        for var in range(len(hp)):
+            popped.append(hp.pop())
+
+        self.assertEqual(popped, [32, 19, 12, 8, 4, 2])
+
+
 unittest.main()

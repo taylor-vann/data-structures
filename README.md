@@ -54,6 +54,12 @@ MergeSort - module to merge sort a list
 sorted = merge_sort(<list>)
 ```
 
+HeapSort - module to heap sort a list
+
+```
+sorted = heap_sort(<list)
+```
+
 RadixSort - module to radix sort a list
 
 ```
@@ -65,7 +71,7 @@ sorted = radix_sort(<list>)
 
 SLNode - Singly Linked Node
 
-```
+```Python
 slnode = SLNode()
 slnode = SLNode(<data>, next)
 
@@ -77,7 +83,7 @@ slnode.set_next(<SLNode>)
 
 Stack - Stack structure class
 
-```
+```Python
 stack = Stack()
 stack = Stack(<data>, <data>, ...)
 
@@ -89,7 +95,7 @@ stack.pop()
 
 Queue - Queue structure class
 
-```
+```Python
 que = Queue()
 que = Queue(<data>, <data>, ...)
 
@@ -101,7 +107,7 @@ que.dequeue()
 
 SLList - Singly Linked List structure class
 
-```
+```Python
 lst = SLList()
 lst = SLList(<data>, <data>, ...)
 
@@ -115,7 +121,7 @@ lst.remove_data(<data>)
 
 DLNode - Doubly Linked Node
 
-```
+```Python
 dlnode = DLNode()
 dlnode = DLNode(<data>, prev, next)
 
@@ -129,7 +135,7 @@ slnode.set_next(<DLNode>)
 
 DLList - Doubly Linked List structure class
 
-```
+```Python
 dlst = DLList()
 dlst = DLList(<data>, <data>, ...)
 
@@ -144,11 +150,11 @@ lst.unshift(<data>)
 lst.shift()
 ```
 
-### Trees ###
+### Trees & Heaps ###
 
 BSTNode - Node for Binary Search Trees
 
-```
+```Python
 tnode = BSTNode()
 tnode = BSTNode(<data>, left, right)
 
@@ -162,7 +168,7 @@ tnode.set_next(<BSTNode>)
 
 BSTree - Binary Search Tree structure
 
-```
+```Python
 bstree = BSTree()
 tnode = BSTree(<data>, <data>, ...)
 
@@ -170,6 +176,19 @@ tnode.insert(<data>)
 tnode.remove(<data>)
 tnode.search(<data>)
 ```
+
+Heap - Heap structure
+
+```Python
+heap = Heap()
+heap = Heap(<data>, <data>, ...)
+
+heap.push(<data>)
+heap.pop()
+heap.remove(<data>)
+heap.peek()
+```
+
 ## License ##
 
 Licensed under the GNU [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
