@@ -74,18 +74,55 @@ class AVLTree(object):
         self._balance(a, p, n)
 
 
+    def remove(self, bit):
+        n = AVLNode(bit)
+
+        if self._r == None:
+            self._r = n
+
+            return
+
+        a = None
+        p = None
+        c = self._r
+
+        while c != None:
+            a = p
+            p = c
+
+            if c.get_data() == bit:
+                break
+
+            if c.get_data() > bit:
+                c = c.get_left()
+            else:
+                c = c.get_right()
+
+        # not found
+        if c == None:
+            return
+
+        if p.get_data() > c.get_data():
+            c = c.get_right()
+            p.set_left(c)
+        else:
+            c = c.get_left()
+            p.set_right(c)
+
+        self._balance(a, p, n)
+
+
     def _balance(self, a, p, n):
-        # case 0: one node
+        # no nodes
         if p == None:
             return
 
-        # case 1: right balanced, move to left 
-        # (more organized), less cases
+        # right right heavy, move to left, less cases
         if p.get_balance() > 0:
             self._shift(a, p, n)
             p, n = n, p
 
-        # case 2: walk back, compare heights, rotate accordingly
+        # walk back, compare heights
         while a:
             l = 0
             r = 0
@@ -96,24 +133,23 @@ class AVLTree(object):
                 r = a.get_right().get_height()
 
             if l - r > 1:
-                print("rotate right")
                 p = a.get_left()
                 n = p.get_right()
+
                 self._right(a, p, n)
                 a, p = p, a
 
             if l - r < -1:
-                print("rotate left")
                 p = a.get_right()
                 n = p.get_left()
-                self._left(a, p, n)
+
+                self._left(a, p)
                 a, p = p, a
 
             a = a.get_parent()
 
 
     def _shift(self, a, p, c):
-        print("p, c:", p.get_data(), c.get_data())
         if p == self._r:
             self._r = c
 
@@ -129,9 +165,13 @@ class AVLTree(object):
         c.set_parent(a)
 
 
-    def _left(self, a, p, c):
+    def _left(self, a, p):
         e = a.get_parent()
         l = p.get_left()
+
+        if a == self._r:
+            self._r = p
+            p.set_parent(None)
 
         if e:
             if e.get_data() > a.get_data():
@@ -140,13 +180,14 @@ class AVLTree(object):
                 e.set_right(p)
 
             p.set_parent(e)
-        else:
-            self._r = p
-            p.set_parent(None)
 
-        a.set_right(l)
-        l.set_parent(a)
-        a.set_parent(p)
+        if a:
+            a.set_right(l)
+            a.set_parent(p)
+
+        if l:
+            l.set_parent(a)
+
         p.set_left(a)
 
 
@@ -154,7 +195,9 @@ class AVLTree(object):
         e = a.get_parent()
         r = p.get_right()
 
-        p.set_parent(e)
+        if a == self._r:
+            self._r = p
+            p.set_parent(None)
 
         if e:
             if e.get_data() > p.get_data():
@@ -163,13 +206,13 @@ class AVLTree(object):
                 e.set_right(p)
 
             p.set_parent(e)
-        else:
-            self._r = p
-            p.set_parent(None)
 
         if a:
             a.set_left(r)
             a.set_parent(p)
+
+        if r:
+            r.set_parent(a)
 
         p.set_right(a)
             

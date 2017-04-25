@@ -7,6 +7,7 @@ Description:
 
 Requirements:
 - unittest
+- random
 - AVLTree.py
 - AVLNode.py
 """
@@ -38,15 +39,71 @@ class TestAVLNodeMethods(unittest.TestCase):
         avl.insert(2)
         self.assertIn(2, avl)
 
-        #avl = AVLTree(1, 3, 2)
-        #avl.traverse(avl._r)
 
-        #avl1 = AVLTree(12, 24, 5, 7, 1, 6, 8, 9, 18)
-        #avl1.traverse(avl1._r)
+    def testAVLInsertFiveDepthLessThanTwo(self):
+        avl = AVLTree()
 
-        avl2 = AVLTree()
+        for v in range(5):
+            avl.insert(randrange(50))
+
+        l = 0
+        r = 0
+
+        if avl._r.get_left():
+            l = avl._r.get_left().get_height()
+        if avl._r.get_right():
+            r = avl._r.get_right().get_height()
+
+        self.assertLess(abs(l - r), 2)
+
+
+    def testAVLInsertThirtyDepthLessThanTwo(self):
+        avl = AVLTree()
+
+        l = 0
+        r = 0
+
         for v in range(30):
-            avl2.insert(randrange(50))
-        avl2.traverse(avl2._r)
+            avl.insert(randrange(50))
+
+        if avl._r.get_left():
+            l = avl._r.get_left().get_height()
+        if avl._r.get_right():
+            r = avl._r.get_right().get_height()
+
+        if abs(l - r) > 1:
+            avl.traverse(avl._r)
+        self.assertLess(abs(l - r), 2)
+
+
+    def testAVLInsertFiveDepthRemoveOne(self):
+        avl = AVLTree(12, 24, 5, 7, 1, 6, 8, 9, 18)
+        avl.remove(7)
+
+        l = 0
+        r = 0
+
+        if avl._r.get_left():
+            l = avl._r.get_left().get_height()
+        if avl._r.get_right():
+            r = avl._r.get_right().get_height()
+
+        self.assertNotIn(7, avl)
+
+
+    def testAVLInsertFiveDepthRemoveOneHeightTwo(self):
+        avl = AVLTree(12, 24, 5, 7, 1, 6, 8, 9, 18)
+        avl.remove(7)
+
+        l = 0
+        r = 0
+
+        if avl._r.get_left():
+            l = avl._r.get_left().get_height()
+        if avl._r.get_right():
+            r = avl._r.get_right().get_height()
+
+        self.assertLess(abs(l - r), 2)
+
 
 unittest.main()
