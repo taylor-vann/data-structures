@@ -21,89 +21,101 @@ class TestAVLNodeMethods(unittest.TestCase):
         self.assertIsNotNone(nd)
 
 
+    def testAVLDataNone(self):
+        nd = AVLNode()
+        self.assertIsNone(nd.get_data())
+
+
+    def testAVLData(self):
+        nd = AVLNode()
+        nd.set_data(3)
+        bit = nd.get_data()
+        self.assertEqual(nd.get_data(), 3)
+
+
     def testAVLNodeParNone(self):
         nd = AVLNode()
-        self.assertIsNone(nd.getParent())
+        self.assertIsNone(nd.get_parent())
 
 
     def testAVLNodeLeftNone(self):
         nd = AVLNode()
-        self.assertIsNone(nd.getLeft())
+        self.assertIsNone(nd.get_left())
 
 
     def testAVLNodeRightNone(self):
         nd = AVLNode()
-        self.assertIsNone(nd.getRight())
+        self.assertIsNone(nd.get_right())
 
 
     def testAVLNodePar(self):
         nd = AVLNode()
         nd1 = AVLNode()
-        nd.setParent(nd)
-        self.assertIsInstance(nd.getParent(), AVLNode)
+        nd.set_parent(nd)
+        self.assertIsInstance(nd.get_parent(), AVLNode)
 
 
     def testAVLNodeLeft(self):
         nd = AVLNode()
         nd1 = AVLNode()
-        nd.setLeft(nd)
-        self.assertIsInstance(nd.getLeft(), AVLNode)
+        nd.set_left(nd)
+        self.assertIsInstance(nd.get_left(), AVLNode)
 
 
     def testAVLNodeRight(self):
         nd = AVLNode()
         nd1 = AVLNode()
-        nd.setRight(nd1)
-        self.assertIsInstance(nd.getRight(), AVLNode)
+        nd.set_right(nd1)
+        self.assertIsInstance(nd.get_right(), AVLNode)
 
 
     def testAVLNodeHeightOne(self):
         nd = AVLNode()
-        self.assertEqual(nd.getHeight(), 1)
+        self.assertEqual(nd.get_height(), 1)
 
 
     def testAVLNodeBothHeightTwo(self):
         nd = AVLNode()
         nd1 = AVLNode()
-        nd.setLeft(nd1)
-        self.assertEqual(nd.getHeight(), 2)
+        nd.set_left(nd1)
+        self.assertEqual(nd.get_height(), 2)
 
 
     def testAVLNodeBothHeightTwo(self):
         nd = AVLNode()
         nd1 = AVLNode()
         nd2 = AVLNode()
-        nd.setLeft(nd1)
-        nd.setRight(nd2)
-        self.assertEqual(nd.getHeight(), 2)
+        nd.set_left(nd1)
+        nd.set_right(nd2)
+        self.assertEqual(nd.get_height(), 2)
 
 
     def testAVLNodeBothHeightThree(self):
         nd = AVLNode()
         nd1 = AVLNode()
         nd2 = AVLNode()
-        nd.setLeft(nd1)
-        nd1.setRight(nd2)
-        self.assertEqual(nd.getHeight(), 3)
+        nd.set_left(nd1)
+        nd1.set_right(nd2)
+        self.assertEqual(nd.get_height(), 3)
 
 
     def testAVLNodeBalanceZero(self):
         nd = AVLNode()
-        self.assertEqual(nd.getBalance(), 0)
+        self.assertEqual(nd.get_balance(), 0)
 
 
     def testAVLNodeBalanceLeft(self):
         nd = AVLNode()
         nd1 = AVLNode()
-        nd.setLeft(nd)
-        self.assertEqual(nd.getBalance(), -1)
+        nd.set_left(nd)
+        self.assertEqual(nd.get_balance(), -1)
 
 
     def testAVLNodeBalanceRight(self):
         nd = AVLNode()
         nd1 = AVLNode()
-        nd.setRight(nd)
-        self.assertEqual(nd.getBalance(), 1)
+        nd.set_right(nd)
+        self.assertEqual(nd.get_balance(), 1)
 
 
 unittest.main()

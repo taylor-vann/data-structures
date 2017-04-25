@@ -11,63 +11,79 @@ Requirements:
 
 class AVLNode(object):
 
+    _d = None
     _p = None
     _l = None
     _r = None
 
 
     #overrwritten methods
-    def __init__(self, par = None, lft = None, rht = None):
-        self.setParent(par)
-        self.setLeft(lft)
-        self.setRight(rht)
+    def __init__(self, bit = None, par = None, lft = None, rht = None):
+        self.set_data(bit)
+        self.set_parent(par)
+        self.set_left(lft)
+        self.set_right(rht)
 
 
     #custom methods
-    def getParent(self):
+    def get_data(self):
+        return self._d
+
+
+    def set_data(self, bit):
+        self._d = bit
+
+
+    def get_parent(self):
         return self._p
 
 
-    def setParent(self, par):
-        if isinstance(par, AVLNode):
+    def set_parent(self, par):
+        if isinstance(par, AVLNode) or par == None:
             self._p = par
 
 
-    def getLeft(self):
+    def get_left(self):
         return self._l
 
 
-    def setLeft(self, lft):
-        if isinstance(lft, AVLNode):
+    def set_left(self, lft):
+        if isinstance(lft, AVLNode) or lft == None:
             self._l = lft
 
 
-    def getRight(self):
+    def get_right(self):
         return self._r
 
 
-    def setRight(self, rht):
-        if isinstance(rht, AVLNode):
+    def set_right(self, rht):
+        if isinstance(rht, AVLNode) or rht == None:
             self._r = rht
 
 
-    def getHeight(self):
+    def get_height(self):
         h = 1;
+        l = 0;
+        r = 0;
 
         if(self._l):
-            h += self._l.getHeight()
-        elif(self._r):
-            h += self._r.getHeight()
+            l += self._l.get_height()
+
+        if(self._r):
+            r += self._r.get_height()
+
+        h += max([l, r])
 
         return h
 
 
-    def getBalance(self):
+    def get_balance(self):
         b = 0;
 
         if(self._l):
             b -= 1
-        elif(self._r):
+
+        if(self._r):
             b += 1
 
         return b
