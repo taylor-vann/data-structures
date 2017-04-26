@@ -13,6 +13,7 @@ Requirements:
 """
 
 import unittest
+import math
 from random import randrange
 from AVLTree import AVLTree
 
@@ -72,12 +73,18 @@ class TestAVLNodeMethods(unittest.TestCase):
             r = avl._r.get_right().get_height()
 
         if abs(l - r) > 1:
-            avl.traverse(avl._r)
-        self.assertLess(abs(l - r), 2)
+            #avl.traverse(avl._r)
+            pass
+
+        self.assertLess(abs(l - r), math.log(30, 2))
 
 
-    def testAVLInsertFiveDepthRemoveOne(self):
-        avl = AVLTree(12, 24, 5, 7, 1, 6, 8, 9, 18)
+    def testAVLInsert10DepthRemoveOneHeightTwo(self):
+        avl = AVLTree()
+
+        for v in range(10):
+            avl.insert(randrange(50))
+
         avl.remove(7)
 
         l = 0
@@ -88,22 +95,60 @@ class TestAVLNodeMethods(unittest.TestCase):
         if avl._r.get_right():
             r = avl._r.get_right().get_height()
 
-        self.assertNotIn(7, avl)
+        self.assertLess(abs(l - r), math.log(10, 2))
 
 
-    def testAVLInsertFiveDepthRemoveOneHeightTwo(self):
-        avl = AVLTree(12, 24, 5, 7, 1, 6, 8, 9, 18)
-        avl.remove(7)
+    def testAVLInsertFiveDepthRemoveOneNoChildren(self):
+        avl = AVLTree(5, 7, 1, 6, 8, 9)
+        avl.remove(1)
 
-        l = 0
-        r = 0
+        self.assertNotIn(1, avl)
 
-        if avl._r.get_left():
-            l = avl._r.get_left().get_height()
-        if avl._r.get_right():
-            r = avl._r.get_right().get_height()
 
-        self.assertLess(abs(l - r), 2)
+    def testAVLInsertFiveDepthRemoveParentLeftChild(self):
+        avl = AVLTree(5, 7, 1, 6, 8, 9)
+        avl.remove(9)
+
+        self.assertNotIn(9, avl)
+
+
+    def testAVLInsertFiveDepthRemoveParentRightChild(self):
+        avl = AVLTree(5, 7, 1, 6, 8, 10)
+        avl.remove(10)
+
+        self.assertNotIn(10, avl)
+
+
+    def testAVLInsertFiveDepthRemoveRootParentTwoChild(self):
+        avl = AVLTree(12, 4, 11, 7, 1, 6, 5, 8, 10)
+        avl.remove(6)
+
+        self.assertNotIn(6, avl)
+
+
+    def testAVLInsertFiveDepthRemoveParentTwoChild(self):
+        avl = AVLTree(12, 4, 11, 7, 1, 6, 5, 8, 10)
+        avl.traverse(avl._r)
+        avl.remove(4)
+        avl.traverse(avl._r)
+
+        self.assertNotIn(4, avl)
+
+
+    def testAVLInsert10DepthRemoveParentTwoChild(self):
+        avl = AVLTree()
+
+        for v in range(30):
+            avl.insert(randrange(50))
+
+        avl.remove(5)
+        avl.remove(10)
+        avl.remove(6)
+        avl.remove(4)
+        #avl.traverse(avl._r)
+
+        self.assertNotIn(5, avl)
+
 
 
 unittest.main()

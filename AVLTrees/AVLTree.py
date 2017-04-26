@@ -3,8 +3,9 @@ Brian Taylor Vann
 github.com/taylor-vann
 
 Description:
-- AVL tree structure class.
-- Tree designed by Adelson-Velsky and Landis, who published it in their 1962 paper "An algorithm for the organization of information".
+- AVL tree structure class
+- Based on AVL Tree design by Adelson-Velsky and Landis
+- Published in their 1962 paper "An algorithm for the organization of information"
 
 Requirements:
 - AVLNode.py
@@ -75,41 +76,124 @@ class AVLTree(object):
 
 
     def remove(self, bit):
-        n = AVLNode(bit)
-
-        if self._r == None:
-            self._r = n
-
-            return
-
         a = None
         p = None
         c = self._r
 
         while c != None:
-            a = p
-            p = c
-
             if c.get_data() == bit:
+                print("found it")
                 break
 
             if c.get_data() > bit:
+                a = p
+                p = c
                 c = c.get_left()
             else:
+                a = p
+                p = c
                 c = c.get_right()
 
-        # not found
         if c == None:
             return
 
-        if p.get_data() > c.get_data():
-            c = c.get_right()
-            p.set_left(c)
-        else:
-            c = c.get_left()
-            p.set_right(c)
+        self._replace(a, p, c)
 
-        self._balance(a, p, n)
+
+    def _replace(self, a, p, c):
+        # replace
+        if c.get_left() and c.get_right():
+            m = self._find_pred(c.get_right())
+            print("has two children")
+            print(m.get_data())
+            #self.remove(m.get_data())
+            #m.set_parent(p)
+            print(c.get_right().get_data())
+            if p == None:
+                self._replace_root(c, m)
+                #self.traverse(r)
+                #self._r = m
+                #self._r.set_left(l)
+                #self._r.set_right(r)
+            else:
+                self.remove(m.get_data())
+                if p.get_data() > m.get_data():
+                    p.set_left(m)
+                else:
+                    p.set_right(m)
+                m.set_left(c.get_left())
+                m.set_right(c.get_right())
+                c.set_parent(None)
+                c.set_left(None)
+                c.set_right(None)
+        elif c.get_left():
+            t = c.get_left()
+
+            self._replace_node(p, c, t)
+            self._balance(a, p, t)
+        else:
+            self._replace_node(p, c)
+
+            if p.get_right():
+                self._balance(a, p, p.get_right())
+
+
+    def _find_pred(self, n):
+        a = None
+        p = None
+        c = n
+    
+        while c.get_left():
+            a = p
+            p = c
+            c = c.get_left()
+
+        if p:
+            p.set_left(None)
+
+        if a:
+            print("a:", a.get_data())
+        if p:
+            print("p:", p.get_data())
+        if c:
+            print("c:", c.get_data())
+
+        if a:
+            self._balance(a.get_parent(), a, p)
+        else:
+            self._balance(None, a, p)
+
+        return c
+
+
+    def _replace_node(self, p, c, r = None):
+        #print("p: ", p.get_data())
+        #print("c: ", c.get_data())
+        if p == None:
+            self._replace_root(c, r)
+            return
+        else:
+            if p.get_left() == c:
+                p.set_left(r)
+            else:
+                p.set_right(r)
+
+        if r:
+            r.set_parent(p)
+
+        c.set_parent(None)
+        c.set_left(None)
+        c.set_right(None)
+
+
+    def _replace_root(self, c, r = None):
+        if r:
+            r.set_left(c.get_left())
+            r.set_right(c.get_right())
+
+        c.set_parent(r)
+
+        self._r = r
 
 
     def _balance(self, a, p, n):
@@ -122,7 +206,7 @@ class AVLTree(object):
             self._shift(a, p, n)
             p, n = n, p
 
-        # walk back, compare heights
+        # walk back, compare heights, rotate when necessary
         while a:
             l = 0
             r = 0
@@ -236,7 +320,6 @@ class AVLTree(object):
                 else:
                     nxt_level.append(None)
                     nxt_level.append(None)
-                    
 
             for m in nxt_level:
                 if m != None:
@@ -249,5 +332,3 @@ class AVLTree(object):
                     t = True
 
             level = nxt_level
-
-
