@@ -69,7 +69,7 @@ sorted = radix_sort(<list>)
 
 ### Stacks, Queues, & Lists ###
 
-SLNode - Singly Linked Node
+Singly Linked Node
 
 ```Python
 slnode = SLNode()
@@ -81,7 +81,7 @@ slnode.get_next()
 slnode.set_next(<SLNode>)
 ```
 
-Stack - Stack structure class
+Stack
 
 ```Python
 stack = Stack()
@@ -93,7 +93,7 @@ stack.push(<data>)
 stack.pop()
 ```
 
-Queue - Queue structure class
+Queue
 
 ```Python
 que = Queue()
@@ -105,7 +105,7 @@ que.enqueue(<data>)
 que.dequeue()
 ```
 
-SLList - Singly Linked List structure class
+Singly Linked List
 
 ```Python
 lst = SLList()
@@ -119,7 +119,7 @@ lst.remove()
 lst.remove_data(<data>)
 ```
 
-DLNode - Doubly Linked Node
+Doubly Linked Node
 
 ```Python
 dlnode = DLNode()
@@ -133,7 +133,7 @@ slnode.get_next()
 slnode.set_next(<DLNode>)
 ```
 
-DLList - Doubly Linked List structure class
+Doubly Linked List
 
 ```Python
 dlst = DLList()
@@ -152,7 +152,7 @@ lst.shift()
 
 ### Trees & Heaps ###
 
-BSTNode - Node for Binary Search Trees
+BSTNode
 
 ```Python
 tnode = BSTNode()
@@ -166,7 +166,7 @@ tnode.get_next()
 tnode.set_next(<BSTNode>)
 ```
 
-BSTree - Binary Search Tree structure
+BSTree
 
 ```Python
 bstree = BSTree()
@@ -199,6 +199,17 @@ mn.push(<data>)
 mn.pop()
 mn.remove(<data>)
 mn.peek()
+```
+
+AVLTree
+
+```Python
+avl = AVLTree()
+avl = BSTree(<data>, <data>, ...)
+
+avl.insert(<data>)
+avl.remove(<data>)
+avl.search(<data>)
 ```
 
 ## License ##
