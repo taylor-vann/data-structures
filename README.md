@@ -6,64 +6,75 @@ Algortithms and data structures in python3.
 
 ## Details ##
 
-This is technical practice with common algorithms and data structures in python3. The point is to not use built-in functions and classes and create homebrew stacks, queues, heaps, sorts, trees, and graphs. Of course, like every good computer science student, all of these endeavours are composed using test driven development (you are using TDD, yes? of course you are, \*wink \*wink).
+This is just some fun technical practice with algorithms and data structures in python3. The point is to not use built-in libraries. They're homebrew stacks, queues, heaps, sorts, trees, traversals, and graphs that will run without library extensions.
+
+Of course, like every good computer science student, all of these endeavours are composed using test driven development. You are using TDD, yes? Of course you are. \*Wink \*Wink.
 
 ## Usage ##
 
-Here's a bunch of the algorithms and data structures.
-
 If you're studying for your comp-sci courses, you should rely on the examples provided by your professors. That's what'll give you the grade.
 
-If you're teaching yourself and just need help or a delineation, here's one more perspective. It's not intended to be a tutorial.
+If you're in a coding bootcamp program like Udacity or Treehouse, go away. I don't like you. Nobody does. You're disenfranchising a union-less market. Go to college or university and support real educators and institutions.
+
+If you're teaching yourself and just need an extra perspective, I hope these help.
 
 ### Sorts ###
 
-BubbleSort - module to bubble sort a list
+BubbleSort
 
 ```
 bubble_sort(<list>)
 ```
 
-InsertionSort - module to insertion sort a list
+InsertionSort
 
 ```
 insertion_sort(<list>)
 ```
 
-SelectionSort - module to selection sort a list
+SelectionSort
 
 ```
 selection_sort(<list>)
 ```
 
-ShellSort - module to selection sort a list
+ShellSort
 
 ```
 shell_sort(<list>)
 ```
 
-QuickSort - module to quick sort a list
+QuickSort
 
 ```
 quick_sort(<list>, 0, len(<list>))
 ```
 
-MergeSort - module to merge sort a list
+MergeSort
 
 ```
 sorted = merge_sort(<list>)
 ```
 
-HeapSort - module to heap sort a list
+HeapSort
 
 ```
 heap_sort(<list>)
 ```
 
-RadixSort - module to radix sort a list
+RadixSort
 
 ```
 sorted = radix_sort(<list>)
+```
+
+
+### Traversals ###
+
+Level Order
+
+```
+level_order(<node>)
 ```
 
 
