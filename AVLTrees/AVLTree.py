@@ -118,6 +118,7 @@ class AVLTree(object):
 
         if s[l].get_left() and s[l].get_right():
             t = self._get_tail(s)
+
             t.set_left(s[l].get_left())
             t.set_right(s[l].get_right())
 
@@ -137,7 +138,6 @@ class AVLTree(object):
             self._balance(s)
         else:
             self._replace_node(s[l - 1], s[l])
-            s.pop()
 
             if s[l - 1].get_right():
                 s.append(s[l - 1].get_right())
@@ -162,9 +162,13 @@ class AVLTree(object):
             stk[l - 1].set_right(None)
 
         if stk[l - 1].get_right():
-            stk.pop()
+            self._clr(stk.pop())
+
             stk.append(stk[l - 1].get_right())
             self._balance(stk)
+
+        c.set_left(None)
+        c.set_right(None)
 
         return c
 
@@ -229,7 +233,8 @@ class AVLTree(object):
                 self._left(s[l - 3], s[l - 2], s[l - 1])
                 s[l - 2], s[l - 1] = s[l - 1], s[l - 2]
 
-            s.pop()
+            self._clr(s.pop())
+
             l -= 1
  
 
@@ -277,7 +282,12 @@ class AVLTree(object):
 
         a.set_left(r)
         p.set_right(a)
-            
+
+
+    def _clr(self, n):
+        n.set_left(None)
+        n.set_right(None)            
+
 
     def traverse(self, node):
         level = [node]
