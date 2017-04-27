@@ -22,22 +22,26 @@ class TestAVLNodeMethods(unittest.TestCase):
 
     def testAVLNodeNotNone(self):
         avl = AVLTree()
+
         self.assertIsNotNone(avl)
 
 
     def testAVLInsertOne(self):
         avl = AVLTree(1)
+
         self.assertIn(1, avl)
 
 
     def testAVLInsertTwo(self):
         avl = AVLTree(1, 2)
+
         self.assertIn(2, avl)
 
 
     def testAVLInsertThree(self):
         avl = AVLTree(1, 3)
         avl.insert(2)
+
         self.assertIn(2, avl)
 
 
@@ -91,9 +95,7 @@ class TestAVLNodeMethods(unittest.TestCase):
 
     def testAVLInsertFiveDepthTwoChildNode(self):
         avl = AVLTree(5, 7, 4, 6, 8)
-        #avl.traverse(avl._r)
         avl.remove(7)
-
 
         self.assertNotIn(7, avl)
 
@@ -131,7 +133,6 @@ class TestAVLNodeMethods(unittest.TestCase):
         avl.remove(4)
 
         self.assertNotIn(4, avl)
-
 
     def testAVLInsertTenDepthRemoveLeftParentTwoChild(self):
         avl = AVLTree(17, 5, 39, 0, 15, 29, 49, 29, 45)

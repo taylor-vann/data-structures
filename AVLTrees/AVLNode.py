@@ -12,15 +12,13 @@ Requirements:
 class AVLNode(object):
 
     _d = None
-    _p = None
     _l = None
     _r = None
 
 
     #overrwritten methods
-    def __init__(self, bit = None, par = None, lft = None, rht = None):
+    def __init__(self, bit = None, lft = None, rht = None):
         self.set_data(bit)
-        self.set_parent(par)
         self.set_left(lft)
         self.set_right(rht)
 
@@ -32,15 +30,6 @@ class AVLNode(object):
 
     def set_data(self, bit):
         self._d = bit
-
-
-    def get_parent(self):
-        return self._p
-
-
-    def set_parent(self, par):
-        if isinstance(par, AVLNode) or par == None:
-            self._p = par
 
 
     def get_left(self):

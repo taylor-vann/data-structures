@@ -66,42 +66,40 @@ class AVLTree(object):
 
             return
 
-        a = None
-        p = None
+        s = [None, None, None]
         c = self._r
 
         while c != None:
-            a = p
-            p = c
+            s.append(c)
 
             if c.get_data() > bit:
                 c = c.get_left()
             else:
                 c = c.get_right()
 
-        n.set_parent(p)
 
-        if p.get_data() > bit:
-            p.set_left(n)
+        l = len(s) - 1
+
+        if s[l].get_data() > bit:
+            s[l].set_left(n)
         else: 
-            p.set_right(n)
+            s[l].set_right(n)
 
-        self._balance(a, p, n)
+        s.append(n)
+
+        self._balance(s)
 
 
     def remove(self, bit):
-        e = None
-        a = None
-        p = None
         c = self._r
 
+        stck = [None, None, None]
+
         while c != None:
+            stck.append(c)
+
             if c.get_data() == bit:
                 break
-
-            e = a
-            a = p
-            p = c
 
             if c.get_data() > bit:
                 c = c.get_left()
@@ -111,56 +109,62 @@ class AVLTree(object):
         if c == None:
             return
 
-        self._replace(e, a, p, c)
+        self._replace(stck)
 
 
-    def _replace(self, e, a, p, c):
+    def _replace(self, s):
         t = None
+        l = len(s) - 1
 
-        if c.get_left() and c.get_right():
-            t = self._get_tail(c)
+        if s[l].get_left() and s[l].get_right():
+            t = self._get_tail(s)
+            t.set_left(s[l].get_left())
+            t.set_right(s[l].get_right())
 
-            t.set_left(c.get_left())
-            t.set_right(c.get_right())
-
-            if p:
-                if p.get_data() > t.get_data():
-                    p.set_left(t)
+            if s[l - 1]:
+                if s[l - 1].get_data() > t.get_data():
+                    s[l - 1].set_left(t)
                 else:
-                    p.set_right(t)
+                    s[l - 1].set_right(t)
             else:
                 self._r = t
-        elif c.get_left():
-            t = c.get_left()
 
-            self._replace_node(p, c, t)
-            self._balance(a, p, t)
+
+        elif s[l].get_left():
+            t = s[l].get_left()
+
+            self._replace_node(s[l - 1], s[l], t)
+            self._balance(s)
         else:
-            self._replace_node(p, c)
+            self._replace_node(s[l - 1], s[l])
+            s.pop()
 
-            if p.get_right():
-                self._balance(a, p, p.get_right())
+            if s[l - 1].get_right():
+                s.append(s[l - 1].get_right())
+                self._balance(s)
 
 
-    def _get_tail(self, n):
-        a = None
-        p = n
-        c = n.get_right()
-    
+    def _get_tail(self, s):
+        stk = s
+        l = len(stk) - 1
+        c = stk[l].get_right()
+        stk.append(c)
+
         while c.get_left():
-            a = p
-            p = c
             c = c.get_left()
+            stk.append(c)
 
-        if a:
-            p.set_left(None)
+        l = len(stk) - 1
+
+        if stk[l - 3]:
+            stk[l - 1].set_left(None)
         else:
-            p.set_right(None)
+            stk[l - 1].set_right(None)
 
-        if p.get_right():            
-            self._balance(a, p, p.get_right())
-
-        c.set_parent(None)
+        if stk[l - 1].get_right():
+            stk.pop()
+            stk.append(stk[l - 1].get_right())
+            self._balance(stk)
 
         return c
 
@@ -168,6 +172,7 @@ class AVLTree(object):
     def _replace_node(self, p, c, r = None):
         if p == None:
             self._replace_root(c, r)
+
             return
         else:
             if p.get_left() == c:
@@ -175,10 +180,6 @@ class AVLTree(object):
             else:
                 p.set_right(r)
 
-        if r:
-            r.set_parent(p)
-
-        c.set_parent(None)
         c.set_left(None)
         c.set_right(None)
 
@@ -188,47 +189,49 @@ class AVLTree(object):
             r.set_left(c.get_left())
             r.set_right(c.get_right())
 
-        c.set_parent(r)
-
         self._r = r
 
 
-    def _balance(self, a, p, c):
-        # no nodes
-        if p == None:
-            return
+    def _balance(self, s):
+        l = len(s) - 1
 
-        # right right heavy, move to left, less cases
-        if p.get_left() == None and p.get_right():
-            self._shift(a, p, c)
-            p, c = c, p
+        # no nodes
+        if s[l - 1] == None:
+           return
+
+        # node is right heavy
+        if s[l - 1].get_left() == None and s[l - 1].get_right():
+            self._shift(s[l - 2], s[l - 1], s[l])
+            s[l - 1], s[l] = s[l], s[l - 1]
 
         # walk back, compare heights, rotate when necessary
-        while a:
-            l = 0
-            r = 0
+        while s[l - 2] != None:
 
-            if a.get_left():
-                l = a.get_left().get_height()
-            if a.get_right():
-                r = a.get_right().get_height()
+            lft = 0
+            rgt = 0
 
-            if l - r > 1:
-                p = a.get_left()
-                c = p.get_right()
+            if s[l - 2].get_left():
+                lft = s[l - 2].get_left().get_height()
+            if s[l - 2].get_right():
+                rgt = s[l - 2].get_right().get_height()
 
-                self._right(a, p, c)
-                a, p = p, a
+            if lft - rgt > 1:
+                p = s[l - 1].get_left()
+                c = s[l].get_right()
 
-            if l - r < -1:
-                p = a.get_right()
-                n = p.get_left()
+                self._right(s[l - 3], s[l - 2], s[l - 1], s[l])
+                s[l - 2], s[l - 1] = s[l - 1], s[l - 2]
 
-                self._left(a, p)
-                a, p = p, a
+            if lft - rgt < -1:
+                p = s[l - 1].get_right()
+                n = s[l].get_left()
 
-            a = a.get_parent()
+                self._left(s[l - 3], s[l - 2], s[l - 1])
+                s[l - 2], s[l - 1] = s[l - 1], s[l - 2]
 
+            s.pop()
+            l -= 1
+ 
 
     def _shift(self, a, p, c):
         if p == self._r:
@@ -241,18 +244,14 @@ class AVLTree(object):
                 a.set_right(c)
 
         c.set_left(p)
-        p.set_parent(c)
         p.set_right(None)
-        c.set_parent(a)
 
 
-    def _left(self, a, p):
-        e = a.get_parent()
+    def _left(self, e, a, p):
         l = p.get_left()
 
-        if a == self._r:
+        if self._r == a:
             self._r = p
-            p.set_parent(None)
 
         if e:
             if e.get_data() > a.get_data():
@@ -260,24 +259,15 @@ class AVLTree(object):
             else:
                 e.set_right(p)
 
-            p.set_parent(e)
-
-        if l:
-            l.set_parent(a)
-
         a.set_right(l)
-        a.set_parent(p)
-
         p.set_left(a)
 
 
-    def _right(self, a, p, c):
-        e = a.get_parent()
+    def _right(self, e, a, p, c):
         r = p.get_right()
 
         if a == self._r:
             self._r = p
-            p.set_parent(None)
 
         if e:
             if e.get_data() > p.get_data():
@@ -285,13 +275,7 @@ class AVLTree(object):
             else:
                 e.set_right(p)
 
-            p.set_parent(e)
-
-        if r:
-            r.set_parent(a)
-
         a.set_left(r)
-        a.set_parent(p)
         p.set_right(a)
             
 

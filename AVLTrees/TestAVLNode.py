@@ -33,11 +33,6 @@ class TestAVLNodeMethods(unittest.TestCase):
         self.assertEqual(nd.get_data(), 3)
 
 
-    def testAVLNodeParNone(self):
-        nd = AVLNode()
-        self.assertIsNone(nd.get_parent())
-
-
     def testAVLNodeLeftNone(self):
         nd = AVLNode()
         self.assertIsNone(nd.get_left())
@@ -46,13 +41,6 @@ class TestAVLNodeMethods(unittest.TestCase):
     def testAVLNodeRightNone(self):
         nd = AVLNode()
         self.assertIsNone(nd.get_right())
-
-
-    def testAVLNodePar(self):
-        nd = AVLNode()
-        nd1 = AVLNode()
-        nd.set_parent(nd)
-        self.assertIsInstance(nd.get_parent(), AVLNode)
 
 
     def testAVLNodeLeft(self):
