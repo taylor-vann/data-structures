@@ -77,7 +77,6 @@ class AVLTree(object):
             else:
                 c = c.get_right()
 
-
         l = len(s) - 1
 
         if s[l].get_data() > bit:
@@ -129,8 +128,6 @@ class AVLTree(object):
                     s[l - 1].set_right(t)
             else:
                 self._r = t
-
-
         elif s[l].get_left():
             t = s[l].get_left()
 
@@ -287,36 +284,3 @@ class AVLTree(object):
     def _clr(self, n):
         n.set_left(None)
         n.set_right(None)            
-
-
-    def traverse(self, node):
-        level = [node]
-        sets = [node.get_data()]
-        t = True
-
-        while t:
-            print(sets)
-
-            t = False
-            sets = []
-            nxt_level = []
-
-            for n in level:
-                if n != None:
-                    nxt_level.append(n.get_left())
-                    nxt_level.append(n.get_right())
-                else:
-                    nxt_level.append(None)
-                    nxt_level.append(None)
-
-            for m in nxt_level:
-                if m != None:
-                    sets.append(m.get_data())
-                else:
-                    sets.append(m)
-
-            for o in sets:
-                if o != None:
-                    t = True
-
-            level = nxt_level
