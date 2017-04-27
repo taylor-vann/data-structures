@@ -72,33 +72,33 @@ class TestAVLNodeMethods(unittest.TestCase):
         if avl._r.get_right():
             r = avl._r.get_right().get_height()
 
-        if abs(l - r) > 1:
-            #avl.traverse(avl._r)
-            pass
-
         self.assertLess(abs(l - r), math.log(30, 2))
 
 
-    def testAVLInsert10DepthRemoveOneHeightTwo(self):
-        avl = AVLTree()
+    def testAVLInsertTwoDepthRemoveOne(self):
+        avl = AVLTree(5, 7)
+        avl.remove(5)
 
-        for v in range(10):
-            avl.insert(randrange(50))
+        self.assertNotIn(1, avl)
 
+
+    def testAVLInsertThreeDepthRemoveRoot(self):
+        avl = AVLTree(5, 7, 4)
+        avl.remove(5)
+
+        self.assertNotIn(5, avl)
+
+
+    def testAVLInsertFiveDepthTwoChildNode(self):
+        avl = AVLTree(5, 7, 4, 6, 8)
+        #avl.traverse(avl._r)
         avl.remove(7)
 
-        l = 0
-        r = 0
 
-        if avl._r.get_left():
-            l = avl._r.get_left().get_height()
-        if avl._r.get_right():
-            r = avl._r.get_right().get_height()
-
-        self.assertLess(abs(l - r), math.log(10, 2))
+        self.assertNotIn(7, avl)
 
 
-    def testAVLInsertFiveDepthRemoveOneNoChildren(self):
+    def testAVLInsertFiveDepthRemoveNoChildNode(self):
         avl = AVLTree(5, 7, 1, 6, 8, 9)
         avl.remove(1)
 
@@ -126,29 +126,18 @@ class TestAVLNodeMethods(unittest.TestCase):
         self.assertNotIn(6, avl)
 
 
-    def testAVLInsertFiveDepthRemoveParentTwoChild(self):
+    def testAVLInsertTenDepthRemoveParentTwoChild(self):
         avl = AVLTree(12, 4, 11, 7, 1, 6, 5, 8, 10)
-        avl.traverse(avl._r)
         avl.remove(4)
-        avl.traverse(avl._r)
 
         self.assertNotIn(4, avl)
 
 
-    def testAVLInsert10DepthRemoveParentTwoChild(self):
-        avl = AVLTree()
-
-        for v in range(30):
-            avl.insert(randrange(50))
-
+    def testAVLInsertTenDepthRemoveLeftParentTwoChild(self):
+        avl = AVLTree(17, 5, 39, 0, 15, 29, 49, 29, 45)
         avl.remove(5)
-        avl.remove(10)
-        avl.remove(6)
-        avl.remove(4)
-        #avl.traverse(avl._r)
 
         self.assertNotIn(5, avl)
-
 
 
 unittest.main()

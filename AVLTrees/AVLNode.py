@@ -75,15 +75,3 @@ class AVLNode(object):
         h += max([l, r])
 
         return h
-
-
-    def get_balance(self):
-        b = 0;
-
-        if(self._l):
-            b -= 1
-
-        if(self._r):
-            b += 1
-
-        return b

@@ -99,23 +99,4 @@ class TestAVLNodeMethods(unittest.TestCase):
         self.assertEqual(nd.get_height(), 3)
 
 
-    def testAVLNodeBalanceZero(self):
-        nd = AVLNode()
-        self.assertEqual(nd.get_balance(), 0)
-
-
-    def testAVLNodeBalanceLeft(self):
-        nd = AVLNode()
-        nd1 = AVLNode()
-        nd.set_left(nd)
-        self.assertEqual(nd.get_balance(), -1)
-
-
-    def testAVLNodeBalanceRight(self):
-        nd = AVLNode()
-        nd1 = AVLNode()
-        nd.set_right(nd)
-        self.assertEqual(nd.get_balance(), 1)
-
-
 unittest.main()
