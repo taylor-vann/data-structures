@@ -9,21 +9,21 @@ Requirements:
 - None
 """
 
-def level_order(self, n):
+def level_order(n):
     lvl = [n]
     nxt_lvl = []
     sets = [n.get_data()]
     b = True
 
-    while t:
+    while b:
         print(sets)
 
         b = False
         sets = []
         nxt_lvl = []
 
-        for m in level:
-            if  m= None:
+        for m in lvl:
+            if  m != None:
                 nxt_lvl.append(m.get_left())
                 nxt_lvl.append(m.get_right())
             else:
