@@ -30,6 +30,9 @@ def rec_post_order(n):
 
 
 def itr_post_order(n):
+    if n == None:
+        return
+
     s = []
     p = []
     f = []
@@ -37,20 +40,16 @@ def itr_post_order(n):
     s.append(n)
 
     while s:
-        while n:
-            n = n.get_left()
-            s.append(n)
+        n = s.pop()
+        p.append(n)
 
-        t = s.pop()
+        if n.get_left():
+            s.append(n.get_left())
+        if n.get_right():
+            s.append(n.get_right())
 
-        if t:
-            if t.get_right():
-                n = t.get_right()
-                s.append(n)
-                p.append(t)
-                print("p", t.get_data())
-            else:
-                print("f", t.get_data())
-                f.append(t.get_data())
+    while p:
+        n = p.pop()
+        f.append(n.get_data())
 
     return f

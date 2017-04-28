@@ -39,7 +39,14 @@ class TestPostOrderDefinitions(unittest.TestCase):
 
         expt = [1, 4, 3, 6, 8, 7, 5]
         t = itr_post_order(tree._root)
-        level_order(tree._root)
+        self.assertEqual(t, expt)
+
+
+    def testFiveIterPostOrder(self):
+        tree = BSTree(5, 7, 1, 6, 8)
+
+        expt = [1, 6, 8, 7, 5]
+        t = itr_post_order(tree._root)
         self.assertEqual(t, expt)
 
 
