@@ -135,7 +135,7 @@ class AVLTree(object):
 
             self._replace_node(s[l - 1], s[l], t)
             self._balance(s)
-        # no leaf branch
+        # leaf
         else:
             self._replace_node(s[l - 1], s[l])
 
