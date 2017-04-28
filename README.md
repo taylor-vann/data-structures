@@ -77,22 +77,31 @@ Level Order
 level_order(<node>)
 ```
 
+In Order
 
-### Stacks, Queues, & Lists ###
-
-Singly Linked Node
-
-```Python
-slnode = SLNode()
-slnode = SLNode(<data>, next)
-
-slnode.get_data()
-slnode.set_data(<data>)
-slnode.get_next()
-slnode.set_next(<SLNode>)
+```
+in_order(<node>)
+rec_in_order(<node>)
+itr_in_order(<node>)
 ```
 
-Stack
+Pre Order
+
+```
+pre_order(<node>)
+rec_pre_order(<node>)
+itr_pre_order(<node>)
+```
+
+Post Order
+
+```
+post_order(<node>)
+rec_post_order(<node>)
+itr_post_order(<node>)
+```
+
+### Stacks, Queues, & Lists ###
 
 ```Python
 stack = Stack()
@@ -130,20 +139,6 @@ lst.remove()
 lst.remove_data(<data>)
 ```
 
-Doubly Linked Node
-
-```Python
-dlnode = DLNode()
-dlnode = DLNode(<data>, prev, next)
-
-slnode.get_data()
-slnode.set_data(<data>)
-slnode.get_prev()
-slnode.set_prev(<DLNode>)
-slnode.get_next()
-slnode.set_next(<DLNode>)
-```
-
 Doubly Linked List
 
 ```Python
@@ -162,20 +157,6 @@ lst.shift()
 ```
 
 ### Trees & Heaps ###
-
-BSTNode
-
-```Python
-tnode = BSTNode()
-tnode = BSTNode(<data>, left, right)
-
-tnode.get_data()
-tnode.set_data(<data>)
-tnode.get_left()
-tnode.set_left(<BSTNode>)
-tnode.get_next()
-tnode.set_next(<BSTNode>)
-```
 
 BSTree
 

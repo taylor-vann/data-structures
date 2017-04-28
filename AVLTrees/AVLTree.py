@@ -21,8 +21,8 @@ Methods:
 - _replace_root(self, <child>, <replacement>)
 - _balance(<ancestor>, <parent>, <child>)
 - _shift(<ancestor>,<parent>, <child>)
-- _left(<ancestor>, <parent>)
-- _right(<ancestor>, <parent>, <child>)
+- _left(<elder>, <ancestor>, <parent>)
+- _right(<elder>, <ancestor>, <parent>, <child>)
 """
 
 from AVLNode import AVLNode
