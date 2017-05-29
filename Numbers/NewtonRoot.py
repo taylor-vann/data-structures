@@ -1,3 +1,17 @@
+"""
+Brian Taylor Vann
+github.com/taylor-vann
+
+Description:
+- Get root with Newton method
+
+Requirements:
+- None
+
+Methods:
+- sqrt_newton()
+"""
+
 def sqrt_newton(n):
     if n < 0:
         return None

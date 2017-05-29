@@ -1,3 +1,11 @@
+"""
+Brian Vann
+github.com/taylor-vann
+
+Description:
+- Unit Tests for the sqrt_newton.
+"""
+
 import unittest
 from NewtonRoot import sqrt_newton
 

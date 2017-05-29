@@ -1,3 +1,17 @@
+"""
+Brian Taylor Vann
+github.com/taylor-vann
+
+Description:
+- Get the root with Babylonian method 
+
+Requirements:
+- None
+
+Methods:
+- sqrt_babylon()
+"""
+
 def sqrt_babylon(n):
     if n < 0:
         return None

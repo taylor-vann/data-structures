@@ -1,3 +1,11 @@
+"""
+Brian Vann
+github.com/taylor-vann
+
+Description:
+- Unit Tests for the sqrt_babylon.
+"""
+
 import unittest
 from BabylonRoot import sqrt_babylon
 
