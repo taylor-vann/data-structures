@@ -43,23 +43,39 @@ class TestGraphNode(unittest.TestCase):
         self.assertEqual(n.get_data(), s)
 
 
+    def testSetGetEdgeNone(self):
+        n = GraphNode("I")
+        n.add_edge("A", weight = 10)
+        self.assertEqual(n.get_edge("B"), None)
+
+
+    def testSetGetEdge(self):
+        n = GraphNode("I")
+        n.add_edge("A", weight = 10)
+        self.assertEqual(n.get_edge("A"), {"weight": 10})
+
     def testSetEdgeEdgeWeightProperty(self):
         gn = GraphNode("B")
-        name = "A"
-        weight = 10
-        gn.add_edge(name, weight)
-        self.assertEqual(gn.get_edge_property(name, "weight"), 10)
+        gn.add_edge("A", weight = 10)
+        self.assertEqual(gn.get_edge_property("A", "weight"), 10)
 
 
     def testAddMultipleEdgeProperty(self):
         gn = GraphNode("Q")
-        gn.add_edge(name = "A", weight = 10, directed = True, legacy = False)
+
+        gn.add_edge(dest = "A", weight = 10, directed = True, legacy = False)
+
         self.assertEqual(gn.get_edge_property("A", "directed"), True)
 
 
     def testGetEdgeProperties(self):
         gn = GraphNode("Q")
-        gn.add_edge(name = "A", weight = 10, directed = True, legacy = False)
+
+        gn.add_edge(
+            dest = "A",
+            weight = 10,
+            directed = True,
+            legacy = False)
 
         self.assertEqual(list(gn.get_edge_properties("A")).sort(),
             ["weight", "directed", "legacy"].sort())
@@ -67,25 +83,57 @@ class TestGraphNode(unittest.TestCase):
 
     def testGetEdges(self):
         gn = GraphNode("Z")
-        gn.add_edge(name = "A", weight = 10, directed = True, legacy = False)
-        gn.add_edge(name = "B", weight = 5, directed = False, legacy = True)
+
+        gn.add_edge(
+            dest = "A",
+            weight = 10,
+            directed = True,
+            legacy = False)
+
+        gn.add_edge(
+            dest = "B",
+            weight = 5,
+            directed = False,
+            legacy = True)
+
+        self.assertEqual(sorted(list(gn.get_edges())), ["A", "B"])
 
 
-        self.assertEqual(list(gn.get_edges()).sort(),
-            ["A", "B"].sort())
+    def testRemoveEdge(self):
+        gn = GraphNode("L")
+
+        gn.add_edge(
+            dest = "A",
+            weight = 10,
+            directed = True,
+            legacy = False)
+
+        gn.add_edge(
+            dest = "B",
+            weight = 5,
+            directed = False,
+            legacy = True)
+
+        gn.remove_edge("C")
+        gn.remove_edge("B")
+
+        self.assertEqual(sorted(list(gn.get_edges())), ["A"])
 
 
     def testGetNode(self):
         gn = GraphNode("P")
         n = gn.getNode()
-        gn.add_edge(name = "B", weight = 10, directed = True, legacy = False)
+
+        gn.add_edge("B", "A", 10, directed = True, legacy = False)
+
         self.assertEqual(n["edges"]["B"]["legacy"], False)
 
 
     def testGetNode(self):
         gn = GraphNode("P")
         n = gn.get_node()
-        gn.add_edge(name = "B", weight = 10, directed = True, legacy = False)
+        gn.add_edge("B", "A", 10, directed = True, legacy = False)
+
         gn.set_data("hello, world!")
         self.assertEqual(n["data"], "hello, world!")
 

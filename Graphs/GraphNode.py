@@ -21,6 +21,7 @@ Helps with threads and concurrent writes.
     data: stuff,
     edges: {
         A: {
+            destination: <node>
             weight: 10,
             directed: true,
             traveled: false,
@@ -36,20 +37,29 @@ class GraphNode(object):
     _node = None
 
 
-    def __init__(self, nid, data = None):
+    def __init__(self, n, d = None):
         self._node = {
-            "id": nid,
-            "data": data,
+            "id": n,
+            "data": d,
             "edges": {},
             "self": self,
         }
 
 
-    def add_edge(self, name, weight = None, **kwargs):
-        self._node["edges"][name] = {"weight": weight}
+    def add_edge(self, dest, **kwargs):
+        self._node["edges"][dest] = {}
 
         for v in kwargs:
-            self._node["edges"][name][v] = kwargs[v]
+            self._node["edges"][dest][v] = kwargs[v]
+
+
+    def remove_edge(self, dest):
+        self._node["edges"].pop(dest, None)
+
+
+    def get_edge(self, d):
+        if d in self._node["edges"]:
+            return self._node["edges"][d]
 
 
     def get_edges(self):
@@ -60,14 +70,10 @@ class GraphNode(object):
         if k in self._node["edges"] and p in self._node["edges"][k]:
             return self._node["edges"][k][p]
 
-        return None
-
 
     def get_edge_properties(self, k):
         if k in self._node["edges"]:
             return self._node["edges"][k].keys()
-
-        return None
 
 
     def set_id(self, n):
