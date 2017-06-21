@@ -114,6 +114,54 @@ class TestPriorityQueue(unittest.TestCase):
         self.assertEqual(pq.peek(), "a")
 
 
+    def testPQifySevenRemoveALength(self):
+        pq = PriorityQueue()
+
+        pq.push(data = "a", weight = 4)
+        pq.push(data = "b", weight = 10)
+        pq.push(data = "c", weight = 8)
+        pq.push(data = "d", weight = 7)
+        pq.push(data = "e", weight = 2)
+        pq.push(data = "f", weight = 6)
+        pq.push(data = "h", weight = 5)
+
+        pq.remove("a")
+
+        self.assertEqual(len(pq), 6)
+
+
+    def testPQifySevenRemoveDNotThere(self):
+        pq = PriorityQueue()
+
+        pq.push(data = "a", weight = 4)
+        pq.push(data = "b", weight = 10)
+        pq.push(data = "c", weight = 8)
+        pq.push(data = "d", weight = 7)
+        pq.push(data = "e", weight = 2)
+        pq.push(data = "f", weight = 6)
+        pq.push(data = "h", weight = 5)
+
+        pq.remove("d")
+
+        self.assertTrue("d" not in pq)
+
+
+    def testPQifySevenRemoveDStillHasB(self):
+        pq = PriorityQueue()
+
+        pq.push(data = "a", weight = 4)
+        pq.push(data = "b", weight = 10)
+        pq.push(data = "c", weight = 8)
+        pq.push(data = "d", weight = 7)
+        pq.push(data = "e", weight = 2)
+        pq.push(data = "f", weight = 6)
+        pq.push(data = "h", weight = 5)
+
+        pq.remove("d")
+
+        self.assertTrue("b" in pq)
+
+
     def testPQifySevenPopOneContains(self):
         pq = PriorityQueue()
 

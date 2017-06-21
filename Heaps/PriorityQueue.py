@@ -10,7 +10,7 @@ Methods:
 - __contains__
 
 - peak()
-- push(<data>)
+- push(data, weight)
 - pop()
 - remove(<val>)
 """
@@ -60,7 +60,7 @@ class PriorityQueue(object):
         l = len(self._h) - 1
 
         for i in range(0, len(self._h)):
-            if self._h[i] == bit:
+            if self._h[i]["data"] == bit:
                 self._h[i], self._h[l] = self._h[l], self._h[i]
                 pip = self._h.pop()
                 self._perc_down(i)
