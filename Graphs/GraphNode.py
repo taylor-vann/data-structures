@@ -21,6 +21,7 @@ Helps with threads and concurrent writes.
     data: stuff,
     edges: {
         A: {
+            # some attributes maybe
             destination: <node>
             weight: 10,
             directed: true,
@@ -73,7 +74,7 @@ class GraphNode(object):
 
     def get_edge_properties(self, k):
         if k in self._node["edges"]:
-            return self._node["edges"][k].keys()
+            return sorted(self._node["edges"][k].keys())
 
 
     def set_id(self, n):
