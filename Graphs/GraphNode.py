@@ -37,7 +37,7 @@ class GraphNode(object):
 
     _node = None
 
-
+    # overridden methods
     def __init__(self, n, d = None):
         self._node = {
             "id": n,
@@ -47,6 +47,14 @@ class GraphNode(object):
         }
 
 
+    def __contains__(self, n):
+        if n in self._nodes["edges"]:
+            return True
+
+        return False
+
+
+    # custom methods
     def add_edge(self, dest, **kwargs):
         self._node["edges"][dest] = {}
 
