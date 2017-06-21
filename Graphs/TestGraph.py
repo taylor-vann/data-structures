@@ -83,6 +83,112 @@ class TestGraph(unittest.TestCase):
         self.assertTrue(g.has_edge("A", "B"))
 
 
+    def testGraphDFS(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_node("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.dfs("A"), ["A", "B", "C"])
+
+
+    def testGraphDFSOne(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_node("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.dfs("C"), ["C"])
+
+
+    def testGraphDFSTwo(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_node("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.dfs("B"), ["B", "C"])
+
+
+    def testGraphDFSFive(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_node("C")
+        g.create_node("D")
+        g.create_node("E")
+        g.create_node("F")
+
+        g.create_edge("A", "B")
+        g.create_edge("A", "C")
+        g.create_edge("B", "D")
+        g.create_edge("B", "E")
+        g.create_edge("D", "F")
+        g.create_edge("E", "C")
+        g.create_edge("F", "E")
+
+
+        self.assertEqual(g.dfs("A"), ["A", "B", "D", "F", "E", "C"])
+
+
+    def testGraphBFS(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_node("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.bfs("A"), ["A", "B", "C"])
+
+
+    def testGraphBFSOne(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_node("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.bfs("C"), ["C"])
+
+
+    def testGraphBFSTwo(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_node("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.bfs("B"), ["B", "C"])
+
+
+    def testGraphBFSFive(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_node("C")
+        g.create_node("D")
+        g.create_node("E")
+        g.create_node("F")
+
+        g.create_edge("A", "B")
+        g.create_edge("A", "C")
+        g.create_edge("B", "D")
+        g.create_edge("B", "E")
+        g.create_edge("D", "F")
+        g.create_edge("E", "C")
+        g.create_edge("F", "E")
+
+
+        self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
 
 
 unittest.main()
