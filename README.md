@@ -20,82 +20,47 @@ If you're teaching yourself and just need an extra perspective, I hope these hel
 
 ### Sorts ###
 
-BubbleSort
+Types of Sorts
+* BubbleSort
+* InsertionSort
+* SelectionSort
+* ShellSort
+* QuickSort
+* MergeSort
+* HeapSort
+* RadixSort
 
-```
+```Python
 bubble_sort(<list>)
-```
-
-InsertionSort
-
-```
 insertion_sort(<list>)
-```
-
-SelectionSort
-
-```
 selection_sort(<list>)
-```
-
-ShellSort
-
-```
 shell_sort(<list>)
-```
-
-QuickSort
-
-```
 quick_sort(<list>, 0, len(<list>))
-```
-
-MergeSort
-
-```
 sorted = merge_sort(<list>)
-```
-
-HeapSort
-
-```
 heap_sort(<list>)
-```
-
-RadixSort
-
-```
 sorted = radix_sort(<list>)
 ```
 
 
 ### Traversals ###
 
-Level Order
 
-```
+* Level Order
+* In Order
+* Pre Order
+* Post Order
+
+```Python
 level_order(<node>)
-```
 
-In Order
-
-```
 in_order(<node>)
 rec_in_order(<node>)
 itr_in_order(<node>)
-```
 
-Pre Order
-
-```
 pre_order(<node>)
 rec_pre_order(<node>)
 itr_pre_order(<node>)
-```
 
-Post Order
-
-```
 post_order(<node>)
 rec_post_order(<node>)
 itr_post_order(<node>)
