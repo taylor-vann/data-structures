@@ -10,6 +10,12 @@ Requirements:
 """
 
 """
+Graph Nodes will be represented in a dictionary.
+When the dictionary is updated, the change will be reflected
+in all references to the node and in other dictionaries.
+Helps with threads and concurrent writes.
+(Benefit of pass by reference)
+
 {
     id: name,
     data: stuff,
@@ -19,69 +25,66 @@ Requirements:
             directed: true,
             traveled: false,
         }
-    }
+    },
+    self: <reference to GraphNode>
 }
-
 """
 
 
 class GraphNode(object):
 
     _node = None
-    _id = None
-    _edges = None
-    _data = None
 
 
     def __init__(self, nid, data = None):
-        self._id = nid
-        self._data = data
-        self._edges = {}
-
         self._node = {
             "id": nid,
             "data": data,
             "edges": {},
+            "self": self,
         }
 
 
-    def getId(self):
-        return self._id
-
-
-    def addEdge(self, name, weight = None, **kwargs):
-        self._node["edges"][name] = { "weight": weight}
+    def add_edge(self, name, weight = None, **kwargs):
+        self._node["edges"][name] = {"weight": weight}
 
         for v in kwargs:
             self._node["edges"][name][v] = kwargs[v]
 
 
-    def getEdges(self):
-        return self._node["edges"].keys()
+    def get_edges(self):
+        return self._node["edges"]
 
 
-    def getEdgeProperty(self, k, p):
+    def get_edge_property(self, k, p):
         if k in self._node["edges"] and p in self._node["edges"][k]:
             return self._node["edges"][k][p]
 
         return None
 
 
-    def getEdgeProperties(self, k):
+    def get_edge_properties(self, k):
         if k in self._node["edges"]:
             return self._node["edges"][k].keys()
 
         return None
 
 
-    def setData(self, d):
-        self._data = d
-        self._node["data"] = self._data
+    def set_id(self, n):
+        self._node["id"] = n
 
 
-    def getData(self):
-        return self._data
+    def get_id(self):
+        return self._node["id"]
 
 
-    def getNode(self):
+    def set_data(self, d):
+        self._node["data"] = d
+
+
+    def get_data(self):
+        return self._node["data"]
+
+
+    def get_node(self):
         return self._node
