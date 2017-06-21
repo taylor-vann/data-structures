@@ -21,6 +21,10 @@ class TestLCM(unittest.TestCase):
         self.assertIsNotNone(lcm)
 
 
+    def testLCMFloatIsNone(self):
+        self.assertIsNone(lcm(3.6, 8.9))
+
+
     def testLCM4and2(self):
         self.assertEqual(lcm(4, 2), 4)
 

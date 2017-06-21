@@ -13,6 +13,9 @@ Methods:
 """
 
 def sieve(n):
+    if type(n) != int:
+        return None
+
     l = n + 1
     rng = list(range(l))
     rslt = []
@@ -20,13 +23,13 @@ def sieve(n):
     ind = 2
     i = ind + ind
 
-
     while ind < l:
         while i < l:
             rng[i] = None
             i += ind
 
         ind += 1
+
         while ind < l and rng[ind] == None:
             ind += 1
 

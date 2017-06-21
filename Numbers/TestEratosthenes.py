@@ -19,6 +19,10 @@ class TestSieve(unittest.TestCase):
         self.assertIsNotNone(sieve)
 
 
+    def testSieveFloatIsNone(self):
+        self.assertIsNone(sieve(4.2))
+
+
     def testSieve4(self):
         self.assertEqual(sieve(4), [1, 2, 3])
 
@@ -37,21 +41,6 @@ class TestSieve(unittest.TestCase):
 
     def testSieve30(self):
         self.assertEqual(sieve(30), [1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29])
-
-
-    """
-    def testGCD5and1(self):
-        self.assertEqual(gcd(5, 2), 1)
-
-
-    def testGCD24and18(self):
-        self.assertEqual(gcd(24, 18), 6)
-
-
-    def testGCD24and18(self):
-        self.assertEqual(gcd(88, 77), 11)
-    """
-
 
 
 unittest.main()

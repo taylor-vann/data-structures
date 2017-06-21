@@ -16,6 +16,9 @@ from GCD import gcd
 
 
 def lcm(n, m):
+    if type(n) != int and type(m) != int:
+        return
+
     r = n / gcd(n, m)
     r *= m
 

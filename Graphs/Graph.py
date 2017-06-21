@@ -8,3 +8,13 @@ Description:
 Requirements:
 - Graph.py
 """
+
+
+class Graph (object):
+
+    _nodes = {}
+
+
+    def __init__(self, *args):
+        for var in args:
+            self.addNode(var)
