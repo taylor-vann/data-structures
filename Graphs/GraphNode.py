@@ -48,7 +48,7 @@ class GraphNode(object):
 
 
     def __contains__(self, n):
-        if n in self._nodes["edges"]:
+        if n in self._node["edges"]:
             return True
 
         return False

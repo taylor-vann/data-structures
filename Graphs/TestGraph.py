@@ -32,6 +32,8 @@ class TestGraph(unittest.TestCase):
 
         g = Graph(n, m, o)
 
+        self.assertTrue("B" in g)
+
 
     def testGraphContains(self):
         n = GraphNode("A")
@@ -81,6 +83,25 @@ class TestGraph(unittest.TestCase):
         g.create_edge("A", "B")
 
         self.assertTrue(g.has_edge("A", "B"))
+
+
+    def testGraphAddNodeRemoveEdge(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_edge("A", "B")
+        g.remove_edge("A", "B")
+
+        self.assertFalse(g.has_edge("A", "B"))
+
+
+    def testGraphGetEdgeProperty(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+        g.create_edge("A", "B", weight = 10)
+
+        self.assertEqual(g.get_edge_property("A", "B", "weight"), 10)
 
 
     def testGraphDFS(self):
@@ -186,7 +207,6 @@ class TestGraph(unittest.TestCase):
         g.create_edge("D", "F")
         g.create_edge("E", "C")
         g.create_edge("F", "E")
-
 
         self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
 
