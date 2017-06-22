@@ -23,193 +23,176 @@ class testDiGraph(unittest.TestCase):
 
 
     def testDiGraphAddGetNode(self):
-        n = GraphNode("A")
-        n.create_edge("B", weight = 10)
-        m = GraphNode("B")
-        m.create_edge("A", weight = 5)
-        o = GraphNode("C")
-        o.create_edge("A", weight = 3)
-
-        g = DiGraph(n, m, o)
-
-        self.assertTrue("B" in g)
-
-
-    def testDiGraphContains(self):
-        n = GraphNode("A")
-        n.create_edge("B", weight = 10)
-        m = GraphNode("B")
-        m.create_edge("A", weight = 5)
-        o = GraphNode("C")
-        o.create_edge("A", weight = 3)
-
-        g = DiGraph(n, m, o)
-
-        self.assertTrue("B" in g)
-
-
-    def testDiGraphNotContains(self):
-        n = GraphNode("A")
-        n.create_edge("B", weight = 10)
-        m = GraphNode("B")
-        m.create_edge("A", weight = 5)
-        o = GraphNode("C")
-        o.create_edge("A", weight = 3)
-
-        g = DiGraph(n, m, o)
-
-        self.assertTrue("D" not in g)
-
-
-    def testDiGraphCreateNode(self):
         g = DiGraph()
-        g.create_node("A")
 
-        self.assertTrue("A" in g)
+        g.create_nodes("A", "B", "C")
+
+        self.assertTrue("B" in g)
+
+
+    def testDiGraphAddGetNotNode(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B", "C")
+
+        self.assertFalse("D" in g)
 
 
     def testDiGraphRemoveNode(self):
         g = DiGraph()
-        g.create_node("A")
-        g.remove_node("A")
 
-        self.assertTrue("A" not in g)
+        g.create_nodes("A", "B", "C")
+        g.remove_nodes("A", "D")
+
+        self.assertFalse("A" in g)
 
 
-    def testDiGraphAddNodeAddEdge(self):
+    def testDiGraphHasProperty(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_edge("A", "B")
+
+        g.create_nodes("A")
+        g.set_node_properties("A", data = "hello, world!")
+
+        self.assertEqual(g.get_node_property("A", "data"), "hello, world!")
+
+
+    def testDiGraphCreateEdge(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B")
+        g.create_edges("A", "B", "C", "D")
 
         self.assertTrue(g.has_edge("A", "B"))
 
 
-    def testDiGraphAddNodeRemoveEdge(self):
+    def testDiGraphCreateNoEdge(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_edge("A", "B")
-        g.remove_edge("A", "B")
 
-        self.assertFalse(g.has_edge("A", "B"))
+        g.create_nodes("A", "B")
+        g.create_edges("A", "B", "C", "D")
+
+        self.assertFalse(g.has_edge("B", "A"))
 
 
-    def testDiGraphGetEdgeProperty(self):
+    def testDiGraphRemoveEdges(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_edge("A", "B", weight = 10)
+
+        g.create_nodes("A", "B", "C", "D")
+        g.create_edges("A", "B", "C")
+        g.create_edges("B", "C", "D")
+        g.create_edges("C", "D", "A")
+
+        g.remove_edges("A", "B", "C")
+
+        self.assertFalse(g.has_edge("A", "C"))
+
+
+    def testDiGraphCreateEdgeProperty(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B")
+        g.create_edges("A", "B", "C", "D")
+        g.set_edge_properties("A", "B", weight = 10)
 
         self.assertEqual(g.get_edge_property("A", "B", "weight"), 10)
 
 
     def testDiGraphDFS(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_edge("A", "B")
-        g.create_edge("B", "C")
+
+        g.create_nodes("A", "B", "C")
+        g.create_edges("A", "B")
+        g.create_edges("B", "C")
 
         self.assertEqual(g.dfs("A"), ["A", "B", "C"])
 
 
+    def testDiGraphDFSNone(self):
+        g = DiGraph()
+
+        self.assertIsNone(g.dfs("A"))
+
+
     def testDiGraphDFSOne(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_edge("A", "B")
-        g.create_edge("B", "C")
+
+        g.create_nodes("A", "B", "C")
+        g.create_edges("A", "B")
+        g.create_edges("B", "C")
 
         self.assertEqual(g.dfs("C"), ["C"])
 
 
     def testDiGraphDFSTwo(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_edge("A", "B")
-        g.create_edge("B", "C")
+
+        g.create_nodes("A", "B", "C")
+        g.create_edges("A", "B")
+        g.create_edges("B", "C")
 
         self.assertEqual(g.dfs("B"), ["B", "C"])
 
 
     def testDiGraphDFSFive(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_node("D")
-        g.create_node("E")
-        g.create_node("F")
 
-        g.create_edge("A", "B")
-        g.create_edge("A", "C")
-        g.create_edge("B", "D")
-        g.create_edge("B", "E")
-        g.create_edge("D", "F")
-        g.create_edge("E", "C")
-        g.create_edge("F", "E")
-
+        g.create_nodes("A", "B", "C", "D", "E", "F")
+        g.create_edges("A", "B", "C")
+        g.create_edges("B", "D", "E")
+        g.create_edges("D", "F")
+        g.create_edges("E", "C")
+        g.create_edges("F", "E")
 
         self.assertEqual(g.dfs("A"), ["A", "B", "D", "F", "E", "C"])
 
 
     def testDiGraphBFS(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_edge("A", "B")
-        g.create_edge("B", "C")
+
+        g.create_nodes("A", "B", "C")
+        g.create_edges("A", "B")
+        g.create_edges("B", "C")
 
         self.assertEqual(g.bfs("A"), ["A", "B", "C"])
 
 
+    def testDiGraphBFSNone(self):
+        g = DiGraph()
+
+        self.assertIsNone(g.bfs("A"))
+
+
     def testDiGraphBFSOne(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_edge("A", "B")
-        g.create_edge("B", "C")
+
+        g.create_nodes("A", "B", "C")
+        g.create_edges("A", "B")
+        g.create_edges("B", "C")
 
         self.assertEqual(g.bfs("C"), ["C"])
 
 
     def testDiGraphBFSTwo(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_edge("A", "B")
-        g.create_edge("B", "C")
+
+        g.create_nodes("A", "B", "C")
+        g.create_edges("A", "B")
+        g.create_edges("B", "C")
 
         self.assertEqual(g.bfs("B"), ["B", "C"])
 
 
     def testDiGraphBFSFive(self):
         g = DiGraph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_node("D")
-        g.create_node("E")
-        g.create_node("F")
 
-        g.create_edge("A", "B")
-        g.create_edge("A", "C")
-        g.create_edge("B", "D")
-        g.create_edge("B", "E")
-        g.create_edge("D", "F")
-        g.create_edge("E", "C")
-        g.create_edge("F", "E")
+        g.create_nodes("A", "B", "C", "D", "E", "F")
+        g.create_edges("A", "B", "C")
+        g.create_edges("B", "D", "E")
+        g.create_edges("D", "F")
+        g.create_edges("E", "C")
+        g.create_edges("F", "E")
 
         self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
-
 
 
 
