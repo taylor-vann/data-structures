@@ -7,12 +7,22 @@ Description:
 
 Requirements:
 - GraphNode.py
+
+
+create graph from dictionary
+
+{
+    "A": {"B": {"weight": 10}
+    "B": {"D": {"weight": 5}}
+    "C": {"C": {"weight": 5}}
+    "D": {"C": {"weight": 5}}
+}
 """
 
 from GraphNode import GraphNode
 from PriorityQueue import PriorityQueue
 
-class Graph (object):
+class DiGraph (object):
 
     _g = None
 
@@ -37,9 +47,10 @@ class Graph (object):
                 self._g[v.get_id()] = v
 
 
-    def create_node(self, n, data = None):
+    def create_node(self, n, **kwargs):
         if n not in self._g:
-            self._g[n] = GraphNode(n, data)
+            self._g[n] = GraphNode(n)
+            self._g[n].set_node_properties(**kwargs)
 
 
     def remove_node(self, n):
@@ -48,7 +59,7 @@ class Graph (object):
 
     def create_edge(self, n, d, **kwargs):
         if n in self._g and d in self._g:
-            self._g[n].add_edge(d, **kwargs)
+            self._g[n].create_edge(d, **kwargs)
 
 
     def remove_edge(self, n, d):
@@ -114,32 +125,6 @@ class Graph (object):
                 queue.extend(sorted(self._g[current].get_edges()))
 
         return order
-
-
-    def prim(self, n, p):
-        if n not in self._g:
-            return
-
-        mst = []
-        k = {}
-        q = PriorityQueue()
-
-        for v in self.get_nodes():
-            k[v] = ({"id": v, "weight": float("inf"), "parent": None})
-
-        k[n]["weight"] = 0
-
-        for i in k:
-            q.push(k[i]["id"], k[i]["weight"])
-
-
-        print(k)
-
-        return mst
-
-
-    def kruskal(self, n):
-        pass
 
 
     def dijkstra(self, n, d):

@@ -13,71 +13,71 @@ Requirements:
 
 import unittest
 from GraphNode import GraphNode
-from Graph import Graph
+from DiGraph import DiGraph
 
 
-class TestGraph(unittest.TestCase):
+class testDiGraph(unittest.TestCase):
 
-    def testGraphIsNotNull(self):
-        self.assertIsNotNone(Graph)
+    def testDiGraphIsNotNull(self):
+        self.assertIsNotNone(DiGraph)
 
 
-    def testGraphAddGetNode(self):
+    def testDiGraphAddGetNode(self):
         n = GraphNode("A")
-        n.add_edge("B", weight = 10)
+        n.create_edge("B", weight = 10)
         m = GraphNode("B")
-        m.add_edge("A", weight = 5)
+        m.create_edge("A", weight = 5)
         o = GraphNode("C")
-        o.add_edge("A", weight = 3)
+        o.create_edge("A", weight = 3)
 
-        g = Graph(n, m, o)
+        g = DiGraph(n, m, o)
 
         self.assertTrue("B" in g)
 
 
-    def testGraphContains(self):
+    def testDiGraphContains(self):
         n = GraphNode("A")
-        n.add_edge("B", weight = 10)
+        n.create_edge("B", weight = 10)
         m = GraphNode("B")
-        m.add_edge("A", weight = 5)
+        m.create_edge("A", weight = 5)
         o = GraphNode("C")
-        o.add_edge("A", weight = 3)
+        o.create_edge("A", weight = 3)
 
-        g = Graph(n, m, o)
+        g = DiGraph(n, m, o)
 
         self.assertTrue("B" in g)
 
 
-    def testGraphNotContains(self):
+    def testDiGraphNotContains(self):
         n = GraphNode("A")
-        n.add_edge("B", weight = 10)
+        n.create_edge("B", weight = 10)
         m = GraphNode("B")
-        m.add_edge("A", weight = 5)
+        m.create_edge("A", weight = 5)
         o = GraphNode("C")
-        o.add_edge("A", weight = 3)
+        o.create_edge("A", weight = 3)
 
-        g = Graph(n, m, o)
+        g = DiGraph(n, m, o)
 
         self.assertTrue("D" not in g)
 
 
-    def testGraphCreateNode(self):
-        g = Graph()
+    def testDiGraphCreateNode(self):
+        g = DiGraph()
         g.create_node("A")
 
         self.assertTrue("A" in g)
 
 
-    def testGraphRemoveNode(self):
-        g = Graph()
+    def testDiGraphRemoveNode(self):
+        g = DiGraph()
         g.create_node("A")
         g.remove_node("A")
 
         self.assertTrue("A" not in g)
 
 
-    def testGraphAddNodeAddEdge(self):
-        g = Graph()
+    def testDiGraphAddNodeAddEdge(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_edge("A", "B")
@@ -85,8 +85,8 @@ class TestGraph(unittest.TestCase):
         self.assertTrue(g.has_edge("A", "B"))
 
 
-    def testGraphAddNodeRemoveEdge(self):
-        g = Graph()
+    def testDiGraphAddNodeRemoveEdge(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_edge("A", "B")
@@ -95,8 +95,8 @@ class TestGraph(unittest.TestCase):
         self.assertFalse(g.has_edge("A", "B"))
 
 
-    def testGraphGetEdgeProperty(self):
-        g = Graph()
+    def testDiGraphGetEdgeProperty(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_edge("A", "B", weight = 10)
@@ -104,8 +104,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.get_edge_property("A", "B", "weight"), 10)
 
 
-    def testGraphDFS(self):
-        g = Graph()
+    def testDiGraphDFS(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_node("C")
@@ -115,8 +115,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.dfs("A"), ["A", "B", "C"])
 
 
-    def testGraphDFSOne(self):
-        g = Graph()
+    def testDiGraphDFSOne(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_node("C")
@@ -126,8 +126,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.dfs("C"), ["C"])
 
 
-    def testGraphDFSTwo(self):
-        g = Graph()
+    def testDiGraphDFSTwo(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_node("C")
@@ -137,8 +137,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.dfs("B"), ["B", "C"])
 
 
-    def testGraphDFSFive(self):
-        g = Graph()
+    def testDiGraphDFSFive(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_node("C")
@@ -158,8 +158,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.dfs("A"), ["A", "B", "D", "F", "E", "C"])
 
 
-    def testGraphBFS(self):
-        g = Graph()
+    def testDiGraphBFS(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_node("C")
@@ -169,8 +169,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.bfs("A"), ["A", "B", "C"])
 
 
-    def testGraphBFSOne(self):
-        g = Graph()
+    def testDiGraphBFSOne(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_node("C")
@@ -180,8 +180,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.bfs("C"), ["C"])
 
 
-    def testGraphBFSTwo(self):
-        g = Graph()
+    def testDiGraphBFSTwo(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_node("C")
@@ -191,8 +191,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.bfs("B"), ["B", "C"])
 
 
-    def testGraphBFSFive(self):
-        g = Graph()
+    def testDiGraphBFSFive(self):
+        g = DiGraph()
         g.create_node("A")
         g.create_node("B")
         g.create_node("C")
@@ -211,22 +211,7 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
 
 
-    def testPrim(self):
-        g = Graph()
-        g.create_node("A")
-        g.create_node("B")
 
-        g.create_edge("A", "B", weight = 10)
 
-        g.prim("A", "weight")
-
-    def testPrimNotInGraph(self):
-        g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-
-        g.create_edge("A", "B", weight = 10)
-
-        self.assertIsNone(g.prim("C", "weight"))
 
 unittest.main()
