@@ -18,7 +18,6 @@ Helps with threads and concurrent writes.
 
 {
     id: name,
-    data: stuff,
     edges: {
         A: {
             # some attributes maybe
@@ -28,7 +27,7 @@ Helps with threads and concurrent writes.
             traveled: false,
         }
     },
-    self: <reference to GraphNode>
+    self: <reference to GraphNode self>
 }
 """
 
@@ -38,10 +37,9 @@ class GraphNode(object):
     _node = None
 
     # overridden methods
-    def __init__(self, n, d = None):
+    def __init__(self, n):
         self._node = {
             "id": n,
-            "data": d,
             "edges": {},
             "self": self,
         }
@@ -55,7 +53,7 @@ class GraphNode(object):
 
 
     # custom methods
-    def add_edge(self, dest, **kwargs):
+    def create_edge(self, dest, **kwargs):
         self._node["edges"][dest] = {}
 
         for v in kwargs:
@@ -72,7 +70,7 @@ class GraphNode(object):
 
 
     def get_edges(self):
-        return self._node["edges"]
+        return sorted(self._node["edges"])
 
 
     def get_edge_property(self, k, p):
@@ -82,7 +80,13 @@ class GraphNode(object):
 
     def get_edge_properties(self, k):
         if k in self._node["edges"]:
-            return sorted(self._node["edges"][k].keys())
+            return self._node["edges"][k].keys()
+
+
+    def set_edge_properties(self, j, **kwargs):
+        if j in self._node["edges"]:
+            for k in kwargs:
+                self._node["edges"][k] = kwargs[k]
 
 
     def set_id(self, n):
@@ -93,12 +97,24 @@ class GraphNode(object):
         return self._node["id"]
 
 
-    def set_data(self, d):
-        self._node["data"] = d
+    def get_node_properties(self):
+        return sorted(list(self._node.keys()))
 
 
-    def get_data(self):
-        return self._node["data"]
+    def get_node_property(self, p):
+        if p in self._node:
+            return self._node[p]
+
+
+    def set_node_properties(self, **kwargs):
+        for k in kwargs:
+            if k != "id" and k != "edges" and k != "self":
+                self._node[k] = kwargs[k]
+
+
+    def remove_node_property(self, p):
+        if p != "id" and p != "edges" and p!= "self":
+            self._node.pop(p, None)
 
 
     def get_node(self):

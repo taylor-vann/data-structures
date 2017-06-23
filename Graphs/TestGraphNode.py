@@ -31,39 +31,27 @@ class TestGraphNode(unittest.TestCase):
         self.assertEqual(n.get_id(), "N")
 
 
-    def testSetGetDataNone(self):
-        n = GraphNode("A")
-        self.assertEqual(n.get_data(), None)
-
-
-    def testSetGetData(self):
-        n = GraphNode("A")
-        s = "hello, world!"
-        n.set_data(s)
-        self.assertEqual(n.get_data(), s)
-
-
     def testSetGetEdgeNone(self):
         n = GraphNode("I")
-        n.add_edge("A", weight = 10)
+        n.create_edge("A", weight = 10)
         self.assertEqual(n.get_edge("B"), None)
 
 
     def testSetGetEdge(self):
         n = GraphNode("I")
-        n.add_edge("A", weight = 10)
+        n.create_edge("A", weight = 10)
         self.assertEqual(n.get_edge("A"), {"weight": 10})
 
     def testSetEdgeEdgeWeightProperty(self):
         gn = GraphNode("B")
-        gn.add_edge("A", weight = 10)
+        gn.create_edge("A", weight = 10)
         self.assertEqual(gn.get_edge_property("A", "weight"), 10)
 
 
     def testAddMultipleEdgeProperty(self):
         gn = GraphNode("Q")
 
-        gn.add_edge(dest = "A", weight = 10, directed = True, legacy = False)
+        gn.create_edge(dest = "A", weight = 10, directed = True, legacy = False)
 
         self.assertEqual(gn.get_edge_property("A", "directed"), True)
 
@@ -71,26 +59,26 @@ class TestGraphNode(unittest.TestCase):
     def testGetEdgeProperties(self):
         gn = GraphNode("Q")
 
-        gn.add_edge(
+        gn.create_edge(
             dest = "A",
             weight = 10,
             directed = True,
             legacy = False)
 
-        self.assertEqual(list(gn.get_edge_properties("A")).sort(),
-            ["weight", "directed", "legacy"].sort())
+        self.assertEqual(sorted(list(gn.get_edge_properties("A"))),
+            sorted(["weight", "directed", "legacy"]))
 
 
     def testGetEdges(self):
         gn = GraphNode("Z")
 
-        gn.add_edge(
+        gn.create_edge(
             dest = "A",
             weight = 10,
             directed = True,
             legacy = False)
 
-        gn.add_edge(
+        gn.create_edge(
             dest = "B",
             weight = 5,
             directed = False,
@@ -102,13 +90,13 @@ class TestGraphNode(unittest.TestCase):
     def testRemoveEdge(self):
         gn = GraphNode("L")
 
-        gn.add_edge(
+        gn.create_edge(
             dest = "A",
             weight = 10,
             directed = True,
             legacy = False)
 
-        gn.add_edge(
+        gn.create_edge(
             dest = "B",
             weight = 5,
             directed = False,
@@ -124,18 +112,9 @@ class TestGraphNode(unittest.TestCase):
         gn = GraphNode("P")
         n = gn.getNode()
 
-        gn.add_edge("B", "A", 10, directed = True, legacy = False)
+        gn.create_edge("B", "A", 10, directed = True, legacy = False)
 
         self.assertEqual(n["edges"]["B"]["legacy"], False)
-
-
-    def testGetNode(self):
-        gn = GraphNode("P")
-        n = gn.get_node()
-        gn.add_edge("B", "A", 10, directed = True, legacy = False)
-
-        gn.set_data("hello, world!")
-        self.assertEqual(n["data"], "hello, world!")
 
 
     def testSetGetID(self):
@@ -154,6 +133,40 @@ class TestGraphNode(unittest.TestCase):
         gn = GraphNode("P")
         n = gn.get_node()
         self.assertEqual(n["self"], gn)
+
+
+    def testSetGetNodeProperty(self):
+        gn = GraphNode("P")
+        gn.set_node_properties(**{"happy": "yes"})
+        self.assertEqual(gn.get_node_property("happy"), "yes")
+
+
+    def testSetGetRemoveNodeProperty(self):
+        gn = GraphNode("P")
+        gn.set_node_properties(**{"happy": "yes"})
+        gn.remove_node_property("happy")
+        gn.remove_node_property("frowny")
+        self.assertIsNone(gn.get_node_property("happy"))
+
+
+    def testGetNodeProperties(self):
+        gn = GraphNode("P")
+        gn.set_node_properties(**{"happy": "yes"})
+        gn.set_node_properties(**{"frowny": "maybe"})
+        self.assertEqual(gn.get_node_properties(),
+            ["edges", "frowny", "happy", "id", "self"])
+
+
+    def testNotSetGetNodeProperty(self):
+        gn = GraphNode("P")
+        gn.set_node_properties(**{"happy": "yes"})
+        self.assertIsNone(gn.get_node_property("frowny"))
+
+
+    def testSetNodeData(self):
+        gn = GraphNode("P")
+        gn.set_node_properties(**{"happy": "yes"})
+        self.assertIsNone(gn.get_node_property("frowny"))
 
 
 unittest.main()

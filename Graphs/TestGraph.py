@@ -211,4 +211,22 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
 
 
+    def testPrim(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+
+        g.create_edge("A", "B", weight = 10)
+
+        g.prim("A", "weight")
+
+    def testPrimNotInGraph(self):
+        g = Graph()
+        g.create_node("A")
+        g.create_node("B")
+
+        g.create_edge("A", "B", weight = 10)
+
+        self.assertIsNone(g.prim("C", "weight"))
+
 unittest.main()
