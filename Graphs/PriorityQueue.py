@@ -36,8 +36,10 @@ class PriorityQueue(object):
 
 
     #custom methods
-    def push(self, data = None, weight = None):
-        self._h.insert(0, {"data": data, "weight": weight})
+    def push(self, data, weight, **kwargs):
+        n = {"data": data, "weight": weight}
+        n.update(kwargs)
+        self._h.insert(0, n)
         self._perc_down(0)
 
 
@@ -60,7 +62,7 @@ class PriorityQueue(object):
         l = len(self._h) - 1
 
         for i in range(0, len(self._h)):
-            if self._h[i] == bit:
+            if self._h[i]["data"] == bit:
                 self._h[i], self._h[l] = self._h[l], self._h[i]
                 pip = self._h.pop()
                 self._perc_down(i)

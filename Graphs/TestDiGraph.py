@@ -195,6 +195,37 @@ class testDiGraph(unittest.TestCase):
         self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
 
 
+    def testDiGraphDijkstraNone(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B", "C", "D", "E", "F")
+        g.create_edges("A", "B", "C")
+        g.create_edges("B", "D", "E")
+        g.create_edges("D", "F")
+        g.create_edges("E", "C")
+        g.create_edges("F", "E")
+
+        self.assertIsNone(g.dijkstra("A", "G"))
+
+
+    def testDiGraphDijkstraNone(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B", "C", "D", "E", "F")
+        g.create_edges("A", "B")
+        g.set_edge_properties("A", "B", weight = 1)
+        g.create_edges("B", "C")
+        g.set_edge_properties("B", "C", weight = 2)
+        g.create_edges("C", "D")
+        g.set_edge_properties("C", "D", weight = 3)
+        g.create_edges("D", "E")
+        g.set_edge_properties("D", "E", weight = 4)
+        g.create_edges("E", "F")
+        g.set_edge_properties("E", "F", weight = 5)
+
+        self.assertIsNone(g.dijkstra("A"))
+
+
 
 
 unittest.main()

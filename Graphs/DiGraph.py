@@ -146,8 +146,51 @@ class DiGraph (object):
         return o
 
 
-    def dijkstra(self, n, d):
-        pass
+    def dijkstra(self, n):
+        if n not in self._g:
+            return
+
+        pq = PriorityQueue()
+        m = []
+
+        for k in self._g.keys():
+            pq.push(k, float("inf"), parent = None)
+
+        pq.remove(n)
+        pq.push(n, 0)
+
+        while len(pq) > 0:
+            c = pq.pop()
+            e = self._g[c["data"]]["edges"]
+
+            for v in e:
+                p = pq.remove(v)
+
+                if e[v]["weight"] < p["weight"]:
+                    p["parent"] = c["data"]
+                    p["weight"] = e[v]["weight"] + c["weight"]
+                    pq.push(p["data"], p["weight"], parent = p["parent"])
+
+            m.append(c)
+
+        return m
+
+
+    def make_graph_from_acyclic(self, m):
+        g = DiGraph()
+        v = m.pop(0)
+
+        g.create_nodes(v["data"])
+
+        p = self._g[v["data"]]
+
+        for k in p:
+            if k != "edges":
+                g.set_node_properties(k, k[p])
+
+        while m:
+            v = m.pop()
+
 
 
     def circuit(self):
