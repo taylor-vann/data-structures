@@ -56,6 +56,28 @@ class testDiGraph(unittest.TestCase):
         self.assertEqual(g.get_node_property("A", "data"), "hello, world!")
 
 
+    def testDiGraphRemoveNode(self):
+        g = DiGraph()
+
+        g.create_nodes("A")
+        g.set_node_properties("A", data = "hello, world!")
+        g.set_node_properties("A", legacy = False)
+        g.remove_node_properties("A", "legacy")
+
+        self.assertIsNone(g.get_node_property("A", "legacy"))
+
+
+    def testDiGraphRemoveNodeFail(self):
+        g = DiGraph()
+
+        g.create_nodes("A")
+        g.set_node_properties("A", data = "hello, world!")
+        g.set_node_properties("A", legacy = False)
+        g.remove_node_properties("A", "traversed")
+
+        self.assertIsNone(g.get_node_property("A", "traversed"))
+
+
     def testDiGraphCreateEdge(self):
         g = DiGraph()
 
@@ -63,6 +85,15 @@ class testDiGraph(unittest.TestCase):
         g.create_edges("A", "B", "C", "D")
 
         self.assertTrue(g.has_edge("A", "B"))
+
+
+    def testDiGraphCreateEdgeNone(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B")
+        g.create_edges("A", "A")
+
+        self.assertFalse(g.has_edge("A", "A"))
 
 
     def testDiGraphCreateNoEdge(self):
@@ -205,10 +236,10 @@ class testDiGraph(unittest.TestCase):
         g.create_edges("E", "C")
         g.create_edges("F", "E")
 
-        self.assertIsNone(g.dijkstra("A", "G"))
+        self.assertIsNone(g._dijkstra("A", "weight"))
 
 
-    def testDiGraphDijkstraNone(self):
+    def testDiGraph_dijkstra(self):
         g = DiGraph()
 
         g.create_nodes("A", "B", "C", "D", "E", "F")
@@ -223,8 +254,101 @@ class testDiGraph(unittest.TestCase):
         g.create_edges("E", "F")
         g.set_edge_properties("E", "F", weight = 5)
 
-        self.assertIsNone(g.dijkstra("A"))
+        answer = {
+            'D': {
+                'parent': 'C',
+                'weight': 3,
+                'distance': 6
+            },
+            'B': {
+                'parent': 'A',
+                'weight': 1,
+                'distance': 1
+            },
+            'E': {
+                'parent': 'D',
+                'weight': 4,
+                'distance': 10
+            },
+            'F': {
+                'parent': 'E',
+                'weight': 5,
+                'distance': 15
+            },
+            'C': {
+                'parent': 'B',
+                'weight': 2,
+                'distance': 3
+            }
+        }
 
+        self.assertEqual(g._dijkstra("A", "weight"), answer)
+
+
+    def testDiGraphGetShortestPath(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B", "C", "D", "E", "F")
+        g.create_edges("A", "B")
+        g.set_edge_properties("A", "B", weight = 1)
+        g.create_edges("B", "C")
+        g.set_edge_properties("B", "C", weight = 2)
+        g.create_edges("C", "D")
+        g.set_edge_properties("C", "D", weight = 3)
+        g.create_edges("D", "E")
+        g.set_edge_properties("D", "E", weight = 4)
+        g.create_edges("E", "F")
+        g.set_edge_properties("E", "F", weight = 5)
+
+
+        answer = {
+            "path": ["A", "B", "C", "D"],
+            "distance": 6
+        }
+
+        self.assertEqual(g.get_shortest_path("A", "D", "weight"), answer)
+
+
+    def testDiGraphGetShortestPath(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B", "C", "D", "E", "F")
+        g.create_edges("A", "B")
+        g.set_edge_properties("A", "B", weight = 1)
+        g.create_edges("B", "C")
+        g.set_edge_properties("B", "C", weight = 2)
+        g.create_edges("C", "D")
+        g.set_edge_properties("C", "D", weight = 3)
+        g.create_edges("D", "E")
+        g.set_edge_properties("D", "E", weight = 4)
+        g.create_edges("E", "F")
+        g.set_edge_properties("E", "F", weight = 5)
+
+
+        answer = {
+            "path": ["A", "B", "C", "D"],
+            "distance": 6
+        }
+
+        self.assertEqual(g.get_shortest_path("A", "D", "weight"), answer)
+
+
+    def testDiGraphGetShortestPathNone(self):
+        g = DiGraph()
+
+        g.create_nodes("A", "B", "C", "D", "E", "F")
+        g.create_edges("A", "B")
+        g.set_edge_properties("A", "B", weight = 1)
+        g.create_edges("B", "C")
+        g.set_edge_properties("B", "C", weight = 2)
+        g.create_edges("C", "D")
+        g.set_edge_properties("C", "D", weight = 3)
+        g.create_edges("D", "E")
+        g.set_edge_properties("D", "E", weight = 4)
+        g.create_edges("E", "F")
+        g.set_edge_properties("E", "F", weight = 5)
+
+        self.assertEqual(g.get_shortest_path("F", "A", "weight"), None)
 
 
 

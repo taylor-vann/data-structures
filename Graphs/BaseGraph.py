@@ -6,53 +6,11 @@ Description:
 - Graph data structure
 
 Requirements:
-- GraphNode.py
-
-
-create graph from dictionary
-
-{
-    "A": {
-            "data": "something here"
-            "edges": {
-                        "B": {
-                            "weight": 10
-                            "data": None
-                     }
-        }
-    "B": {
-            "edges": {
-                        "A": {
-                            "weight": 10
-                            "data": None
-                     }
-}
-
-{
-    "nodes": {
-        "A": {
-            "data": "something"
-            },
-        "B": {
-            "data": "something"
-        }
-    }
-
-    "edges": {
-        "A": {
-            "destination": "B",
-            "weight": 10
-        },
-        "B": {
-            "destination": "A",
-            "weight": 5
-        }
-    }
-}
+- PriorityQueue.py
 """
 
-from GraphNode import GraphNode
 from PriorityQueue import PriorityQueue
+
 
 class DiGraph (object):
 
@@ -92,11 +50,11 @@ class DiGraph (object):
                     self._g[n][k] = kwargs[k]
 
 
-    def remove_node_properties(self, n, *args):
+    def remove_node_properties(self, n, **kwargs):
         if n in self._g:
-            for a in args:
-                if a != "edges":
-                    self._g[n].pop(a, None)
+            for k in kwargs:
+                if k != "edges":
+                    self._g[n].pop(k, None)
 
 
     def get_node_property(self, n, p):
@@ -112,6 +70,7 @@ class DiGraph (object):
                     continue
                 if a in self._g:
                     self._g[n]["edges"][a] = {}
+                    self._g[a]["edges"][n] = {}
 
 
     def remove_edges(self, n, *args):
@@ -119,6 +78,7 @@ class DiGraph (object):
             for a in args:
                 if a in self._g:
                     self._g[n]["edges"].pop(a, None)
+                    self._g[a]["edges"].pop(n, None)
 
 
     def set_edge_properties(self, n, d, **kwargs):
@@ -126,6 +86,8 @@ class DiGraph (object):
             if d in self._g[n]["edges"]:
                 for k in kwargs:
                     self._g[n]["edges"][d][k] = kwargs[k]
+                    self._g[d]["edges"][n][k] = kwargs[k]
+
 
 
     def get_edge_property(self, n, d, p):
@@ -241,7 +203,3 @@ class DiGraph (object):
 
         if m:
             return m
-
-
-    def circuit(self):
-        pass
