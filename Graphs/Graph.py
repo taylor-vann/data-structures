@@ -12,15 +12,13 @@ Requirements:
 from GraphNode import GraphNode
 from PriorityQueue import PriorityQueue
 
-class Graph (object):
+class Graph(object):
 
     _g = None
 
     # overridden
-    def __init__(self, *args):
+    def __init__(self):
         self._g = {}
-
-        self.add_nodes(*args)
 
 
     def __contains__(self, n):
@@ -31,120 +29,165 @@ class Graph (object):
 
 
     # custom methods
-    def add_nodes(self, *args):
-        for v in args:
-            if isinstance(v, GraphNode):
-                self._g[v.get_id()] = v
+    def create_nodes(self, *args):
+        for a in args:
+            if a not in self._g:
+                self._g[a] = {"edges": {}}
 
 
-    def create_node(self, n, data = None):
-        if n not in self._g:
-            self._g[n] = GraphNode(n, data)
+    def remove_nodes(self, *args):
+        for a in args:
+            for k in self._g:
+                self._g[k]["edges"].pop(a, None)
+
+            self._g.pop(a, None)
 
 
-    def remove_node(self, n):
-        self._g.pop(n, None)
+    def set_node_properties(self, n, **kwargs):
+        if n in self._g:
+            for k in kwargs:
+                if k != "edges":
+                    self._g[n][k] = kwargs[k]
 
 
-    def create_edge(self, n, d, **kwargs):
+    def get_node_property(self, n, p):
+        if n in self._g:
+            if p in self._g[n]:
+                return self._g[n][p]
+
+
+    def create_edges(self, n, *args):
+        if n in self._g:
+            for a in args:
+                if n == a:
+                    continue
+                if a in self._g:
+                    self._g[n]["edges"][a] = {}
+
+
+    def remove_edges(self, n, *args):
+        if n in self._g:
+            for a in args:
+                if a in self._g:
+                    self._g[n]["edges"].pop(a, None)
+
+
+    def set_edge_properties(self, n, d, **kwargs):
         if n in self._g and d in self._g:
-            self._g[n].add_edge(d, **kwargs)
+            if d in self._g[n]["edges"]:
+                for k in kwargs:
+                    self._g[n]["edges"][d][k] = kwargs[k]
 
 
-    def remove_edge(self, n, d):
-        if n in self._g and d in self._g:
-            self._g[n].remove_edge(d)
+    def get_edge_property(self, n, d, p):
+        if n in self._g:
+            if d in self._g[n]["edges"]:
+                if p in self._g[n]["edges"][d]:
+                    return self._g[n]["edges"][d][p]
 
 
     def has_edge(self, n, d):
         if n in self._g and d in self._g:
-            if d in self._g[n]:
+            if d in self._g[n]["edges"]:
                 return True
 
-        return False
 
+    def get_shortest_path(self, n, d, p):
+        if n == d:
+            return
 
-    def get_node(self, n):
-        if n in self._g:
-            return self._g[n].get_node()
+        m = self._dijkstra(n, p)
 
+        if m[d]["parent"] == None:
+            return
 
-    def get_nodes(self):
-        return self._g.keys()
+        l = m[d]
+        o = {
+            "distance": m[d]["distance"],
+            "path": [d],
+        }
 
+        while l != n:
+            l = m[d]["parent"]
+            d = l
+            o["path"].insert(0, l)
 
-    def get_edge_property(self, n, d, p):
-        if self.has_edge(n, d):
-            return self._g[n].get_edge_property(d, p)
+        return o
 
 
     def dfs(self, n):
         if n not in self._g:
             return
 
-        visited = {}
-        order = []
-        queue = [self._g[n].get_id()]
+        v = {}
+        o = []
+        q = [n]
 
-        while queue:
-            current = queue.pop()
+        while q:
+            c = q.pop()
 
-            if current not in visited:
-                visited[current] = None
-                order.append(current)
-                queue.extend(reversed(sorted(self._g[current].get_edges())))
+            if c not in v:
+                v[c] = None
+                o.append(c)
+                q.extend(reversed(sorted(self._g[c]["edges"].keys())))
 
-        return order
+        return o
 
 
     def bfs(self, n):
         if n not in self._g:
             return
 
-        visited = {}
-        order = []
-        queue = [self._g[n].get_id()]
+        v = {}
+        o = []
+        q = [n]
 
-        while queue:
-            current = queue.pop(0)
+        while q:
+            c = q.pop(0)
 
-            if current not in visited:
-                visited[current] = None
-                order.append(current)
-                queue.extend(sorted(self._g[current].get_edges()))
+            if c not in v:
+                v[c] = None
+                o.append(c)
+                q.extend(sorted(self._g[c]["edges"].keys()))
 
-        return order
+        return o
 
 
-    def prim(self, n, p):
+    def _dijkstra(self, n, p):
         if n not in self._g:
             return
 
-        mst = []
-        k = {}
-        q = PriorityQueue()
+        pq = PriorityQueue()
+        m = {}
 
-        for v in self.get_nodes():
-            k[v] = ({"id": v, "weight": float("inf"), "parent": None})
+        for k in self._g:
+            pq.push(k, float("inf"), parent = None)
 
-        k[n]["weight"] = 0
+        pq.remove(n)
+        pq.push(n, 0)
 
-        for i in k:
-            q.push(k[i]["id"], k[i]["weight"])
+        while len(pq) > 0:
+            c = pq.pop()
+            e = self._g[c["data"]]["edges"]
 
+            for v in e:
+                t = pq.remove(v)
 
-        print(k)
+                if p not in e[v]:
+                    t = None
+                    continue
 
-        return mst
+                if e[v][p] < t["weight"]:
+                    t["parent"] = c["data"]
+                    t["weight"] = e[v][p] + c["weight"]
+                    pq.push(t["data"], t["weight"], parent = t["parent"])
 
+            if t != None and t["parent"] != None:
+                m[t["data"]] = {
+                    "parent": t["parent"],
+                    "weight": self._g[t["parent"]]["edges"][t["data"]]["weight"],
+                    "distance": t["weight"]
+                }
 
-    def kruskal(self, n):
-        pass
-
-
-    def dijkstra(self, n, d):
-        pass
-
-
-    def circuit(self):
-        pass
+        if m:
+            return m
