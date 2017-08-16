@@ -9,10 +9,31 @@ Requirements:
 - PriorityQueue.py
 """
 
+"""
+graph = {
+    "A": {
+        "B": {
+            "100": {
+                "weight": 10,
+            }
+
+        }
+    },
+
+    "B": {
+        "A": {
+            "100": {
+                "weight": 10,
+            }
+        }
+    }
+}
+"""
+
 from PriorityQueue import PriorityQueue
 
 
-class DiGraph (object):
+class BaseGraph(object):
 
     _g = None
 

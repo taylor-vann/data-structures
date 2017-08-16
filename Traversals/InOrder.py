@@ -16,7 +16,7 @@ def in_order(n, s = []):
     in_order(n.get_left())
     s.append(n.get_data())
     in_order(n.get_right())
-    
+
     return s
 
 
@@ -30,10 +30,8 @@ def rec_in_order(n):
 
 
 def itr_in_order(n):
-    s = []
+    s = [n]
     f = []
-
-    s.append(n)
 
     while s:
         while n:
@@ -43,10 +41,10 @@ def itr_in_order(n):
         t = s.pop()
 
         if t:
+            f.append(t.get_data())
+
             if t.get_right():
                 n = t.get_right()
                 s.append(n)
-
-            f.append(t.get_data())
 
     return f
