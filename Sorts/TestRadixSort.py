@@ -12,25 +12,9 @@ Required:
 
 import unittest
 from RadixSort import radix_sort
-from RadixSort import get_max
 
 
 class TestRadixSortMethods(unittest.TestCase):
-
-    def testMaxNumIsNotNone(self):
-        arr = [2, 4]
-        self.assertIsNotNone(get_max(arr))
-
-
-    def testMaxNumEmpty(self):
-        arr = []
-        self.assertEqual(get_max(arr), None)
-
-
-    def testMaxNumOne(self):
-        arr = [1]
-        self.assertEqual(get_max(arr), 1)
-
 
     def testRadixSortIsNotNone(self):
         arr = []

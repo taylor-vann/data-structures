@@ -9,27 +9,37 @@ Methods:
 - __len__
 - __contains__
 
-- search
-- insert
-- delete
+- search(key)
+- insert(key, value)
+- delete(key)
 """
 
 
 class SimpleHash(object):
 
-    m = None
-    n = None
-    bucket = None
+    _m = None
+    _n = None
+    _bucket = None
 
     def __init__(self, m = 137, n = 31):
-        self.m = m
-        self.n = n
-        self.bucket = []
+        self._m = m
+        self._n = n
+        self._bucket = []
 
-        for i in range(self.m):
-            self.bucket.append([])
+        for i in range(self._m):
+            self._bucket.append([])
 
-        print(m, n, len(self.bucket))
+
+    def __len__(self):
+        l = 0
+        for b in self._bucket:
+            l += len(b)
+
+        return l
+
+
+    def __contains__(self, key):
+        return self.search(key)
 
 
     def hash(self, key):
@@ -39,13 +49,13 @@ class SimpleHash(object):
         for c in s:
             v += ord(c)
 
-        return (v * self.n) % self.m
+        return (v * self._n) % self._m
 
 
     def search(self, key):
         k = self.hash(key)
 
-        for n in self.bucket[k]:
+        for n in self._bucket[k]:
             if n[0] == key:
                 return n[1]
 
@@ -53,18 +63,19 @@ class SimpleHash(object):
     def insert(self, key, value):
         k = self.hash(key)
 
-        for n in self.bucket[k]:
+        for n in self._bucket[k]:
             if n[0] == key:
                 n[1] = value
                 return
 
-        self.bucket[k].append([key, value])
+        self._bucket[k].append([str(key), value])
 
 
     def delete(self, key):
         k = self.hash(key)
 
-        for i in range(len(self.bucket[k])):
-            if self.bucket[k][i][0] == key:
-                self.bucket[k].pop(i)
-                return
+        for i in range(len(self._bucket[k])):
+            if self._bucket[k][i][0] == key:
+                v = self._bucket[k][i][1]
+                self._bucket[k].pop(i)
+                return v[0]

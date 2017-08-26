@@ -26,11 +26,10 @@ def shell_sort(a):
             prv = i
             idx = i + spc
 
-            while idx < n:
-                while idx > 0 and a[idx - spc] > a[idx]:
-                        a[idx], a[idx - spc] = a[idx - spc], a[idx]
-                        idx -= spc
-                prv += spc
-                idx = prv + spc
+            while idx > 0 and a[idx - spc] > a[idx]:
+                    a[idx], a[idx - spc] = a[idx - spc], a[idx]
+                    idx -= spc
+            prv += spc
+            idx = prv + spc
 
-        spc //= 2 
+        spc //= 2
