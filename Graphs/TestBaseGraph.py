@@ -82,8 +82,144 @@ class TestGraph(unittest.TestCase):
         bg.create_edges(["A", "B"], ["C", "A"])
         bg.create_edge("B", "C", **{"weight": 10})
         bg.remove_edge("B", "C", **{"weight": 10})
-        print(bg._g)
 
         self.assertFalse(bg._has_edge("B", "C"))
 
+    def testGraphDFS(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.dfs("A"), ["A", "B", "C"])
+
+
+    def testGraphDFSOne(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.dfs("C"), ["C", "B", "A"])
+
+
+    def testGraphDFSTwo(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.dfs("B"), ["B", "A", "C"])
+
+
+    def testGraphDFSFive(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_vertices("D")
+        g.create_vertices("E")
+        g.create_vertices("F")
+
+        g.create_edge("A", "B")
+        g.create_edge("A", "C")
+        g.create_edge("B", "D")
+        g.create_edge("B", "E")
+        g.create_edge("D", "F")
+        g.create_edge("E", "C")
+        g.create_edge("F", "E")
+
+        self.assertEqual(g.dfs("A"), ["A", "B", "D", "F", "E", "C"])
+
+
+    def testGraphBFS(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.bfs("A"), ["A", "B", "C"])
+
+
+    def testGraphBFSOne(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.bfs("C"), ["C", "B", "A"])
+
+
+    def testGraphBFSTwo(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_edge("A", "B")
+        g.create_edge("B", "C")
+
+        self.assertEqual(g.bfs("B"), ["B", "A", "C"])
+
+
+    def testGraphBFSFive(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_vertices("D")
+        g.create_vertices("E")
+        g.create_vertices("F")
+
+        g.create_edge("A", "B")
+        g.create_edge("A", "C")
+        g.create_edge("B", "D")
+        g.create_edge("B", "E")
+        g.create_edge("D", "F")
+        g.create_edge("E", "C")
+        g.create_edge("F", "E")
+
+        self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
+
+
+    def testDiGraphDijkstraNone(self):
+        g = BaseGraph()
+
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B", **{"weight": 5})
+        g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("D", "F", **{"weight": 15})
+        g.create_edge("E", "C", **{"weight": 20})
+        g.create_edge("F", "E", **{"weight": 25})
+        print(g._g)
+        self.assertIsNone(g._dijkstra("A", "weight"))
+    """
+    def testPrim(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+
+        g.create_edge("A", "B", weight = 10)
+
+        g.prim("A", "weight")
+
+
+    def testPrimNotInGraph(self):
+        g = BaseGraph()
+        g.create_vertices("A")
+        g.create_vertices("B")
+
+        g.create_edge("A", "B", weight = 10)
+
+        self.assertIsNone(g.prim("C", "weight"))
+    """
 unittest.main()

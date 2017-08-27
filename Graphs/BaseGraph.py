@@ -127,7 +127,7 @@ class BaseGraph(object):
             if kwargs:
                 # find by properties
                 e = self._remove_edge_by_property(d, a, **kwargs)
-                print(e)
+
                 if e:
                     self.remove_edge_by_id(e)
                 pass
@@ -206,7 +206,6 @@ class BaseGraph(object):
 
 
     def _get_edge_by_property(self, d, a, **kwargs):
-        print("searching for ... ", d, a)
         b = False
 
         for n in self._g["vertices"][d][a]:
@@ -224,7 +223,7 @@ class BaseGraph(object):
 
     def _remove_edge_instance(self, d, a, i):
         e = self._g["vertices"][d][a].pop(i, None)
-        #print(e)
+
         self._g["vertices"][a][d].pop(e, None)
         self._g["edges"].pop(i, None)
         self._g["edges"].pop(e, None)
@@ -248,34 +247,8 @@ class BaseGraph(object):
         return self._cnt - 1
 
 
-########################################################
-
-"""
-
-    def remove_node_properties(self, n, **kwargs):
-        if n in self._g:
-            for k in kwargs:
-                if k != "edges":
-                    self._g[n].pop(k, None)
-
-
-    def get_node_property(self, n, p):
-        if n in self._g:
-            if p in self._g[n]:
-                return self._g[n][p]
-
-
-#    def create_edges(self, n, *args):
-#        if n in self._g:
-#            for a in args:
-#                    continue
-#                if a in self._g:
-#                    self._g[n]["edges"][a] = {}
-#                    self._g[a]["edges"][n] = {}
-
-
     def dfs(self, n):
-        if n not in self._g:
+        if n not in self._g["vertices"]:
             return
 
         v = {}
@@ -288,13 +261,13 @@ class BaseGraph(object):
             if c not in v:
                 v[c] = None
                 o.append(c)
-                q.extend(reversed(sorted(self._g[c]["edges"].keys())))
+                q.extend(reversed(sorted(self._g["vertices"][c])))
 
         return o
 
 
     def bfs(self, n):
-        if n not in self._g:
+        if n not in self._g["vertices"]:
             return
 
         v = {}
@@ -307,7 +280,7 @@ class BaseGraph(object):
             if c not in v:
                 v[c] = None
                 o.append(c)
-                q.extend(sorted(self._g[c]["edges"].keys()))
+                q.extend(sorted(self._g["vertices"][c]))
 
         return o
 
@@ -336,30 +309,66 @@ class BaseGraph(object):
 
 
     def _dijkstra(self, n, p):
-        if n not in self._g:
+        if n not in self._g["vertices"]:
             return
 
         pq = PriorityQueue()
         m = {}
 
-        for k in self._g:
+        # only collect the tiny vertex contining correct property.
+        for k in self._g["vertices"]:
+            print(k)
             pq.push(k, float("inf"), parent = None)
 
         pq.remove(n)
         pq.push(n, 0)
 
+
+        """
         while len(pq) > 0:
             c = pq.pop()
-            e = self._g[c["data"]]["edges"]
+            print("c:", c)
+            e = self._g["vertices"][c["data"]]
             t = None
+            print("edge:", e)
+
+            for q in e:
+                for v in e[q]:
+                    print("id:", v)
+                    print("name:", self._g["edges"][v]["depart"], self._g["edges"][v][p])
+
+                    t = pq.remove(self._g["edges"][v])
+                    print("id:", self._g["edges"][v])
+
+                    if p not in self._g["edges"][v]:
+                        print("don't have property")
+                        t = None
+                        continue
+
+                    if t != None and self._g["edges"][v][p] < t["weight"]:
+                        print("you got a ne thing!")
+                        t["parent"] = c["data"]
+                        t["weight"] = self._g["edges"][v][p] + c["weight"]
+                        pq.push(t["data"], t["weight"], parent = t["parent"])
+
+                if t != None and t["parent"] != None:
+                    m[t["data"]] = {
+                        "parent": t["parent"],
+                        "weight": self._g[t["parent"]]["edges"][t["data"]]["weight"],
+                        "distance": t["weight"]
+                    }
+
+            if m:
+                return m
 
             for v in e:
                 t = pq.remove(v)
+                print("vertice:", v)
 
                 if p not in e[v]:
                     t = None
                     continue
-
+                    print("")
                 if t != None and e[v][p] < t["weight"]:
                     t["parent"] = c["data"]
                     t["weight"] = e[v][p] + c["weight"]
@@ -371,7 +380,7 @@ class BaseGraph(object):
                     "weight": self._g[t["parent"]]["edges"][t["data"]]["weight"],
                     "distance": t["weight"]
                 }
+            """
 
         if m:
             return m
-"""
