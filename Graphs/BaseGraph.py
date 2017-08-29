@@ -56,8 +56,8 @@ graph = {
         },
 
         101 = {
-            depart: B,
-            arrive: A,
+            _d: B,
+            _a: A,
             weight: 10,
         }
     }
@@ -83,32 +83,32 @@ class BaseGraph(object):
     _cnt = None
 
     # overridden
-    def __init__(self, *vertices):
+    def __init__(self, *v):
         self._cnt = 0
-        self._g = { "vertices": {}, "edges": {}, "properties": {} }
+        self._g = { "_v": {}, "_e": {}, "_p": {} }
 
-        self.create_vertices(*vertices)
+        self.create_vertices(*v)
 
 
     def __contains__(self, n):
-        if n in self._g["vertices"]:
+        if n in self._g["_v"]:
             return True
 
         return False
 
 
     # custom methods
-    def create_vertices(self, *vertices):
-        for n in vertices:
-            if n not in self._g["vertices"]:
-                self._g["vertices"][n] = {}
+    def create_vertices(self, *v):
+        for n in v:
+            if n not in self._g["_v"]:
+                self._g["_v"][n] = {}
 
 
-    def remove_vertices(self, *vertices):
-        for n in vertices:
+    def remove_vertices(self, *v):
+        for n in v:
             self._remove_node_edges(n)
 
-            self._g["vertices"].pop(n, None)
+            self._g["_v"].pop(n, None)
 
 
     def create_edges(self, *args):
@@ -116,23 +116,21 @@ class BaseGraph(object):
             self.create_edge(a[0], a[1])
 
 
-    def create_edge(self, d, a, **kwargs):
+    def create_edge(self, d, a, **p):
         self.create_vertices(d, a)
         self._create_edge_space(d, a)
-        return self._create_edge_instance(d, a, **kwargs)
+        return self._create_edge_instance(d, a, **p)
 
 
-    def remove_edge(self, d, a, **kwargs):
-        if d in self._g["vertices"] and a in self._g["vertices"][d]:
-            if kwargs:
-                # find by properties
-                e = self._remove_edge_by_property(d, a, **kwargs)
+    def remove_edge(self, d, a, **p):
+        if d in self._g["_v"] and a in self._g["_v"][d]:
+            if p:
+                e = self._get_edge_by_property(d, a, **p)
 
                 if e:
                     self.remove_edge_by_id(e)
-                pass
             else:
-                for i in self._g["vertices"][d][a]:
+                for i in self._g["_v"][d][a]:
                     self._remove_edge_instance(d, a, i)
                     break
 
@@ -140,78 +138,72 @@ class BaseGraph(object):
 
 
     def remove_edge_by_id(self, i):
-        if i in self._g["edges"]:
-            d = self._g["edges"][i]["depart"]
-            a = self._g["edges"][i]["arrive"]
+        if i in self._g["_e"]:
+            d = self._g["_e"][i]["_d"]
+            a = self._g["_e"][i]["_a"]
             self._remove_edge_instance(d, a, i)
             self._remove_empty_sub_vertices(d, a)
 
 
-    def set_node_properties(self, node, **kwargs):
-        if node in self._g["vertices"]:
-            for k in kwargs:
+    def set_node_properties(self, node, **p):
+        if node in self._g["_v"]:
+            for k in p:
                 if k != "edges":
-                    self._g[node][k] = kwargs[k]
+                    self._g[node][k] = p[k]
 
 
     def _create_edge_space(self, d, a):
-        # create arrival list in departure list
-        if a not in self._g["vertices"][d]:
-            self._g["vertices"][d][a] = {}
+        # create arrival list in _dure list
+        if a not in self._g["_v"][d]:
+            self._g["_v"][d][a] = {}
 
-        # create departure list in arrival list
-        if d not in self._g["vertices"][a]:
-            self._g["vertices"][a][d] = {}
+        # create _dure list in arrival list
+        if d not in self._g["_v"][a]:
+            self._g["_v"][a][d] = {}
 
 
-    def _create_edge_instance(self, d, a, **kwargs):
+    def _create_edge_instance(self, d, a, **p):
         n = self._get_count()
         m = self._get_count()
 
         # create instances in vertex list
-        self._g["edges"][n] = { "depart": d, "arrive": a, **kwargs }
-        self._g["edges"][m] = { "depart": a, "arrive": d, **kwargs }
+        self._g["_e"][n] = { "_d": d, "_a": a, **p }
+        self._g["_e"][m] = { "_d": a, "_a": d, **p }
 
-        # add instances to arrival and departure lists
-        self._g["vertices"][d][a][n] = m
-        self._g["vertices"][a][d][m] = n
+        # add instances to arrival and _dure lists
+        self._g["_v"][d][a][n] = m
+        self._g["_v"][a][d][m] = n
 
         return n
 
 
     def _remove_empty_sub_vertices(self, d, a):
-        if a in self._g["vertices"][d] and not self._g["vertices"][d][a]:
-            self._g["vertices"][d].pop(a, None)
+        if a in self._g["_v"][d] and not self._g["_v"][d][a]:
+            self._g["_v"][d].pop(a, None)
 
-        if d in self._g["vertices"][a] and not self._g["vertices"][a][d]:
-            self._g["vertices"][a].pop(d, None)
+        if d in self._g["_v"][a] and not self._g["_v"][a][d]:
+            self._g["_v"][a].pop(d, None)
 
 
     def _remove_node_edges(self, node):
-        for n in self._g["vertices"][node]:
-            self._remove_edges(self._g["vertices"][n].pop(node, None))
+        for n in self._g["_v"][node]:
+            self._remove_edges(self._g["_v"][n].pop(node, None))
 
 
     def _remove_edges(self, edges):
         if edges:
             for v in edges:
-                self._g["edges"].pop(v, None)
-                self._g["edges"].pop(edges[v], None)
+                self._g["_e"].pop(v, None)
+                self._g["_e"].pop(edges[v], None)
 
 
-    def _remove_edge_by_property(self, d, a, **kwargs):
+    def _get_edge_by_property(self, d, a, **p):
         b = False
 
-        return self._get_edge_by_property(d, a, **kwargs)
-
-
-    def _get_edge_by_property(self, d, a, **kwargs):
-        b = False
-
-        for n in self._g["vertices"][d][a]:
-            for k in kwargs:
-                if n in self._g["edges"] and k in self._g["edges"][n]:
-                    if kwargs[k] == self._g["edges"][n][k]:
+        for n in self._g["_v"][d][a]:
+            for k in p:
+                if n in self._g["_e"] and k in self._g["_e"][n]:
+                    if p[k] == self._g["_e"][n][k]:
                         b = True
                 else:
                     b = False
@@ -222,21 +214,21 @@ class BaseGraph(object):
 
 
     def _remove_edge_instance(self, d, a, i):
-        e = self._g["vertices"][d][a].pop(i, None)
+        e = self._g["_v"][d][a].pop(i, None)
 
-        self._g["vertices"][a][d].pop(e, None)
-        self._g["edges"].pop(i, None)
-        self._g["edges"].pop(e, None)
+        self._g["_v"][a][d].pop(e, None)
+        self._g["_e"].pop(i, None)
+        self._g["_e"].pop(e, None)
 
 
-    def _has_edge(self, d, a, i = None):
-        if d in self._g["vertices"] and a in self._g["vertices"][d]:
+    def _has_edge(self, d, a):
+        if d in self._g["_v"] and a in self._g["_v"][d]:
             return True
 
         return False
 
     def _has_edge_by_id(self, i):
-        if i and i in self._g["edges"]:
+        if i and i in self._g["_e"]:
             return True
 
         return False
@@ -248,7 +240,7 @@ class BaseGraph(object):
 
 
     def dfs(self, n):
-        if n not in self._g["vertices"]:
+        if n not in self._g["_v"]:
             return
 
         v = {}
@@ -261,13 +253,13 @@ class BaseGraph(object):
             if c not in v:
                 v[c] = None
                 o.append(c)
-                q.extend(reversed(sorted(self._g["vertices"][c])))
+                q.extend(reversed(sorted(self._g["_v"][c])))
 
         return o
 
 
     def bfs(self, n):
-        if n not in self._g["vertices"]:
+        if n not in self._g["_v"]:
             return
 
         v = {}
@@ -280,107 +272,114 @@ class BaseGraph(object):
             if c not in v:
                 v[c] = None
                 o.append(c)
-                q.extend(sorted(self._g["vertices"][c]))
+                q.extend(sorted(self._g["_v"][c]))
 
         return o
 
 
-    def get_shortest_path(self, n, d, p):
+    def get_shortest_path(self, n, d, p = None):
+        # if node or destination not in vertices, stop
+        if n not in self._g["_v"] or d not in self._g["_v"]:
+            return
+        # if node equals destination, stop
         if n == d:
             return
 
-        m = self._dijkstra(n, p)
+        tp = "_weight"
 
-        if d not in m:
+        # if property is None, make one up and get sub graphs
+        if p:
+            sg = self._get_sub_graph(p)
+        else:
+            p = tp
+            sg = self._get_sub_graph_no_property(p)
+
+        # if d not in subgraph, stop
+        if d not in sg:
             return
 
+        # get shortest distance to relative nodes with dijkstra
+        m = self._dijkstra(n, p, sg)
         l = m[d]
-        o = {
-            "distance": m[d]["distance"],
-            "path": [d],
-        }
 
+        # if no property, set distance to None
+        if p == tp:
+            o = { "distance": None, "path": [d] }
+        else:
+            o = { "distance": m[d]["_distance"], "path": [d] }
+
+        # walk back and 
         while l != n:
-            l = m[d]["parent"]
+            l = m[d]["_parent"]
             d = l
             o["path"].insert(0, l)
 
         return o
 
 
-    def _dijkstra(self, n, p):
-        if n not in self._g["vertices"]:
+    def _dijkstra(self, n, p, sg):
+        if n not in sg:
             return
 
         pq = PriorityQueue()
         m = {}
 
-        # only collect the tiny vertex contining correct property.
-        for k in self._g["vertices"]:
-            print(k)
-            pq.push(k, float("inf"), parent = None)
+        for v in sg:
+            pq.push(v, float("inf"), parent = None)
 
-        pq.remove(n)
-        pq.push(n, 0)
+        q = pq.remove(n)
+        pq.push(q["data"], 0, parent = None)
 
-
-        """
         while len(pq) > 0:
             c = pq.pop()
-            print("c:", c)
-            e = self._g["vertices"][c["data"]]
             t = None
-            print("edge:", e)
 
-            for q in e:
-                for v in e[q]:
-                    print("id:", v)
-                    print("name:", self._g["edges"][v]["depart"], self._g["edges"][v][p])
+            for e, f in sg[c["data"]].items():
+                t = pq.remove(e)
 
-                    t = pq.remove(self._g["edges"][v])
-                    print("id:", self._g["edges"][v])
+                if t != None and f[p] + c["weight"] < t["weight"]:
+                    t["parent"] = c["data"]
+                    t["weight"] = f[p] + c["weight"]
 
-                    if p not in self._g["edges"][v]:
-                        print("don't have property")
-                        t = None
-                        continue
-
-                    if t != None and self._g["edges"][v][p] < t["weight"]:
-                        print("you got a ne thing!")
-                        t["parent"] = c["data"]
-                        t["weight"] = self._g["edges"][v][p] + c["weight"]
-                        pq.push(t["data"], t["weight"], parent = t["parent"])
+                    pq.push(t["data"], t["weight"], parent = c["data"])
 
                 if t != None and t["parent"] != None:
                     m[t["data"]] = {
-                        "parent": t["parent"],
-                        "weight": self._g[t["parent"]]["edges"][t["data"]]["weight"],
-                        "distance": t["weight"]
+                        "_parent": t["parent"],
+                        p: sg[t["parent"]][t["data"]][p],
+                        "_distance": t["weight"]
                     }
-
-            if m:
-                return m
-
-            for v in e:
-                t = pq.remove(v)
-                print("vertice:", v)
-
-                if p not in e[v]:
-                    t = None
-                    continue
-                    print("")
-                if t != None and e[v][p] < t["weight"]:
-                    t["parent"] = c["data"]
-                    t["weight"] = e[v][p] + c["weight"]
-                    pq.push(t["data"], t["weight"], parent = t["parent"])
-
-            if t != None and t["parent"] != None:
-                m[t["data"]] = {
-                    "parent": t["parent"],
-                    "weight": self._g[t["parent"]]["edges"][t["data"]]["weight"],
-                    "distance": t["weight"]
-                }
-            """
 
         if m:
             return m
+
+
+    def _get_sub_graph_no_property(self, p):
+        sg = {}
+
+        for i, j in self._g["_e"].items():
+            if j["_d"] not in sg:
+                sg[j["_d"]] = {}
+            if j["_a"] == j["_d"]:
+                continue
+            if j["_a"] not in sg[j["_d"]]:
+                sg[j["_d"]][j["_a"]] = { "edge": i, p: 1 }
+
+        return sg
+
+
+    def _get_sub_graph(self, p):
+        sg = {}
+
+        for i, j in self._g["_e"].items():
+            if p in j:
+                if j["_d"] not in sg:
+                    sg[j["_d"]] = {}
+                if j["_a"] == j["_d"]:
+                    continue
+                if j["_a"] not in sg[j["_d"]]:
+                    sg[j["_d"]][j["_a"]] = { "edge": i, p: j[p] }
+                elif self._g["_e"][i][p] > j[p]:
+                    sg[j["_d"]][j["_a"]] = { "edge": i, p: j[p] }
+
+        return sg

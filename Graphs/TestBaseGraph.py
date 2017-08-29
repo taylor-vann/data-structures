@@ -191,17 +191,76 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
 
 
-    def testDiGraphDijkstraNone(self):
+    def testBGShortestPathSameNode(self):
         g = BaseGraph()
 
         g.create_vertices("A", "B", "C", "D", "E", "F")
         g.create_edge("A", "B", **{"weight": 5})
         g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("B", "D", **{"weight": 15})
         g.create_edge("D", "F", **{"weight": 15})
         g.create_edge("E", "C", **{"weight": 20})
         g.create_edge("F", "E", **{"weight": 25})
-        print(g._g)
-        self.assertIsNone(g._dijkstra("A", "weight"))
+
+        self.assertIsNone(g.get_shortest_path("A", "A", "weight"))
+
+
+    def testBGShortestPathNodeNotInGraph(self):
+        g = BaseGraph()
+
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B", **{"weight": 5})
+        g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("B", "D", **{"weight": 15})
+        g.create_edge("D", "F", **{"weight": 15})
+        g.create_edge("E", "C", **{"weight": 20})
+        g.create_edge("F", "E", **{"weight": 25})
+
+        self.assertIsNone(g.get_shortest_path("G", "A", "weight"))
+
+
+    def testBGShortestPathDestinationNotInGraph(self):
+        g = BaseGraph()
+
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B", **{"weight": 5})
+        g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("B", "D", **{"weight": 15})
+        g.create_edge("D", "F", **{"weight": 15})
+        g.create_edge("E", "C", **{"weight": 20})
+        g.create_edge("F", "E", **{"weight": 25})
+
+        self.assertIsNone(g.get_shortest_path("A", "G", "weight"))
+
+
+    def testBGShortestPathSix(self):
+        g = BaseGraph()
+
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B", **{"weight": 5})
+        g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("B", "D", **{"weight": 15})
+        g.create_edge("D", "F", **{"weight": 15})
+        g.create_edge("E", "C", **{"weight": 20})
+        g.create_edge("F", "E", **{"weight": 25})
+        rslt = { "path": ["A", "B", "D"], "distance": 15 }
+        self.assertEqual(g.get_shortest_path("A", "D", "weight"), rslt)
+
+
+
+    def testBGNoPropertyShortestPath(self):
+        g = BaseGraph()
+
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B")
+        g.create_edge("B", "D")
+        g.create_edge("B", "D")
+        g.create_edge("D", "F")
+        g.create_edge("E", "C")
+        g.create_edge("F", "E")
+        rslt = { "distance": None, "path": ["A", "B", "D"] }
+        self.assertEqual(g.get_shortest_path("A", "D"), rslt)
+
     """
     def testPrim(self):
         g = BaseGraph()
