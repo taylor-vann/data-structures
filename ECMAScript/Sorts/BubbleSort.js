@@ -1,19 +1,19 @@
 /*
- * Brian Taylor Vann
- * github.com/taylor-vann
- *
- * Description:
- * - Module to bubble sort a list
- *
- * Requirements:
- * - None
+Brian Taylor Vann
+github.com/taylor-vann
 
- * Methods:
- * - bubbleSort()
- */
+Description:
+- Module to bubble sort a list
 
-function bubbleSort(lst) {
-  l = lst.length
+Requirements:
+- None
+
+Methods:
+- bubbleSort()
+*/
+
+function bubbleSort(a) {
+  l = a.length
 
   if(l < 2) {
     return lst;
@@ -21,21 +21,26 @@ function bubbleSort(lst) {
 
   b = true
 
+  // until list is traversed without swapping ...
   while(b) {
+    // compare one element to the next for the list ...
     for(var j = 0; j < l - 1; j++) {
-      if(lst[j] > lst[j + 1]) {
-        tmp = lst[j];
-        lst[j] = lst[j + 1];
-        lst[j + 1] = tmp;
+      // if prev is less than next then swap ...
+      if(a[j] > a[j + 1]) {
+        tmp = a[j];
+        a[j] = a[j + 1];
+        a[j + 1] = tmp;
 
         b = false;
       }
     }
 
+    // if there was no swap then break ...
     if(b === true) {
       break;
     }
 
+    // reset for next round
     b = true;
   }
 

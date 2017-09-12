@@ -15,17 +15,18 @@ Methods:
 def insertion_sort(a):
     n = len(a)
 
-    if n <= 1:
-        return
+    if n < 2:
+        return a
 
-    prv = 0
+    # walk through the list
+    for j in range(1, n):
+        cur = j
+        prv = j - 1
 
-    for i in range(n):
-        indx = i
+        # descend the list and swap elements if prev larger than next
+        while a[prv] > a[cur] and prv > -1:
+            a[prv], a[cur] = a[cur], a[prv]
+            cur -= 1
+            prv = cur - 1
 
-        while a[prv] > a[indx] and indx > 0:
-            a[indx], a[prv] = a[prv], a[indx]
-            prv -=1
-            indx -=1
-
-        prv = i
+    return a

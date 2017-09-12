@@ -14,13 +14,10 @@ Of course, like every good computer science student, all of these endeavours are
 
 If you're studying for your comp-sci courses, you should rely on the examples provided by your professors. That's what'll give you the grade.
 
-If you're in a coding bootcamp program like Udacity or Treehouse, go away. I don't like you. Nobody does. You're disenfranchising a union-less market. Go to college or university and support real educators and institutions.
-
 If you're teaching yourself and just need an extra perspective, I hope these help.
 
 ### Sorts ###
 
-Types of Sorts
 * BubbleSort
 * InsertionSort
 * SelectionSort
@@ -30,144 +27,49 @@ Types of Sorts
 * HeapSort
 * RadixSort
 
-```Python
-bubble_sort(<list>)
-insertion_sort(<list>)
-selection_sort(<list>)
-shell_sort(<list>)
-quick_sort(<list>, 0, len(<list>))
-sorted = merge_sort(<list>)
-heap_sort(<list>)
-sorted = radix_sort(<list>)
-```
-
-
 ### Traversals ###
-
 
 * Level Order
 * In Order
 * Pre Order
 * Post Order
 
-```Python
-level_order(<node>)
+### Searches ###
 
-in_order(<node>)
-rec_in_order(<node>)
-itr_in_order(<node>)
-
-pre_order(<node>)
-rec_pre_order(<node>)
-itr_pre_order(<node>)
-
-post_order(<node>)
-rec_post_order(<node>)
-itr_post_order(<node>)
-```
+* Binary Search
+* Breadth First Search
+* Depth First Search
 
 ### Stacks, Queues, & Lists ###
 
-```Python
-stack = Stack()
-stack = Stack(<data>, <data>, ...)
-
-stack.peek()
-stack.search()
-stack.push(<data>)
-stack.pop()
-```
-
-Queue
-
-```Python
-que = Queue()
-que = Queue(<data>, <data>, ...)
-
-que.peek()
-que.search(<data>)
-que.enqueue(<data>)
-que.dequeue()
-```
-
-Singly Linked List
-
-```Python
-lst = SLList()
-lst = SLList(<data>, <data>, ...)
-
-lst.peek()
-lst.search(<data>)
-lst.insert(<data>)
-lst.insert_after(<new>, <data>)
-lst.remove()
-lst.remove_data(<data>)
-```
-
-Doubly Linked List
-
-```Python
-dlst = DLList()
-dlst = DLList(<data>, <data>, ...)
-
-lst.peek()
-lst.peek_last()
-lst.find(<data>)
-lst.insert(<data>)
-lst.insert_after(<insert>, <after>)
-lst.remove()
-lst.remove_data(<data>)
-lst.unshift(<data>)
-lst.shift()
-```
+* Stack
+* Queue
+* Singly Linked List
+* Doubly Linked List
+* Circular List
 
 ### Trees & Heaps ###
 
-BSTree
+* MaxHeap
+* MinHeap
+* BSTree
+* AVLTree
 
-```Python
-bstree = BSTree()
-tnode = BSTree(<data>, <data>, ...)
 
-tnode.insert(<data>)
-tnode.remove(<data>)
-tnode.search(<data>)
-```
+### Graphs ###
 
-MaxHeap
+* Graph
+* DiGraph
+* MultiGraph
+* MultiDiGraph
 
-```Python
-mx = MaxHeap()
-mx = MaxHeap(<data>, <data>, ...)
+### Numbers ###
 
-mx.push(<data>)
-mx.pop()
-mx.remove(<data>)
-mx.peek()
-```
-
-MinHeap
-
-```Python
-mn = MinHeap()
-mn = MinHeap(<data>, <data>, ...)
-
-mn.push(<data>)
-mn.pop()
-mn.remove(<data>)
-mn.peek()
-```
-
-AVLTree
-
-```Python
-avl = AVLTree()
-avl = BSTree(<data>, <data>, ...)
-
-avl.insert(<data>)
-avl.remove(<data>)
-avl.search(<data>)
-```
+* Babylon Square Root
+* Newton Square Root
+* Sieve of Erotosthenes
+* Greatest Common Denominator
+* Largest Common Multiple
 
 ## License ##
 
