@@ -12,7 +12,6 @@ Requirements:
 """
 
 import unittest
-from GraphNode import GraphNode
 from Graph import Graph
 
 
@@ -21,130 +20,77 @@ class TestGraph(unittest.TestCase):
     def testGraphIsNotNull(self):
         self.assertIsNotNone(Graph)
 
-
-    def testGraphAddGetNode(self):
-        n = GraphNode("A")
-        n.add_edge("B", weight = 10)
-        m = GraphNode("B")
-        m.add_edge("A", weight = 5)
-        o = GraphNode("C")
-        o.add_edge("A", weight = 3)
-
-        g = Graph(n, m, o)
-
-        self.assertTrue("B" in g)
-
-
-    def testGraphContains(self):
-        n = GraphNode("A")
-        n.add_edge("B", weight = 10)
-        m = GraphNode("B")
-        m.add_edge("A", weight = 5)
-        o = GraphNode("C")
-        o.add_edge("A", weight = 3)
-
-        g = Graph(n, m, o)
-
-        self.assertTrue("B" in g)
-
-
-    def testGraphNotContains(self):
-        n = GraphNode("A")
-        n.add_edge("B", weight = 10)
-        m = GraphNode("B")
-        m.add_edge("A", weight = 5)
-        o = GraphNode("C")
-        o.add_edge("A", weight = 3)
-
-        g = Graph(n, m, o)
-
-        self.assertTrue("D" not in g)
-
-
-    def testGraphCreateNode(self):
+    def testGraphIsNotNone(self):
         g = Graph()
-        g.create_node("A")
+        self.assertIsNotNone(g)
 
+    def testGInsertNodeOnInit(self):
+        g = Graph("A", "B")
         self.assertTrue("A" in g)
 
-
-    def testGraphRemoveNode(self):
+    def testGInsertNode(self):
         g = Graph()
-        g.create_node("A")
-        g.remove_node("A")
+        g.create_vertices("A", "B")
+        self.assertTrue("A" in g)
 
-        self.assertTrue("A" not in g)
-
-
-    def testGraphAddNodeAddEdge(self):
+    def testGRemoveNode(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_edge("A", "B")
+        g.create_vertices("A", "B")
+        g.remove_vertices("A")
+        self.assertFalse("A" in g)
 
-        self.assertTrue(g.has_edge("A", "B"))
-
-
-    def testGraphAddNodeRemoveEdge(self):
+    def testGHasEdge(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_edge("A", "B")
-        g.remove_edge("A", "B")
+        g.create_vertices("A", "B")
+        g.create_edge("A", "B", **{"weight": 10})
+        self.assertTrue(g._has_edge("A", "B"))
 
-        self.assertFalse(g.has_edge("A", "B"))
-
-
-    def testGraphGetEdgeProperty(self):
+    def testGHasBackEdge(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_edge("A", "B", weight = 10)
+        g.create_vertices("A", "B")
+        g.create_edge("A", "B", **{"weight": 10})
+        self.assertTrue(g._has_edge("B", "A"))
 
-        self.assertEqual(g.get_edge_property("A", "B", "weight"), 10)
-
-
-    def testGraphDFS(self):
+    def testGOnlyOneEdge(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_edge("A", "B")
-        g.create_edge("B", "C")
-
-        self.assertEqual(g.dfs("A"), ["A", "B", "C"])
+        g.create_vertices("A", "B")
+        one = g.create_edge("A", "B", **{"weight": 10})
+        two = g.create_edge("A", "B", **{"weight": 20})
+        print(one, two)
+        print(g._g)
+        self.assertFalse(g._has_edge_by_id(one))
 
 
     def testGraphDFSOne(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
         g.create_edge("A", "B")
         g.create_edge("B", "C")
 
-        self.assertEqual(g.dfs("C"), ["C"])
+        self.assertEqual(g.dfs("C"), ["C", "B", "A"])
 
 
     def testGraphDFSTwo(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
         g.create_edge("A", "B")
         g.create_edge("B", "C")
 
-        self.assertEqual(g.dfs("B"), ["B", "C"])
+        self.assertEqual(g.dfs("B"), ["B", "A", "C"])
 
 
     def testGraphDFSFive(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_node("D")
-        g.create_node("E")
-        g.create_node("F")
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_vertices("D")
+        g.create_vertices("E")
+        g.create_vertices("F")
 
         g.create_edge("A", "B")
         g.create_edge("A", "C")
@@ -154,15 +100,14 @@ class TestGraph(unittest.TestCase):
         g.create_edge("E", "C")
         g.create_edge("F", "E")
 
-
         self.assertEqual(g.dfs("A"), ["A", "B", "D", "F", "E", "C"])
 
 
     def testGraphBFS(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
         g.create_edge("A", "B")
         g.create_edge("B", "C")
 
@@ -171,34 +116,34 @@ class TestGraph(unittest.TestCase):
 
     def testGraphBFSOne(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
         g.create_edge("A", "B")
         g.create_edge("B", "C")
 
-        self.assertEqual(g.bfs("C"), ["C"])
+        self.assertEqual(g.bfs("C"), ["C", "B", "A"])
 
 
     def testGraphBFSTwo(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
         g.create_edge("A", "B")
         g.create_edge("B", "C")
 
-        self.assertEqual(g.bfs("B"), ["B", "C"])
+        self.assertEqual(g.bfs("B"), ["B", "A", "C"])
 
 
     def testGraphBFSFive(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
-        g.create_node("C")
-        g.create_node("D")
-        g.create_node("E")
-        g.create_node("F")
+        g.create_vertices("A")
+        g.create_vertices("B")
+        g.create_vertices("C")
+        g.create_vertices("D")
+        g.create_vertices("E")
+        g.create_vertices("F")
 
         g.create_edge("A", "B")
         g.create_edge("A", "C")
@@ -211,22 +156,75 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.bfs("A"), ["A", "B", "C", "D", "E", "F"])
 
 
-    def testPrim(self):
+    def testBGShortestPathSameNode(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
 
-        g.create_edge("A", "B", weight = 10)
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B", **{"weight": 5})
+        g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("B", "D", **{"weight": 15})
+        g.create_edge("D", "F", **{"weight": 15})
+        g.create_edge("E", "C", **{"weight": 20})
+        g.create_edge("F", "E", **{"weight": 25})
 
-        g.prim("A", "weight")
+        self.assertIsNone(g.get_shortest_path("A", "A", "weight"))
 
-    def testPrimNotInGraph(self):
+
+    def testBGShortestPathNodeNotInGraph(self):
         g = Graph()
-        g.create_node("A")
-        g.create_node("B")
 
-        g.create_edge("A", "B", weight = 10)
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B", **{"weight": 5})
+        g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("B", "D", **{"weight": 15})
+        g.create_edge("D", "F", **{"weight": 15})
+        g.create_edge("E", "C", **{"weight": 20})
+        g.create_edge("F", "E", **{"weight": 25})
 
-        self.assertIsNone(g.prim("C", "weight"))
+        self.assertIsNone(g.get_shortest_path("G", "A", "weight"))
+
+
+    def testBGShortestPathDestinationNotInGraph(self):
+        g = Graph()
+
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B", **{"weight": 5})
+        g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("B", "D", **{"weight": 15})
+        g.create_edge("D", "F", **{"weight": 15})
+        g.create_edge("E", "C", **{"weight": 20})
+        g.create_edge("F", "E", **{"weight": 25})
+
+        self.assertIsNone(g.get_shortest_path("A", "G", "weight"))
+
+
+    def testBGShortestPathSix(self):
+        g = Graph()
+
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B", **{"weight": 5})
+        g.create_edge("B", "D", **{"weight": 10})
+        g.create_edge("B", "D", **{"weight": 15})
+        g.create_edge("D", "F", **{"weight": 15})
+        g.create_edge("E", "C", **{"weight": 20})
+        g.create_edge("F", "E", **{"weight": 25})
+        rslt = { "path": ["A", "B", "D"], "distance": 20 }
+        self.assertEqual(g.get_shortest_path("A", "D", "weight"), rslt)
+
+
+
+    def testBGNoPropertyShortestPath(self):
+        g = Graph()
+
+        g.create_vertices("A", "B", "C", "D", "E", "F")
+        g.create_edge("A", "B")
+        g.create_edge("B", "D")
+        g.create_edge("B", "D")
+        g.create_edge("D", "F")
+        g.create_edge("E", "C")
+        g.create_edge("F", "E")
+        rslt = { "distance": None, "path": ["A", "B", "D"] }
+        self.assertEqual(g.get_shortest_path("A", "D"), rslt)
+
 
 unittest.main()

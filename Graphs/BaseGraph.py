@@ -166,11 +166,11 @@ class BaseGraph(object):
         n = self._get_count()
         m = self._get_count()
 
-        # create instances in vertex list
+        # create instances in edge list
         self._g["_e"][n] = { "_d": d, "_a": a, **p }
         self._g["_e"][m] = { "_d": a, "_a": d, **p }
 
-        # add instances to arrival and _dure lists
+        # add instances to _a and _d lists
         self._g["_v"][d][a][n] = m
         self._g["_v"][a][d][m] = n
 
@@ -228,7 +228,7 @@ class BaseGraph(object):
         return False
 
     def _has_edge_by_id(self, i):
-        if i and i in self._g["_e"]:
+        if i in self._g["_e"]:
             return True
 
         return False
@@ -308,7 +308,7 @@ class BaseGraph(object):
         else:
             o = { "distance": m[d]["_distance"], "path": [d] }
 
-        # walk back and 
+        # walk back and
         while l != n:
             l = m[d]["_parent"]
             d = l
