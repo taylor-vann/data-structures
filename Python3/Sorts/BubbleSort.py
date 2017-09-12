@@ -15,10 +15,18 @@ Methods:
 def bubble_sort(a):
     n = len(a)
 
-    if n <= 1:
+    if n < 2:
         return
 
-    for i in range(n):
-        for j in range(i + 1, n):
-            if a[i] > a[j]:
-                a[i], a[j] = a[j], a[i]
+    b = True
+
+    while b:
+        for i in range(n - 1):
+            if a[i] > a[i + 1]:
+                a[i], a[i + 1] = a[i + 1], a[i]
+                b = False
+
+        if b == True:
+            break
+
+        b = True
