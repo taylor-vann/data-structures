@@ -1,0 +1,15 @@
+insertionSort(list)
+  l as length of list
+
+  if l < 2 return list
+
+  for j in range 1 to l
+    cur = j
+    prv = j - 1
+
+    while list[prv] > list[cur] and prv > -1
+      swap list[prv] and list[cur]
+      cur = cur - 1
+      prv = cur - 1
+
+  return list

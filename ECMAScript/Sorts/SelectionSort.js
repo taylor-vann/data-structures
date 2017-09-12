@@ -20,14 +20,14 @@ function selectionSort(a) {
   }
 
   // walk through list ...
-  for(var i = 0; i < l; i++) {
+  for(var i = 0; i < l - 1; i++) {
     // establish an index
     var indx = i;
 
     // walk through the rest of the list ...
-    for(var j = 0; j < l; j++) {
+    for(var j = i; j < l; j++) {
       // if current is less than index, make index equal to current ...
-      if(a[j] > a[indx]) {
+      if(a[indx] > a[j]) {
         indx = j;
       }
 
@@ -42,3 +42,5 @@ function selectionSort(a) {
 
   return a;
 }
+
+console.log(selectionSort([0,3,4,3,2,5]))

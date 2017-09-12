@@ -16,7 +16,7 @@ Methods:
 def shell_sort(a):
     n = len(a)
 
-    if n <= 1:
+    if n < 2:
         return
 
     spc = n
