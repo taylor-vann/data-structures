@@ -16,15 +16,22 @@ Methods:
 def selection_sort(a):
     n = len(a)
 
-    if n <= 1:
+    if n < 2:
         return a
 
+    # walk through list ...
     for i in range(n):
-        mindx = i
+        # establish an index
+        indx = i
 
+        # walk through the rest of the list ...
         for j in range(i + 1, n):
-            if a[j] < a[mindx]:
-                mindx = j
+            # if current is less than index, make index equal to current ...
+            if a[j] < a[indx]:
+                indx = j
 
-        if mindx != i:
-            a[mindx], a[i] = a[i], a[mindx]
+        # if index is different than start, swap values ...
+        if indx != i:
+            a[indx], a[i] = a[i], a[indx]
+
+    return a
