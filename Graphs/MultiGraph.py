@@ -1,4 +1,4 @@
-cd"""
+"""
 Brian Taylor Vann
 github.com/taylor-vann
 
@@ -12,3 +12,4 @@ Requirements:
 from BaseGraph import BaseGraph
 
 class MultiGraph(BaseGraph):
+    pass
