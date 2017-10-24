@@ -18,22 +18,22 @@ def bubble_sort(a):
     if n < 2:
         return a
 
-    b = True
+    not_swpd = True
 
     # until list is traversed without swapping ...
-    while b:
+    while not_swpd:
         # compare one element to the next for the list ...
         for i in range(n - 1):
             # if prev is less than next then swap ...
             if a[i] > a[i + 1]:
                 a[i], a[i + 1] = a[i + 1], a[i]
-                b = False
+                not_swpd = False
 
         # if there was no swap then break ...
-        if b == True:
+        if not_swpd == True:
             break
 
         # reset for next round
-        b = True
+        not_swpd = True
 
     return a

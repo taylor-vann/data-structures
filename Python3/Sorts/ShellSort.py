@@ -14,22 +14,24 @@ Methods:
 
 
 def shell_sort(a):
-    n = len(a)
+    l = len(a)
 
-    if n < 2:
-        return
+    if l < 2:
+        return a
 
-    spc = n
+    # make space half of list length
+    spc = l // 2
 
+    # while space is at least 1
     while spc > 0:
-        for i in range(spc):
-            prv = i
-            idx = i + spc
+        # run through list from space index to list length
+        for j in range(spc, l):
+            # use a modified insertion sort based on space
+            while j - spc > -1 and a[j - spc] > a[j]:
+                a[j - spc], a[j] = a[j], a[j - spc]
+                j -= spc
 
-            while idx > 0 and a[idx - spc] > a[idx]:
-                    a[idx], a[idx - spc] = a[idx - spc], a[idx]
-                    idx -= spc
-            prv += spc
-            idx = prv + spc
-
+        # half space as int
         spc //= 2
+
+    return a

@@ -3,13 +3,13 @@ Brian Taylor Vann
 github.com/taylor-vann
 
 Description:
-- Module to insertion sort a list
+- Function to insertion sort a list
 
 Requirements:
 - None
 
 Methods:
-- insetion_sort
+- insetionSort
 */
 
 function insertionSort(a) {

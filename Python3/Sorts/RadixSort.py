@@ -6,7 +6,8 @@ Description:
 - Module to Radix sort a list
 
 Requirements:
-- Assumes whole numbers (pos ints: 0, 1, 2, ...)
+- Assumes whole numbers
+- Least Significant Digit (LSD) Radix Sort
 
 Methods:
 - radix_sort
@@ -15,35 +16,27 @@ Methods:
 
 
 def radix_sort(a, base = 10):
-    if len(a) <= 1:
+    if len(a) < 2:
         return a
 
-    bckt = a
-    exp = base
+    srtd = a[:]
+    pos = base
     mod = 1
-    max_num = max(a)
+    max_num = max(srtd)
 
-    while max_num//mod > 0:
-        bckt = bucketish_sort(bckt, exp, mod)
-        exp *= base
+    while max_num // mod > 0:
+        srtd = digit_sort(srtd, pos, mod, base)
+        pos *= base
         mod *= base
 
-    return bckt
+    return srtd
 
 
-def bucketish_sort(a, exp, mod, base = 10):
-    bckt = []
-
-    for i in range(base):
-        bckt.append([])
-
-    coll = []
+def digit_sort(a, pos, mod, base):
+    bckt = [[] for j in range(base)]
 
     for val in a:
-        index = (val % exp)//mod
-        bckt[index].append(val)
+        indx = (val % pos) // mod
+        bckt[indx].append(val)
 
-    for var in bckt:
-        coll += var
-
-    return coll
+    return sum(bckt, [])

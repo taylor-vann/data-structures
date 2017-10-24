@@ -1,3 +1,9 @@
+Brian Taylor Vann
+github.com/taylor-vann
+
+Selection Sort Pseudo Code
+
+
 selectionSort(list)
   l as length of list
 

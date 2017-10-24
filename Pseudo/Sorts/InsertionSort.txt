@@ -1,3 +1,7 @@
+Insertion Sort Pseudo Code
+Brian Taylor Vann
+
+
 insertionSort(list)
   l as length of list
 

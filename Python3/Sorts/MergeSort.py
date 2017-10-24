@@ -15,16 +15,13 @@ Methods:
 
 
 def merge_sort(a):
-    if len(a) <= 1:
+    if len(a) < 2:
         return a
 
     p = len(a) // 2
 
-    l1 = a[:p]
-    l2 = a[p:]
-
-    l1 = merge_sort(l1)
-    l2 = merge_sort(l2)
+    l1 = merge_sort(a[:p])
+    l2 = merge_sort(a[p:])
 
     return merge(l1, l2)
 
@@ -32,17 +29,13 @@ def merge_sort(a):
 def merge(a, b):
     c = []
 
-    while len(a) and len(b):
+    while a and b:
         if a[0] < b[0]:
-            c.append(a.pop(0)) 
+            c += a.pop(0)
         else:
-            c.append(b.pop(0))
-            
+            c += b.pop(0)
 
-    while len(a):
-        c.append(a.pop(0))
-
-    while len(b):
-        c.append(b.pop(0))
+    c += a
+    c += b
 
     return c

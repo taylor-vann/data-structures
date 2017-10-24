@@ -1,0 +1,28 @@
+Merge Sort Pseudo Code
+Brian Taylor Vann
+
+
+mergeSort(list)
+  if length of list < 2 return list
+
+  p as integer half of length of list
+
+  list1 as mergeSort(list[0 to p - 1])
+  list2 as mergeSort(list[p to l - 1])
+
+  return merge(list1, list2)
+
+
+merge(list1, list2)
+  newList as []
+
+  while list1 and list2 not empty
+    if list1[0] < list2[0]
+      remove list1[0] and append to newList
+    else
+      remove list2[0] and append to newList
+
+  append leftover of list1 to newList
+  append leftover of list2 to newList
+
+  return newList

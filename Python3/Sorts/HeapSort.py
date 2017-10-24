@@ -7,32 +7,32 @@ Description:
 
 Requirements:
 - None
+
+Methods:
+- heap_sort
+- sift_down
 """
 
 def heap_sort(a):
-    l = len(a) - 1
-
-    if l < 1:
-        return
-
-    heapify(a)
-
-    for i in range(l, -1, -1):
-        a[0], a[i] = a[i], a[0]
-        perc_down(a, 0, i)
-
-
-def heapify(a):
     l = len(a)
 
-    b = l // 2
+    if l < 2:
+        return a
 
-    while b > -1:
-        perc_down(a, b, l)
-        b -= 1
+    # from last parent to first, sift down to make largest value at the top
+    for j in range(l // 2, -1, -1):
+        sift_down(a, j, l)
+
+    # swap largest and smallest value and sift down
+    for k in range(l - 1, -1, -1):
+        a[0], a[k] = a[k], a[0]
+        sift_down(a, 0, k)
+
+    # send list, half of length, and length to heapify
+    return a
 
 
-def perc_down(a, i, l):
+def sift_down(a, i, l):
     c = i
     n = 2 * c + 1
 

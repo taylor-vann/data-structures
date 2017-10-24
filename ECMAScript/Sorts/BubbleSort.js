@@ -3,7 +3,7 @@ Brian Taylor Vann
 github.com/taylor-vann
 
 Description:
-- Module to bubble sort a list
+- Function to bubble sort a list
 
 Requirements:
 - None

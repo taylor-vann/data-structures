@@ -1,0 +1,37 @@
+Brian Taylor Vann
+github.com/taylor-vann
+
+Heap Sort Pseudo Code
+
+
+heapSort(list)
+  l = length of list
+  h = integer have of list length
+
+  if l < 2
+    return list
+
+  for every index from h to 0
+    siftDown(list, index, l)
+
+  for every index from l - 1 to 0
+    swap list[0] and list[index]
+    siftDown(list, 0, index)
+
+  return list
+
+
+siftDown(list, start, stop)
+  cur = start
+  nxt = start * 2 + 1
+
+  while nxt < stop
+    if nxt < stop - 1 and list[nxt] < list[nxt + 1]
+      nxt += 1
+
+    if list[cur] > list[nxt]
+      swap list[cur] and list[nxt]
+      cur = nxt
+      nxt = cur * 2 + 1
+    else
+      break

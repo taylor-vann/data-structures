@@ -4,6 +4,7 @@ github.com/taylor-vann
 
 Description:
 - Module to quick sort a list
+- untraditional, copies list, more thread safe
 
 Requirements:
 - None
@@ -14,18 +15,26 @@ Methods:
 """
 
 
-def quick_sort(a, lo, hi):
-    if len(a) <= 1:
-        return
+def quick_sort(a):
+    if len(a) < 2:
+        return a
 
-    if lo < hi:
-        p = partition(a, lo, hi)
-        quick_sort(a, lo, p - 1)
-        quick_sort(a, p + 1, hi)
+    p, q = partition(a[:])
+
+    l1 = quick_sort(p)
+    l2 = quick_sort(q)
+
+    return l1 + l2
 
 
-def partition(a, lo, hi):
+def partition(a):
+    lo = 0
+    hi = len(a) - 1
+
     while True:
+        if a[lo] == a[hi]:
+            lo += 1
+
         while a[lo] < a[hi]:
             lo += 1
 
@@ -33,8 +42,6 @@ def partition(a, lo, hi):
             hi -= 1
 
         if lo >= hi:
-            break
-        else:
-            a[lo], a[hi] = a[hi], a[lo]
+            return a[:lo], a[lo:]
 
-    return lo
+        a[lo], a[hi] = a[hi], a[lo]

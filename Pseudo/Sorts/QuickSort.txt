@@ -1,0 +1,26 @@
+Brian Taylor Vann
+github.com/taylor-vann
+
+Quick Sort Pseudo Code
+
+
+quickSort(list, lo, hi)
+  if length of list < 2 return list
+
+  if lo < hi then partition and find pivot
+    p is partition(list)
+    quickSort(a, lo, p - 1)
+    quickSort(a, p + 1, hi)
+
+
+partition(list, lo hi)
+  loop forever:
+      while list[lo] < list[hi]:
+          lo += 1
+      while list[hi] > list[lo]:
+          hi -= 1
+
+      if lo >= hi:
+          return lo
+
+      swap list[lo] and list[high]

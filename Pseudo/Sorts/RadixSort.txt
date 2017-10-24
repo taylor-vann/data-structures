@@ -1,0 +1,36 @@
+Brian Taylor Vann
+github.com/taylor-vann
+
+Quick Sort Pseudo Code
+
+
+radixSort(array, base)
+  if length of array < 2 return array
+
+  sorted is copy of array
+  position is base
+  modifier is 1
+  maxNumber is maximum in array
+
+  while maxNumber // mod > 0
+    sorted is digitSort(sorted, pos, mod, base)
+    pos is pos * base
+    mod is mod * base
+
+  return sorted
+
+
+digitSort(array, pos, mod, base)
+  bucket is 2d array with length of base
+
+  for every value in array
+    index = (value % pos) // mod
+    push value to bucket[index]
+
+  collate is a new array
+
+  for every bit in bucket
+    for every piece in bucket
+      push piece to collate
+
+  return collate

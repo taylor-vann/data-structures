@@ -1,0 +1,24 @@
+Brian Taylor Vann
+github.com/taylor-vann
+
+Bubble Sort Psuedo Code
+
+
+bubbleSort(list)
+  l as length of list
+
+  if l < 2 return list
+
+  not_swapped = True
+
+  while not_swapped is True
+    for j in range 0 to l - 1
+      if l[j] > l[j + 1]
+        not_swapped j and j + 1
+        not_swapped is False
+
+    if not_swapped is True break while loop
+
+    not_swapped = True
+
+  return list
