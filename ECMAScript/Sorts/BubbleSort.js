@@ -13,36 +13,37 @@ Methods:
 */
 
 function bubbleSort(a) {
-  l = a.length
-
-  if(l < 2) {
-    return lst;
+  if(a.length < 2) {
+    return a;
   }
 
-  b = true
+  notSwpd = true
 
   // until list is traversed without swapping ...
-  while(b) {
+  while(notSwpd) {
     // compare one element to the next for the list ...
-    for(var j = 0; j < l - 1; j++) {
+    for(var j = 0; j < a.length - 1; j++) {
       // if prev is less than next then swap ...
       if(a[j] > a[j + 1]) {
         tmp = a[j];
         a[j] = a[j + 1];
         a[j + 1] = tmp;
 
-        b = false;
+        notSwpd = false;
       }
     }
 
     // if there was no swap then break ...
-    if(b === true) {
+    if(notSwpd === true) {
       break;
     }
 
     // reset for next round
-    b = true;
+    notSwpd = true;
   }
 
-  return lst;
+  return a;
 }
+
+
+console.log(bubbleSort([1, 6, 3, 8, 9, 4]))

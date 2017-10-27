@@ -34,11 +34,7 @@ function partition(a) {
   var hi = a.length - 1;
 
   while(true) {
-    if(a[lo] === a[hi]) {
-      lo += 1;
-    }
-
-    while(a[lo] < a[hi]) {
+    while(a[lo] <= a[hi]) {
       lo += 1;
     }
 

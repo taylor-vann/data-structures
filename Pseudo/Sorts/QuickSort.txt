@@ -3,7 +3,7 @@ github.com/taylor-vann
 
 Quick Sort Pseudo Code
 
-
+``
 quickSort(list, lo, hi)
   if length of list < 2 return list
 
@@ -13,14 +13,18 @@ quickSort(list, lo, hi)
     quickSort(a, p + 1, hi)
 
 
-partition(list, lo hi)
+partition(list, lo, hi)
   loop forever:
+      if list[lo] == list[hi]
+        lo += 1
+
       while list[lo] < list[hi]:
-          lo += 1
+        lo += 1
+
       while list[hi] > list[lo]:
-          hi -= 1
+        hi -= 1
 
       if lo >= hi:
-          return lo
+        return lo
 
       swap list[lo] and list[high]

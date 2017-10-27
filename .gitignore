@@ -1,4 +1,6 @@
-#simple python ignores
+# python ignores
 __pycache__/
 *.pyc
 
+# java ignores
+*.class

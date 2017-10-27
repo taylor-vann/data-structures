@@ -32,10 +32,7 @@ def partition(a):
     hi = len(a) - 1
 
     while True:
-        if a[lo] == a[hi]:
-            lo += 1
-
-        while a[lo] < a[hi]:
+        while a[lo] <= a[hi]:
             lo += 1
 
         while a[hi] > a[lo]:

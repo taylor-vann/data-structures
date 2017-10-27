@@ -15,8 +15,6 @@ Methods:
 */
 
 function radixSort(a, base = 10) {
-  // var base = (typeof base === "undefined") ? 10 : base;
-
   if(a.length < 2) {
     return a;
   }
@@ -52,12 +50,3 @@ function digitSort(a, pos, mod, base) {
 
   return coll.concat(...bckt);
 }
-
-
-console.log(radixSort([]));
-console.log(radixSort([1]));
-console.log(radixSort([9, 4, 12]));
-console.log(radixSort([1, 8, 4, 7, 13, 67, 45]));
-console.log(radixSort([5, 102, 56, 8]));
-console.log(radixSort([90, 45, 67, 87, 22, 1, 5]));
-console.log(radixSort([3456, 5, 64, 21, 10]));
