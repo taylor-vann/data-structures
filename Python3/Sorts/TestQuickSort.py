@@ -11,8 +11,7 @@ Required:
 """
 
 import unittest
-from QuickSort import quick_sort
-from QuickSort import partition
+from QuickSort import quick_sort, partition
 
 
 class TestQuickSortMethods(unittest.TestCase):
