@@ -1,15 +1,6 @@
 """
 Brian Taylor Vann
 github.com/taylor-vann
-
-Description:
-- Module to bubble sort a list
-
-Requirements:
-- None
-
-Methods:
-- bubble_sort
 """
 
 def bubble_sort(arr):
