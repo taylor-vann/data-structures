@@ -12,28 +12,23 @@ Methods:
 - bubble_sort
 """
 
-def bubble_sort(a):
-    n = len(a)
+def bubble_sort(arr):
+    length = len(arr)
 
-    if n < 2:
-        return a
+    if length < 2:
+        return arr
 
-    not_swpd = True
+    swapped = False
 
-    # until list is traversed without swapping ...
-    while not_swpd:
-        # compare one element to the next for the list ...
-        for i in range(n - 1):
-            # if prev is less than next then swap ...
-            if a[i] > a[i + 1]:
-                a[i], a[i + 1] = a[i + 1], a[i]
-                not_swpd = False
+    while not swapped:
+        for i in range(length - 1):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped = True
 
-        # if there was no swap then break ...
-        if not_swpd == True:
+        if not swapped:
             break
 
-        # reset for next round
-        not_swpd = True
+        swapped = False
 
-    return a
+    return arr
