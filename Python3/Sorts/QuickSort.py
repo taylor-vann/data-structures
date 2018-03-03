@@ -1,17 +1,6 @@
 """
 Brian Taylor Vann
 github.com/taylor-vann
-
-Description:
-- Module to quick sort a list
-- untraditional, copies list, more thread safe
-
-Requirements:
-- None
-
-Methods:
-- quick_sort
-- partition
 """
 
 
@@ -34,7 +23,6 @@ def quick_sort(arr, start = 0, length = None):
 
 
 def partition(arr, start, length):
-    print("partition: ", arr)
     pivot = arr[start]
     barrier = start
     curr = start + 1
