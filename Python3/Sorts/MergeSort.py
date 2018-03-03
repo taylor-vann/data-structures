@@ -21,9 +21,9 @@ def merge(left, right):
 
     while left and right:
         if left[0] < right[0]:
-            result += left.pop(0)
+            result += [left.pop(0)]
         else:
-            result += right.pop(0)
+            result += [right.pop(0)]
 
     result += left
     result += right
