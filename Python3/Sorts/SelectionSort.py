@@ -1,37 +1,23 @@
 """
 Brian Taylor Vann
 github.com/taylor-vann
-
-Description:
-- Module to selection sort a list
-
-Requirements:
-- None
-
-Methods:
-- selection_sort
 """
 
 
-def selection_sort(a):
-    n = len(a)
+def selection_sort(arr):
+    length = len(arr)
 
-    if n < 2:
-        return a
+    if length < 2:
+        return arr
 
-    # walk through list ...
-    for i in range(n):
-        # establish an index
-        indx = i
+    for i in range(length):
+        index = i
 
-        # walk through the rest of the list ...
-        for j in range(i + 1, n):
-            # if current is less than index, make index equal to current ...
-            if a[j] < a[indx]:
-                indx = j
+        for j in range(i + 1, length):
+            if arr[j] < arr[index]:
+                index = j
 
-        # if index is different than start, swap values ...
-        if indx != i:
-            a[indx], a[i] = a[i], a[indx]
+        if index != i:
+            arr[index], arr[i] = arr[i], arr[index]
 
-    return a
+    return arr
