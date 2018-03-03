@@ -1,37 +1,23 @@
 """
 Brian Taylor Vann
 github.com/taylor-vann
-
-Description:
-- Module to shell sort a list
-
-Requirements:
-- None
-
-Methods:
-- shell_sort
 """
 
 
-def shell_sort(a):
-    l = len(a)
+def shell_sort(arr):
+    length = len(arr)
 
-    if l < 2:
-        return a
+    if length < 2:
+        return arr
 
-    # make space half of list length
-    spc = l // 2
+    spc = length // 2
 
-    # while space is at least 1
     while spc > 0:
-        # run through list from space index to list length
-        for j in range(spc, l):
-            # use a modified insertion sort based on space
-            while j - spc > -1 and a[j - spc] > a[j]:
-                a[j - spc], a[j] = a[j], a[j - spc]
+        for j in range(spc, length):
+            while j - spc > -1 and arr[j - spc] > arr[j]:
+                arr[j - spc], arr[j] = arr[j], arr[j - spc]
                 j -= spc
 
-        # half space as int
         spc //= 2
 
-    return a
+    return arr

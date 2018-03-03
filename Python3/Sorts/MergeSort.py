@@ -1,41 +1,31 @@
 """
 Brian Taylor Vann
 github.com/taylor-vann
-
-Description:
-- Module to merge sort a list
-
-Requirements:
-- None
-
-Methods:
-- merge_sort
-- merge
 """
 
 
-def merge_sort(a):
-    if len(a) < 2:
-        return a
+def merge_sort(arr):
+    if len(arr) < 2:
+        return arr
 
-    p = len(a) // 2
+    point = len(arr) // 2
 
-    l1 = merge_sort(a[:p])
-    l2 = merge_sort(a[p:])
+    left = merge_sort(arr[:point])
+    right = merge_sort(arr[point:])
 
-    return merge(l1, l2)
+    return merge(left, right)
 
 
-def merge(a, b):
-    c = []
+def merge(left, right):
+    result = []
 
-    while a and b:
-        if a[0] < b[0]:
-            c += a.pop(0)
+    while left and right:
+        if left[0] < right[0]:
+            result += [left.pop(0)]
         else:
-            c += b.pop(0)
+            result += [right.pop(0)]
 
-    c += a
-    c += b
+    result += left
+    result += right
 
-    return c
+    return result

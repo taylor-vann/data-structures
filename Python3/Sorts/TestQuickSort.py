@@ -11,31 +11,10 @@ Required:
 """
 
 import unittest
-from QuickSort import quick_sort
-from QuickSort import partition
+from QuickSort import quick_sort, partition
 
 
 class TestQuickSortMethods(unittest.TestCase):
-
-    def testPartitionIsNotNone(self):
-        arr = [1, 2]
-        self.assertIsNotNone(partition(arr))
-
-
-    def testPartitionTwo(self):
-        arr = [1, 3]
-        self.assertEqual(partition(arr), ([1], [3]))
-
-
-    def testPartitionThree(self):
-        arr = [1, 3, 2]
-        self.assertEqual(partition(arr), ([1, 2], [3]))
-
-
-    def testPartitionSix(self):
-        arr = [1, 3, 6, 9, 0]
-        self.assertEqual(partition(arr), ([0, 1, 3, 6], [9]))
-
 
     def testQuickOne(self):
         arr = [1]
@@ -108,10 +87,10 @@ class TestQuickSortMethods(unittest.TestCase):
         self.assertEqual(quick_sort(arr), sortd)
 
 
-    def testImmutable(self):
+    def testMutates(self):
         arr = [4, 2, 7, 5, 8, 1]
         sortd = quick_sort(arr)
-        self.assertEqual(arr, [4, 2, 7, 5, 8, 1])
+        self.assertEqual(arr, sortd)
 
 
 
