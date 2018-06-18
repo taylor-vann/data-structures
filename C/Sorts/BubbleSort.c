@@ -18,32 +18,25 @@ void swap(int *a, int *b) {
   *b = tmp;
 }
 
-void bubbleSort(int a[], int size) {
-  if(size < 2) {
-    return;
+void bubbleSort(int arr[], int length) {
+  if(length < 2) {
+    return arr;
   }
 
-  bool notSwpd = true;
+  bool swpd = true;
 
   // until list is traversed without swapping ...
-  while(notSwpd) {
-    // compare one element to the next for the list ...
-    for(int j = 0; j < size - 2; j++) {
-      if(a[j] < a[j + 1]) {
-        // if prev is less than next then swap ...
-        swap(&a[j], &a[j + 1]);
+  while(swpd) {
+    swpd = false;
 
-        notSwpd = false;
+    // compare one element to the next for the list ...
+    for(int j = 0; j < length - 2; j++) {
+      if(arr[j] < arr[j + 1]) {
+        // if prev is less than next then swap ...
+        swap(&arr[j], &arr[j + 1]);
+
+        swpd = true;
       }
     }
-
-    // if there was no swap then break ...
-    if(notSwpd == true) {
-      break;
-    }
-
-    // reset for next round
-    notSwpd = true
   }
-
 }

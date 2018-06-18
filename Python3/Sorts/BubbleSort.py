@@ -4,22 +4,19 @@ github.com/taylor-vann
 """
 
 def bubble_sort(arr):
-    length = len(arr)
-
-    if length < 2:
+    if len(arr) < 2:
         return arr
 
-    swapped = False
+    swapped = True
 
-    while not swapped:
-        for i in range(length - 1):
-            if arr[i] > arr[i + 1]:
-                arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                swapped = True
-
-        if not swapped:
-            break
-
+    # until list is traversed without swapping ...
+    while swapped:
         swapped = False
-
+        # if prev is less than next then swap ...
+        for j in range(len(arr) - 2):
+            # if prev is less than next then swap ...
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+    
     return arr
