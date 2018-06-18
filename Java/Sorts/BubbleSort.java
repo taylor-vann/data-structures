@@ -1,48 +1,30 @@
-/*
-Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Function to bubble sort a list
-
-Requirements:
-- None
-
-Methods:
-- bubbleSort()
-*/
+// Brian Taylor Vann
+// github.com/taylor-vann
 
 import java.util.Arrays;
 
 class BubbleSort {
-  void bubbleSort(int[] a) {
-    if(a.length < 2) {
-      return;
+  void bubbleSort(int[] arr) {
+    if(arr.length < 2) {
+      return arr;
     }
 
-    boolean notSwpd = true;
+    boolean swpd = true;
 
     // until list is traversed without swapping ...
-    while(notSwpd) {
+    while(swpd) {
+      swpd = false
       // compare one element to the next for the list ...
-      for(int j = 0; j < a.length - 1; j++) {
+      for(int j = 0; j < arr.length - 2; j++) {
         // if prev is less than next then swap ...
-        if(a[j] > a[j + 1]) {
-          int tmp = a[j];
-          a[j] = a[j + 1];
-          a[j + 1] = tmp;
+        if(arr[j] > arr[j + 1]) {
+          int tmp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = tmp;
 
-          notSwpd = false;
+          swpd = true;
         }
       }
-
-      // if there was no swap then break ...
-      if(notSwpd == true) {
-        break;
-      }
-
-      // reset for next round
-      notSwpd = true;
     }
   }
 

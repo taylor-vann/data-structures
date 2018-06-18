@@ -5,20 +5,16 @@ Bubble Sort Psuedo Code
 
 
 bubbleSort(list)
-  l as length of list
+  if length of list < 2 return list
 
-  if l < 2 return list
+  swapped = True
 
-  not_swapped = True
+  while swapped is True
+    swapped = False
 
-  while not_swapped is True
-    for j in range 0 to l - 1
+    for 0 to length of list - 2 as j
       if l[j] > l[j + 1]
-        not_swapped j and j + 1
-        not_swapped is False
-
-    if not_swapped is True break while loop
-
-    not_swapped = True
+        swapped j and j + 1
+        swapped = True
 
   return list
