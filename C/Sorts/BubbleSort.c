@@ -28,7 +28,7 @@ void bubbleSort(int arr[], int length) {
   // until list is traversed without swapping ...
   while(swpd) {
     swpd = false;
-    
+
     // compare one element to the next for the list ...
     for(int j = 0; j < length - 2; j++) {
       if(arr[j] < arr[j + 1]) {
@@ -39,5 +39,4 @@ void bubbleSort(int arr[], int length) {
       }
     }
   }
-
 }
