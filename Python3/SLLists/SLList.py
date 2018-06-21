@@ -4,17 +4,6 @@ github.com/taylor-vann
 
 Description:
 - Base class for a Singly Linked List data structure.
-
-Required:
--SLNode.py
-
-Basic methods:
-- access
-- search
-- insert
-- insert after
-- remove
-- remove after
 """
 
 from SLNode import SLNode
@@ -30,7 +19,15 @@ class SLList(object):
 
 
     def __contains__(self, bit):
-        return self.search(bit)
+        node = self._head
+
+        while node:
+            if node.data == bit:
+                return True
+
+            node = node.nxt
+
+        return False
 
 
     def insert(self, data):
@@ -38,16 +35,16 @@ class SLList(object):
             self._head = SLNode(data)
             return
 
-        index = self._head
+        node = self._head
 
-        while index.nxt:
-            index = index.nxt
+        while node.nxt:
+            node = node.nxt
 
-        index.nxt = SLNode(data)
+        node.nxt = SLNode(data)
 
 
     def insert_after(self, data, bit):
-        if self._head is None:
+        if not self._head:
             self._head = SLNode(data)
             return
 
@@ -76,44 +73,22 @@ class SLList(object):
     def remove_data(self, data):
         if not self._head:
             return
+        if self._head.data == data:
+            self._head = self._head.nxt
+            return data
             
         prev, curr = self._head, self._head.nxt
 
         while curr:
             if curr.data == data:
-                break 
+                prev.nxt = curr.nxt
+                curr.nxt = None
+                return data
 
-            prev, curr = curr, prev.nxt
-
-        if not curr:
-            return
-
-        if self._head == prev:
-            self._head = curr
-            prev.nxt = None
-
-            return prev.data;
-
-        prev.nxt = curr.nxt
-        curr.nxt = None
-
-        return curr.data
+            prev = curr
+            curr = prev.nxt
 
 
     def peek(self):
-        if self._head is None:
-            return None
-
-        return self._head.data
-
-
-    def search(self, bit):
-        index = self._head
-
-        while index is not None:
-            if index.data == bit:
-                return True
-
-            index = index.nxt
-
-        return False
+        if self._head:
+            return self._head.data
