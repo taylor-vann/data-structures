@@ -10,22 +10,18 @@ def merge_sort(arr):
 
     point = len(arr) // 2
 
-    left = merge_sort(arr[:point])
-    right = merge_sort(arr[point:])
-
-    return merge(left, right)
+    return merge(
+        merge_sort(arr[:point]),
+        merge_sort(arr[point:]))
 
 
 def merge(left, right):
     result = []
 
     while left and right:
-        if left[0] < right[0]:
-            result += [left.pop(0)]
+        if left[-1] > right[-1]:
+            result.append(left.pop())
         else:
-            result += [right.pop(0)]
+            result.append(right.pop())
 
-    result += left
-    result += right
-
-    return result
+    return reversed(result) + left + right

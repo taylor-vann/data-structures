@@ -24,7 +24,6 @@ class SLList(object):
 
     _head = None
 
-    #overridden methods
     def __init__(self, *args):
         for var in args:
             self.insert(var)
@@ -34,97 +33,87 @@ class SLList(object):
         return self.search(bit)
 
 
-    #custom methods
-    def insert(self, num):
-        node = SLNode(num)
-
-        if self._head is None:
-            self._head = node
+    def insert(self, data):
+        if not self._head:
+            self._head = SLNode(data)
             return
 
         index = self._head
 
-        while index.get_next() is not None:
-            index = index.get_next()
+        while index.nxt:
+            index = index.nxt
 
-        index.set_next(node)
+        index.nxt = SLNode(data)
 
 
-    def insert_after(self, num, bit):
-        node = SLNode(num)
-
+    def insert_after(self, data, bit):
         if self._head is None:
-            self._head = node
+            self._head = SLNode(data)
             return
 
-        prev = self._head
-        curr = self._head.get_next()
+        prev, curr = self._head, self._head.nxt
 
-        while prev.get_data() != bit:
-            if curr is None:
+        while prev.data != bit:
+            if not curr:
                 break
 
-            prev = curr
-            curr = prev.get_next()
+            prev, curr = curr, prev.nxt
 
-        prev.set_next(node)
-        node.set_next(curr)
+        prev.nxt = SLNode(data)
+        prev.nxt.nxt = curr
 
 
     def remove(self):
-        if self._head is None:
-            return None
+        if not self._head:
+            return
 
-        bit = self._head.get_data()
-        self._head = self._head.get_next()
+        bit = self._head.data
+        self._head = self._head.nxt
 
         return bit
 
 
-    def remove_data(self, num):
-        if self._head is None:
-            return None
+    def remove_data(self, data):
+        if not self._head:
+            return
             
-        prev = self._head
-        curr = prev.get_next()
+        prev, curr = self._head, self._head.nxt
 
-        if prev.get_data() == num:
-            self._head = curr
-            prev.set_next(None)
-
-            return prev.get_data();
-
-        while curr is not None:
-            if curr.get_data() == num:
+        while curr:
+            if curr.data == data:
                 break 
 
-            prev = curr
-            curr = prev.get_next()
+            prev, curr = curr, prev.nxt
 
-        if curr is None:
-            return None
+        if not curr:
+            return
 
-        prev.set_next(curr.get_next())
-        bit = curr.get_data()
-        curr.set_next(None)
+        if self._head == prev:
+            self._head = curr
+            prev.nxt = None
 
-        return bit
+            return prev.data;
+
+        prev.nxt = curr.nxt
+        curr.nxt = None
+
+        return curr.data
 
 
     def peek(self):
         if self._head is None:
             return None
 
-        return self._head.get_data()
+        return self._head.data
 
 
     def search(self, bit):
         index = self._head
 
         while index is not None:
-            if index.get_data() == bit:
+            if index.data == bit:
                 return True
 
-            index = index.get_next()
+            index = index.nxt
 
         return False

@@ -4,32 +4,29 @@ github.com/taylor-vann
 """
 
 def heap_sort(arr):
-    length = len(arr)
-
-    if length < 2:
+    if len(arr) < 2:
         return arr
 
-    for j in range(length // 2, -1, -1):
-        sift_down(arr, j, length)
+    for j in range(len(arr) // 2, -1, -1):
+        sift_down(arr, j, len(arr))
 
-    for k in range(length - 1, -1, -1):
+    for k in range(len(arr) - 1, -1, -1):
         arr[0], arr[k] = arr[k], arr[0]
         sift_down(arr, 0, k)
 
     return arr
 
 
-def sift_down(arr, start, finish):
-    curr = start
+def sift_down(arr, first, last):
+    curr = first
     nxt = 2 * curr + 1
 
-    while nxt < finish:
-        if nxt < finish - 1 and arr[nxt] < arr[nxt + 1]:
+    while nxt < last:
+        if nxt < last - 1 and arr[nxt] < arr[nxt + 1]:
             nxt += 1
 
-        if arr[curr] < arr[nxt]:
-            arr[curr], arr[nxt] = arr[nxt], arr[curr]
-            curr = nxt
-            nxt = curr * 2 + 1
-        else:
+        if arr[curr] > arr[nxt]:
             break
+
+        arr[curr], arr[nxt] = arr[nxt], arr[curr]
+        curr, nxt = nxt, curr * 2 + 1
