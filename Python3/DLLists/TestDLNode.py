@@ -15,22 +15,22 @@ from DLNode import DLNode
 
 class TestDLNodeMethods(unittest.TestCase):
 
-    def testNodeNotNone(self):
+    def test_node_not_none(self):
         dlnode = DLNode()
         self.assertIsNotNone(dlnode)
 
 
-    def testNodeValueNone(self):
+    def test_node_value_none(self):
         dlnode = DLNode()
         self.assertIsNone(dlnode.data)
 
 
-    def testNodeValueInitEqual(self):
+    def test_node_value_init(self):
         dlnode = DLNode(3)
         self.assertEqual(dlnode.data, 3)
 
 
-    def testNodeNextIsNone(self):
+    def test_node_next_is_none(self):
         dlnode = DLNode()
         self.assertIsNone(dlnode.nxt)
 
