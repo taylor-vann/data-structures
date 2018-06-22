@@ -4,20 +4,6 @@ github.com/taylor-vann
 
 Descritpion:
 - Doubly Linked List base class
-
-Requires:
-- DLNode.py
-
-Methods:
-- insert(<data>)
-- remove()
-- unshift(<data>)
-- shift(<data>)
-- insert_after(<new>, <data>)
-- remove_data(<data>)
-- peek()
-- peek_last()
-- search()
 """
 
 from DLNode import DLNode
@@ -31,138 +17,124 @@ class DLList(object):
     #overwritten methods
     def __init__(self, *args):
         for var in args:
-            self.insert(var)
+            self.append(var)
 
 
     def __contains__(self, bit):
-        return self.find(bit) is not None
+        return not self.find(bit)
 
 
     #custom methods
-    def insert(self, bit):
-        node = DLNode(bit)
+    def unshift(self, data):
+        node = DLNode(data)
 
-        if self._head is None:
+        if not self._head:
             self._head = node
             self._tail = node
-
             return
-
-        self._head.set_next(node)
-        node.set_prev(self._head)
+        
+        node.nxt = self._head
+        self._head.prev = node
         self._head = node
 
 
-    def remove(self):
-        if self._head is None:
-            return None
+    def shift(self):
+        if not self._head:
+            return
 
         bit = self._head
-        self._head = bit.get_prev()
-        bit.set_prev(None)
+        self._head = self._head.nxt
+        self._head.prev = None
+        bit.prev = None
 
-        return bit.get_data()
+        return bit.data
 
 
-    def remove_data(self, bit):
+    def remove(self, bit):
         node = self.find(bit)
 
-        if node is None:
-            return None
+        while node:
+            if not node:
+                return
 
-        if node is self._head:
-            self._head = node.get_prev()
-            node.set_prev(None)
+            if self._head == node:
+                self._head = self._head.nxt
+                node.prev = None
 
-            return node.get_data()
+            if self._tail == node:
+                self._tail = self._tail.prev
+                node.prev = None
 
-        if node is self._tail:
-            self._tail = node.get_next()
-            node.get_next(None)
+            node.prev.nxt = node.nxt
+            node.next.prev = node.prev
 
-            return node.get_data()
+            node.nxt = None
+            node.prev = None
 
-        prev = node.get_prev()
-        nxt = node.get_next()
-
-        node.set_next(None)
-        node.set_prev(None)
-
-        prev.set_next(nxt)
-        nxt.set_prev(prev)
-
-        return node.get_data()
+            node = self.find(bit)
 
 
-    def unshift(self, bit):
-        node = DLNode(bit)
+    def append(self, bit):
+        node = DLNode(bit, self._tail)
 
-        if self._tail is None:
+        if not self._tail:
             self._head = node
             self._tail = node
+            print(node.data)
 
             return
 
-        self._tail.set_prev(node)
-        node.set_next(self._tail)
+        self._tail.next = node
         self._tail = node
+        print(self._tail.data)
 
 
-    def shift(self):
-        if self._tail is None:
-            return None
+    def pop(self):
+        if not self._tail:
+            return
+        if self._head == self._tail:
+            self._head = None
+            self._tail = None
+            return
 
         bit = self._tail
-        self._tail = bit.get_next()
-        bit.set_next(None)
+        self._tail = self._tail.prev
+        bit.prev = None
 
-        return bit.get_data()
+        return bit.data
 
 
     def insert_after(self, bit, aft):
         node = DLNode(bit)
-
-        if self._head is None:
-            self._head = node
-            self._tail = node
-
         found = self.find(aft)
 
-        if found is None:
-            node.set_next(self._tail)
-            self._tail.set_prev(node)
-            self._tail = node
+        if not found:
             return
-
-        node.set_next(found)
-        node.set_prev(found.get_prev())
-        found.set_prev(node)
 
 
     def peek(self):
         if self._head is None:
             return None
 
-        return self._head.get_data()
+        return self._head.data
 
 
     def peek_last(self):
         if self._tail is None:
             return None
 
-        return self._tail.get_data()
+        return self._tail.data
 
 
     def find(self, bit):
-        if self._head is None:
-            return None
+        if not self._head:
+            return
 
-        index = self._head
+        node = self._head
 
-        while index is not None:
-            if index.get_data() == bit:
-                return index
+        while node:
+            # print(node.data)
+            if node.data == bit:
+                return node
 
-            index = index.get_prev()
-
-        return None
+            node = node.nxt
