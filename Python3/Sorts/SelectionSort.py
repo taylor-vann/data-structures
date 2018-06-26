@@ -5,19 +5,17 @@ github.com/taylor-vann
 
 
 def selection_sort(arr):
-    length = len(arr)
-
-    if length < 2:
+    if len(arr) < 2:
         return arr
 
-    for i in range(length):
-        index = i
+    for i in range(len(arr) - 1):
+        index = None
 
-        for j in range(i + 1, length):
+        for j in range(i + 1, len(arr)):
             if arr[j] < arr[index]:
                 index = j
 
-        if index != i:
+        if index:
             arr[index], arr[i] = arr[i], arr[index]
 
     return arr

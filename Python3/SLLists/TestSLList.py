@@ -76,27 +76,6 @@ class TestSLList(unittest.TestCase):
         self.assertEqual(slist.peek(), 3)
 
 
-    def testSearchNone(self):
-        slist = SLList()
-        self.assertFalse(slist.search(1))
-
- 
-    def testSearchThreeFalse(self):
-        slist = SLList()
-        slist.insert(1)
-        slist.insert(2)
-        slist.insert(3)
-        self.assertFalse(slist.search(4))
-
-
-    def testSearchThreeTrue(self):
-        slist = SLList()
-        slist.insert(1)
-        slist.insert(2)
-        slist.insert(3)
-        self.assertTrue(slist.search(3))
-
-
     def testContainsFalse(self):
         slist = SLList()
         slist.insert(1)

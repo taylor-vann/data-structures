@@ -13,7 +13,7 @@ Practice with algortithms and data structures.
 * HeapSort
 * RadixSort
 
-### earches ###
+### Searches ###
 
 * Binary Search
 * Breadth First Search

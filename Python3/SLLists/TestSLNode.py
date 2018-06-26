@@ -18,32 +18,30 @@ class TestSLLNodeMethods(unittest.TestCase):
 
     def testNodeValueIsNone(self):
         node = SLNode()
-        self.assertIsNone(node.get_data())
+        self.assertIsNone(node.data)
 
 
     def testNodeValueIsNotNone(self):
         node = SLNode("yo")
-        self.assertIsNotNone(node.get_data())
+        self.assertIsNotNone(node.data)
 
 
     def testNextIsNone(self):
         node = SLNode()
-        self.assertIsNone(node.get_next())
+        self.assertIsNone(node.nxt)
 
 
     def testNextIsNode(self):
         node1 = SLNode();
         node = SLNode("dude", node1)
-        self.assertIsInstance(node.get_next(), SLNode);
+        self.assertIsInstance(node.nxt, SLNode);
 
 
     def testNextValueEqual(self):
         node = SLNode()
         node1 = SLNode(2)
-        node.set_next(node1)
-        bit = node.get_next()
-        bit = bit.get_data()
-        self.assertEqual(bit, 2)
+        node.nxt = node1
+        self.assertEqual(node.nxt.data, 2)
 
 
 unittest.main();

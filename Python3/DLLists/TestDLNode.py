@@ -15,72 +15,68 @@ from DLNode import DLNode
 
 class TestDLNodeMethods(unittest.TestCase):
 
-    def testNodeNotNone(self):
+    def test_node_not_none(self):
         dlnode = DLNode()
         self.assertIsNotNone(dlnode)
 
 
-    def testNodeValueNone(self):
+    def test_node_value_none(self):
         dlnode = DLNode()
-        self.assertIsNone(dlnode.get_data())
+        self.assertIsNone(dlnode.data)
 
 
-    def testNodeValueInitEqual(self):
+    def test_node_value_init(self):
         dlnode = DLNode(3)
-        self.assertEqual(dlnode.get_data(), 3)
+        self.assertEqual(dlnode.data, 3)
 
 
-    def testNodeNextIsNone(self):
+    def test_node_next_is_none(self):
         dlnode = DLNode()
-        self.assertIsNone(dlnode.get_next())
+        self.assertIsNone(dlnode.nxt)
 
 
     def testNodeNextIsNotNone(self):
         dlnode = DLNode()
-        dlnode1 = DLNode()
-        dlnode.set_next(dlnode1)
-        self.assertIsNotNone(dlnode.get_next())
+        dlnode.nxt = DLNode()
+        self.assertIsNotNone(dlnode.nxt)
 
 
     def testNextIsNode(self):
-        dlnode1 = DLNode();
+        dlnode1 = DLNode()
         dlnode = DLNode("dude", None, dlnode1)
-        self.assertIsInstance(dlnode.get_next(), DLNode);
+        self.assertIsInstance(dlnode.nxt, DLNode)
 
 
     def testNodeNextValueEqual(self):
         dlnode = DLNode()
-        dlnode1 = DLNode(3)
-        dlnode.set_next(dlnode1)
-        bit = dlnode.get_next()
-        bit = bit.get_data()
-        self.assertEqual(bit, 3)
+        dlnode.nxt = DLNode(3)
+        self.assertEqual(dlnode.nxt.data, 3)
 
 
     def testNodePrevIsNone(self):
         dlnode = DLNode()
-        self.assertIsNone(dlnode.get_next())
+        self.assertIsNone(dlnode.nxt)
 
 
     def testNodePrevIsNotNone(self):
         dlnode = DLNode()
         dlnode1 = DLNode()
-        dlnode.set_prev(dlnode1)
-        self.assertIsNotNone(dlnode.get_prev())
+        dlnode.prev = dlnode1
+        self.assertIsNotNone(dlnode.prev)
 
 
     def testPrevIsNode(self):
         dlnode1 = DLNode();
         dlnode = DLNode("dude", dlnode1, None)
-        self.assertIsInstance(dlnode.get_prev(), DLNode);
+        self.assertIsInstance(dlnode.prev, DLNode);
 
 
     def testNodePrevValueEqual(self):
         dlnode = DLNode()
         dlnode1 = DLNode(2)
-        dlnode.set_prev(dlnode1)
-        bit = dlnode.get_prev()
-        bit = bit.get_data()
+        dlnode.prev = dlnode1
+        bit = dlnode.prev
+        bit = bit.data
         self.assertEqual(bit, 2)
 
 

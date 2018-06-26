@@ -37,41 +37,41 @@ class TestDLListMethods(unittest.TestCase):
 
     def testDLListPeekIsNotNone(self):
         dlist = DLList()
-        dlist.insert(1)
+        dlist.unshift(1)
         self.assertIsNotNone(dlist.peek())
 
 
     def testDLListPeekIsEqual(self):
         dlist = DLList()
-        dlist.insert(2)
+        dlist.unshift(2)
         self.assertEqual(dlist.peek(), 2)
 
 
     def testDLListPushTwoPopThreeIsNone(self):
         dlist = DLList()
-        dlist.insert(1)
-        dlist.insert(2)
-        dlist.remove()
-        dlist.remove()
-        dlist.remove()
+        dlist.unshift(1)
+        dlist.unshift(2)
+        dlist.pop()
+        dlist.pop()
+        dlist.pop()
         self.assertIsNone(dlist.peek())
 
 
     def testDLListPushThreePeekIsEqual(self):
         dlist = DLList()
-        dlist.insert(1)
-        dlist.insert(2)
-        dlist.insert(3)
+        dlist.unshift(1)
+        dlist.unshift(2)
+        dlist.unshift(3)
         self.assertEqual(dlist.peek(), 3)
 
 
     def testDLListPushThreePopOneIsEqual(self):
         dlist = DLList()
-        dlist.insert(1)
-        dlist.insert(2)
-        dlist.insert(3)
-        dlist.remove()
-        self.assertEqual(dlist.peek(), 2)
+        dlist.unshift(1)
+        dlist.unshift(2)
+        dlist.unshift(3)
+        dlist.pop()
+        self.assertEqual(dlist.peek(), 3)
 
 
     def testDLListUnshiftIsEqual(self):
@@ -85,14 +85,14 @@ class TestDLListMethods(unittest.TestCase):
         dlist.unshift(1)
         dlist.unshift(2)
         dlist.unshift(3)
-        self.assertEqual(dlist.peek_last(), 3)
+        self.assertEqual(dlist.peek_last(), 1)
 
 
     def testDLListUnshiftTwoPopOne(self):
         dlist = DLList()
         dlist.unshift(1)
         dlist.unshift(2)
-        dlist.remove()
+        dlist.pop()
         self.assertEqual(dlist.peek(), 2)
 
 
@@ -100,8 +100,8 @@ class TestDLListMethods(unittest.TestCase):
         dlist = DLList()
         dlist.unshift(1)
         dlist.unshift(2)
-        dlist.remove()
-        dlist.remove()
+        dlist.pop()
+        dlist.pop()
         self.assertEqual(dlist.peek(), None)
 
 
@@ -123,20 +123,20 @@ class TestDLListMethods(unittest.TestCase):
         dlist = DLList()
         dlist.unshift(2)
         dlist.unshift(1)
-        dlist.insert(3)
-        dlist.insert(4)
+        dlist.unshift(3)
+        dlist.unshift(4)
         dlist.shift()
         dlist.shift()
-        dlist.remove()
-        self.assertEqual(dlist.peek_last(), 3)
+        dlist.pop()
+        self.assertEqual(dlist.peek_last(), 1)
 
 
     def testDLListSearchIsNone(self):
         dlist = DLList()
         dlist.unshift(2)
         dlist.unshift(1)
-        dlist.insert(3)
-        dlist.insert(4)
+        dlist.unshift(3)
+        dlist.unshift(4)
         self.assertNotIn(5, dlist)
 
 
@@ -144,8 +144,8 @@ class TestDLListMethods(unittest.TestCase):
         dlist = DLList()
         dlist.unshift(2)
         dlist.unshift(1)
-        dlist.insert(3)
-        dlist.insert(4)
+        dlist.unshift(3)
+        dlist.unshift(4)
         self.assertIn(1, dlist)
 
 
@@ -157,43 +157,43 @@ class TestDLListMethods(unittest.TestCase):
     def testDLListGetNodeEquals(self):
         dlist = DLList(1, 2, 3, 4)
         bit = dlist.find(4)
-        self.assertEqual(bit.get_data(), 4)
+        self.assertEqual(bit.data, 4)
 
 
-    def testDLListRemoveNodeIsNone(self):
+    def testDLListpopNodeIsNone(self):
         dlist = DLList(1, 2, 3, 4)
-        bit = dlist.remove_data(5)
+        bit = dlist.remove(5)
         self.assertIsNone(bit)
 
 
-    def testDLListRemoveNodeIsEqual(self):
+    def testDLListpopNodeIsEqual(self):
         dlist = DLList(1, 2, 3, 4)
-        bit = dlist.remove_data(4)
+        bit = dlist.pop()
         self.assertEqual(bit, 4)
 
 
-    def testDLListRemoveIsGone(self):
+    def testDLListpopIsGone(self):
         dlist = DLList(1, 2, 3, 4)
-        bit = dlist.remove_data(3)
+        bit = dlist.remove(3)
         self.assertIsNone(dlist.find(3))
 
 
-    def testDLListInsertAfterEmpty(self):
+    def testDLListunshiftAfterEmpty(self):
         dlist = DLList()
-        bit = dlist.insert_after(3, 5)
+        bit = dlist.remove(3)
+        self.assertNotIn(3, dlist)
+
+
+    def testDLListunshiftAfter(self):
+        dlist = DLList(1, 3, 4)
+        bit = dlist.remove(4)
         self.assertIn(3, dlist)
 
 
-    def testDLListInsertAfter(self):
+    def test_DLList_unshift_remove_after(self):
         dlist = DLList(1, 3, 4)
-        bit = dlist.insert_after(2, 4)
-        self.assertIn(2, dlist)
-
-
-    def testDLListInsertAfter(self):
-        dlist = DLList(1, 3, 4)
-        bit = dlist.insert_after(2, 5)
-        self.assertIn(2, dlist)
+        bit = dlist.remove(4)
+        self.assertNotIn(4, dlist)
 
 
 unittest.main()

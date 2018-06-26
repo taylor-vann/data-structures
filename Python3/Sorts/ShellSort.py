@@ -5,15 +5,13 @@ github.com/taylor-vann
 
 
 def shell_sort(arr):
-    length = len(arr)
-
-    if length < 2:
+    if len(arr) < 2:
         return arr
 
-    spc = length // 2
+    spc = len(arr) // 2
 
     while spc > 0:
-        for j in range(spc, length):
+        for j in range(spc, len(arr)):
             while j - spc > -1 and arr[j - spc] > arr[j]:
                 arr[j - spc], arr[j] = arr[j], arr[j - spc]
                 j -= spc

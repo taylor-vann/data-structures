@@ -10,12 +10,10 @@ def insertion_sort(arr):
         return arr
 
     for j in range(1, length):
-        curr = j
-        prv = j - 1
-
-        while prv > -1 and arr[prv] > arr[curr]:
-            arr[prv], arr[curr] = arr[curr], arr[prv]
-            curr -= 1
-            prv = curr - 1
+        for k in range(j, 0, -1):
+            if not arr[k - 1] > arr[k]:
+                break
+            
+            arr[k - 1], arr[k] = arr[k], arr[k - 1]
 
     return arr
