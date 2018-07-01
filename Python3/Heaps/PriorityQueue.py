@@ -1,18 +1,6 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Priority Queue structure class
-
-Methods:
-- __len__
-- __contains__
-
-- peak()
-- push(data, weight)
-- pop()
-- remove(<val>)
+https://github.com/taylor-vann
 """
 
 
