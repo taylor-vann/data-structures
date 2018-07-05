@@ -1,65 +1,59 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Unit tests for the BSTree class
-
-Requirements:
-- unittest
-- BSTree.py
+https://github.com/taylor-vann
 """
 
 import unittest
-from BSTree import BSTree
+from binary_search_tree import BSTree
+
 
 class TestBSTreeMethods(unittest.TestCase):
 
-    def testBSTreeIsNotNone(self):
+    def test_bstree_is_not_none(self):
         bstree = BSTree()
-        self.assertIsNotNone(bstree) 
+        self.assertIsNotNone(bstree)
 
 
-    def testBSTreeRootNotNone(self):
+    def test_bstree_root_not_none(self):
         bstree = BSTree()
         bstree.insert(1)
-        self.assertIsNotNone(bstree.search(1))
+        self.assertIsNotNone(1 in bstree)
 
 
-    def testBSTreeContains(self):
+    def test_bstree_contains(self):
         bstree = BSTree()
         bstree.insert(1)
         self.assertIn(1, bstree)
 
 
-    def testBSTreeNotContains(self):
+    def test_bstree_not_contains(self):
         bstree = BSTree()
         bstree.insert(1)
         self.assertNotIn(2, bstree)
 
 
-    def testBSTreeInsertTwoContains(self):
+    def test_bstree_insert_two_contains(self):
         bstree = BSTree()
         bstree.insert(1)
         bstree.insert(2)
         self.assertIn(2, bstree)
 
 
-    def testBSTreeInsertFivecContains(self):
+    def test_bstree_insert_five_contains(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(1)
         self.assertIn(5, bstree)
 
 
-    def testBSTreeInsertFiveNotContains(self):
+    def test_bstree_insert_five_not_contains(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(1)
         self.assertNotIn(2, bstree)
 
 
-    def testBSTreeInsertFiveRemoveNone(self):
+    def test_bstree_insert_five_remove_none(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(1)
@@ -67,7 +61,7 @@ class TestBSTreeMethods(unittest.TestCase):
         self.assertNotIn(7, bstree)
 
 
-    def testBSTreeInsertFiveRemoveChildWithNone(self):
+    def test_bstree_insert_five_remove_child_with_none(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(1)
@@ -75,7 +69,7 @@ class TestBSTreeMethods(unittest.TestCase):
         self.assertNotIn(5, bstree)
 
 
-    def testBSTreeInsertFiveRemoveChildWithOne(self):
+    def test_bstree_insert_five_remove_child_with_one(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(1)
@@ -83,7 +77,7 @@ class TestBSTreeMethods(unittest.TestCase):
         self.assertNotIn(3, bstree)
 
 
-    def testBSTreeInsertFiveRemoveChildWithTwo(self):
+    def test_bstree_insert_five_remove_child_with_two(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(7)
@@ -92,7 +86,7 @@ class TestBSTreeMethods(unittest.TestCase):
         self.assertNotIn(6, bstree)
 
 
-    def testBSTreeInsertFiveRemoveTwoHas(self):
+    def test_bstree_insert_five_remove_two_has(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(7)
@@ -101,7 +95,7 @@ class TestBSTreeMethods(unittest.TestCase):
         self.assertIn(5, bstree)
 
 
-    def testBSTreeInsertFiveRemoveStillHas(self):
+    def test_bstree_insert_five_remove_still_has(self):
         bstree = BSTree(4, 3, 6)
         bstree.insert(5)
         bstree.insert(7)
@@ -109,51 +103,60 @@ class TestBSTreeMethods(unittest.TestCase):
         bstree.remove(6)
         self.assertIn(5, bstree)
 
-    def testBSTreeInsertSevenRemoveStillHasTwo(self):
+
+    def test_bstree_insert_seven_remove_still_has_two(self):
         bstree = BSTree(4, 3, 6, 5, 8, 7, 9)
         bstree.remove(6)
         self.assertIn(8, bstree)
 
 
-    def testBSTreeInsertSevenRemoveTwo(self):
+    def test_bstree_insert_seven_remove_two(self):
         bstree = BSTree(4, 3, 6, 5, 8, 7, 9)
         bstree.remove(6)
         self.assertNotIn(6, bstree)
 
 
-    def testBSTreeInsertSevenRemoveTwoNone(self):
+    def test_bstree_insert_seven_temove_two_none(self):
         bstree = BSTree(4, 3, 6, 5, 8, 7, 9)
         bstree.remove(6)
         bstree.remove(9)
         self.assertNotIn(9, bstree)
 
 
-    def testBSTreeInsertTenRemoveTwoNone(self):
+    def test_bstree_insert_ten_remove_two_none(self):
         bstree = BSTree(4, 2, 3, 1, 6, 10, 9, 7, 8, 11)
         bstree.remove(6)
         bstree.remove(10)
         self.assertNotIn(10, bstree)
 
 
-    def testBSTreeRemoveRoot(self):
+    def test_bstree_remove_root(self):
         bstree = BSTree(4)
         bstree.remove(4)
         self.assertNotIn(4, bstree)
 
 
-    def testBSTreeRemoveRootBigTree(self):
+    def test_bst_remove_root_with_two_children(self):
+        bstree = BSTree(4)
+        bstree.insert(1)
+        bstree.insert(6)
+        bstree.remove(4)
+        self.assertIn(1, bstree)
+
+
+    def test_bstree_remove_root_big_tree(self):
         bstree = BSTree(4, 2, 3, 1, 6, 10, 9, 7, 8, 11)
         bstree.remove(4)
         bstree.remove(10)
         self.assertNotIn(4, bstree)
 
 
-    def testBSTreeRemoveRootHas(self):
+    def test_bstree_remove_root_has(self):
         bstree = BSTree(4, 2, 3, 1, 6, 10, 9, 7, 8, 11)
         bstree.remove(4)
         bstree.remove(10)
         self.assertIn(8, bstree)
 
 
-
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()

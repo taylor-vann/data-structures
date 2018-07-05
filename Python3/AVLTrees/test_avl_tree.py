@@ -1,21 +1,12 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Unit tests for the AVLTree class
-
-Requirements:
-- unittest
-- random
-- AVLTree.py
-- AVLNode.py
+https://github.com/taylor-vann
 """
 
 import unittest
 import math
 from random import randrange
-from AVLTree import AVLTree
+from avl_tree import AVLTree
 
 
 class TestAVLNodeMethods(unittest.TestCase):
@@ -141,4 +132,5 @@ class TestAVLNodeMethods(unittest.TestCase):
         self.assertNotIn(5, avl)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()

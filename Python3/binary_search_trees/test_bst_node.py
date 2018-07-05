@@ -1,17 +1,10 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Unit tests for the BSTNode class
-
-Requirements:
-- unittest
-- BSTNode.py
+https://github.com/taylor-vann
 """
 
 import unittest
-from BSTNode import BSTNode
+from binary_search_tree import BSTNode
 
 
 class TestBSTNode(unittest.TestCase):
@@ -23,54 +16,54 @@ class TestBSTNode(unittest.TestCase):
 
     def testBSTNodeDataIsNotNone(self):
         node = BSTNode(3)
-        self.assertIsNotNone(node.get_data())
+        self.assertIsNotNone(node.data)
 
 
     def testBSTNodeDataIsEqual(self):
         node = BSTNode(3)
-        self.assertEqual(node.get_data(), 3)
+        self.assertEqual(node.data, 3)
 
 
     def testBSTNodeDataRightIsNone(self):
         node = BSTNode(3, None, None)
-        self.assertIsNone(node.get_right())
+        self.assertIsNone(node.right)
 
 
     def testBSTNodeDataLeftIsNone(self):
         node = BSTNode(3, None, None)
-        self.assertIsNone(node.get_right())
+        self.assertIsNone(node.right)
 
 
     def testBSTNodeSetData(self):
         node = BSTNode()
-        node.set_data(2)
-        self.assertEqual(node.get_data(), 2)
+        node.data = 2
+        self.assertEqual(node.data, 2)
 
 
     def testBSTNodeSetLeftNone(self):
         node = BSTNode()
-        node.set_left(2)
-        self.assertIsNone(node.get_left())
+        node.left = None
+        self.assertIsNone(node.left)
 
 
     def testBSTNodeSetLeft(self):
         node1 = BSTNode()
         node2 = BSTNode()
-        node1.set_left(node2)
-        self.assertEqual(node1.get_left(), node2)
+        node1.left = node2
+        self.assertEqual(node1.left, node2)
 
 
     def testBSTNodeSetRightNone(self):
         node = BSTNode()
-        node.set_right(2)
-        self.assertIsNone(node.get_right())
+        node.right = None
+        self.assertIsNone(node.right)
 
 
     def testBSTNodeSetRight(self):
         node1 = BSTNode()
         node2 = BSTNode()
-        node1.set_right(node2)
-        self.assertEqual(node1.get_right(), node2)
+        node1.right = node2
+        self.assertEqual(node1.right, node2)
 
 
 unittest.main()

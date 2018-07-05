@@ -1,68 +1,47 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- AVL tree structure class
-- Based on AVL Tree design by Adelson-Velsky and Landis
-- Published in their 1962 paper "An algorithm for the organization of information"
-
-Requirements:
-- AVLNode.py
-
-Methods:
-- search(<data>)
-- insert(<data>)
-- remove(<data>)
-
-- _replace(<ancestor>, <parent>, <child>)
-- _get_tail(<node>)
-- _replace_node(<parent>, <child>, <replacement>)
-- _replace_root(self, <child>, <replacement>)
-- _balance(<ancestor>, <parent>, <child>)
-- _shift(<ancestor>,<parent>, <child>)
-- _left(<elder>, <ancestor>, <parent>)
-- _right(<elder>, <ancestor>, <parent>, <child>)
+https://github.com/taylor-vann
 """
 
-from AVLNode import AVLNode
+
+class AVLNode(object):
+    def __init__(self, value = None, left = None, right = None):
+        self.data = value
+        self.left = left
+        self.right = right
 
 
 class AVLTree(object):
 
-    _r = None
+    _root = None
 
-    #overwritten methods
     def __init__(self, *args):
-        for var in args:
-            self.insert(var)
+        for value in args:
+            self.insert(value)
 
 
-    def __contains__(self, bit):
-        return self.search(bit)
+    def __contains__(self, value):
+        return self.search(self._root, value)
 
 
-    #custom methods
-    def search(self, bit):
-        n = self._r
+    def search(self, node, value):
+        if not node:
+            return
 
-        while n != None:
-            if n.get_data() == bit:
-                return n
+        if node.data == value:
+            return node
 
-            if n.get_data() > bit:
-                n = n.get_left()
-            else:
-                n = n.get_right()
+        if node.data < value:
+            return self.search(node.right, value)
 
-        return None
+        return self.search(node.left, value)
 
 
-    def insert(self, bit):
-        n = AVLNode(bit)
+    def insert(self, value):
+        n = AVLNode(value)
 
-        if self._r == None:
-            self._r = n
+        if self._root == None:
+            self._root = n
 
             return
 
@@ -72,16 +51,16 @@ class AVLTree(object):
         while c != None:
             s.append(c)
 
-            if c.get_data() > bit:
-                c = c.get_left()
+            if c.data > value:
+                c = c.left
             else:
-                c = c.get_right()
+                c = c.right
 
         l = len(s) - 1
 
-        if s[l].get_data() > bit:
+        if s[l].data > value:
             s[l].set_left(n)
-        else: 
+        else:
             s[l].set_right(n)
 
         s.append(n)
@@ -89,7 +68,7 @@ class AVLTree(object):
         self._balance(s)
 
 
-    def remove(self, bit):
+    def remove(self, value):
         c = self._r
 
         s = [None, None, None]
@@ -97,13 +76,13 @@ class AVLTree(object):
         while c != None:
             s.append(c)
 
-            if c.get_data() == bit:
+            if c.data == value:
                 break
 
-            if c.get_data() > bit:
-                c = c.get_left()
+            if c.data > value:
+                c = c.left
             else:
-                c = c.get_right()
+                c = c.right
 
         if c == None:
             return
@@ -116,22 +95,22 @@ class AVLTree(object):
         l = len(s) - 1
 
         # two leaf branch, find the left most right leaf.
-        if s[l].get_left() and s[l].get_right():
+        if s[l].left and s[l].right:
             t = self._get_tail(s)
 
-            t.set_left(s[l].get_left())
-            t.set_right(s[l].get_right())
+            t.set_left(s[l].left)
+            t.set_right(s[l].right)
 
             if s[l - 1]:
-                if s[l - 1].get_data() > t.get_data():
+                if s[l - 1].data > t.data:
                     s[l - 1].set_left(t)
                 else:
                     s[l - 1].set_right(t)
             else:
-                self._r = t
+                self._root = t
         # left leaf branch
-        elif s[l].get_left():
-            t = s[l].get_left()
+        elif s[l].left:
+            t = s[l].left
 
             self._replace_node(s[l - 1], s[l], t)
             self._balance(s)
@@ -139,20 +118,20 @@ class AVLTree(object):
         else:
             self._replace_node(s[l - 1], s[l])
 
-            if s[l - 1].get_right():
-                s.append(s[l - 1].get_right())
+            if s[l - 1].right:
+                s.append(s[l - 1].right)
                 self._balance(s)
 
 
     def _get_tail(self, s):
         stk = s
         l = len(stk) - 1
-        c = stk[l].get_right()
+        c = stk[l].right
 
         stk.append(c)
 
-        while c.get_left():
-            c = c.get_left()
+        while c.left:
+            c = c.left
             stk.append(c)
 
         l = len(stk) - 1
@@ -162,10 +141,10 @@ class AVLTree(object):
         else:
             stk[l - 1].set_right(None)
 
-        if stk[l - 1].get_right():
+        if stk[l - 1].right:
             self._clr(stk.pop())
 
-            stk.append(stk[l - 1].get_right())
+            stk.append(stk[l - 1].right)
             self._balance(stk)
 
         self._clr(c)
@@ -179,7 +158,7 @@ class AVLTree(object):
 
             return
         else:
-            if p.get_left() == c:
+            if p.left == c:
                 p.set_left(r)
             else:
                 p.set_right(r)
@@ -189,10 +168,10 @@ class AVLTree(object):
 
     def _replace_root(self, c, r = None):
         if r:
-            r.set_left(c.get_left())
-            r.set_right(c.get_right())
+            r.set_left(c.left)
+            r.set_right(c.right)
 
-        self._r = r
+        self._root = r
 
 
     def _balance(self, s):
@@ -203,35 +182,35 @@ class AVLTree(object):
            return
 
         # leaf is right heavy
-        if s[l - 1].get_left() == None and s[l - 1].get_right():
+        if s[l - 1].left == None and s[l - 1].right:
             self._shift(s[l - 2], s[l - 1], s[l])
             s[l - 1], s[l] = s[l], s[l - 1]
 
         # walk back stack, compare heights, rotate when necessary
         while s[l - 2] != None:
-            lft = 0
+            left = 0
             rgt = 0
 
             # get branch heights
-            if s[l - 2].get_left():
-                lft = s[l - 2].get_left()
-                lft = lft.get_height()
-            if s[l - 2].get_right():
-                rgt = s[l - 2].get_right()
+            if s[l - 2].left:
+                left = s[l - 2].left
+                left = left.get_height()
+            if s[l - 2].right:
+                rgt = s[l - 2].right
                 rgt = rgt.get_height()
 
             # branch is right heavy, shit to left heavy
-            if lft - rgt > 1:
-                p = s[l - 1].get_left()
-                c = s[l].get_right()
+            if left - rgt > 1:
+                p = s[l - 1].left
+                c = s[l].right
 
                 self._right(s[l - 3], s[l - 2], s[l - 1], s[l])
                 s[l - 2], s[l - 1] = s[l - 1], s[l - 2]
 
             # branch is left heavy
-            if lft - rgt < -1:
-                p = s[l - 1].get_right()
-                n = s[l].get_left()
+            if left - rgt < -1:
+                p = s[l - 1].right
+                n = s[l].left
 
                 self._left(s[l - 3], s[l - 2], s[l - 1])
                 s[l - 2], s[l - 1] = s[l - 1], s[l - 2]
@@ -239,14 +218,14 @@ class AVLTree(object):
             self._clr(s.pop())
 
             l -= 1
- 
+
 
     def _shift(self, a, p, c):
         if p == self._r:
-            self._r = c
+            self._root = c
 
         if a:
-            if a.get_data() > c.get_data():
+            if a.data > c.data:
                 a.set_left(c)
             else:
                 a.set_right(c)
@@ -256,13 +235,13 @@ class AVLTree(object):
 
 
     def _left(self, e, a, p):
-        l = p.get_left()
+        l = p.left
 
-        if self._r == a:
-            self._r = p
+        if self._root == a:
+            self._root = p
 
         if e:
-            if e.get_data() > a.get_data():
+            if e.data > a.data:
                 e.set_left(p)
             else:
                 e.set_right(p)
@@ -272,13 +251,13 @@ class AVLTree(object):
 
 
     def _right(self, e, a, p, c):
-        r = p.get_right()
+        r = p.right
 
         if a == self._r:
-            self._r = p
+            self._root = p
 
         if e:
-            if e.get_data() > p.get_data():
+            if e.data > p.data:
                 e.set_left(p)
             else:
                 e.set_right(p)
