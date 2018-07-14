@@ -1,60 +1,45 @@
 """
 Brian Vann
-github.com/taylor-vann
-
-Description:
-- Unit Tests for the Stack class
-
-Requirements:
-- unittest
-- Stack.py
-- SLNode.py
+https://github.com/taylor-vann
 """
 
 import unittest
-from Stack import Stack
-from SLNode import SLNode
+from stack import Stack
 
 
 class TestStackMethods(unittest.TestCase):
 
-    def testStackNotNone(self):
+    def test_stack_not_none(self):
         stack = Stack()
         self.assertIsNotNone(stack)
 
 
-    def testPeekIsNone(self):
+    def test_peek_is_none(self):
         stack = Stack()
         stack.push(None)
         self.assertIsNone(stack.peek())
 
 
-    def testStackPeekIsNotNone(self):
+    def test_stack_peek_is_not_none(self):
         stack = Stack()
         stack.push(3)
         self.assertIsNotNone(stack.peek())
 
 
-    def testStackPeekIsEqual(self):
+    def test_stack_peek_is_equal(self):
         stack = Stack()
         stack.push(3)
         self.assertEqual(stack.peek(), 3)
 
 
-    def testStackPopIsNode(self):
-        stack = Stack()
-        stack.push(3)
-        self.assertIsInstance(stack.pop(), SLNode)
-
-
-    def testStackPushTwice(self):
+    def test_stack_push_twice(self):
         stack = Stack()
         stack.push(1)
         stack.push(2)
         self.assertEqual(stack.peek(), 2)
 
 
-    def testStackPushTwicePopOnce(self):
+    def test_stack_push_twice_pop_once(self):
         stack = Stack()
         stack.push(1)
         stack.push(2)
@@ -62,7 +47,7 @@ class TestStackMethods(unittest.TestCase):
         self.assertEqual(stack.peek(), 1)
 
 
-    def testStackPushThricePopTwice(self):
+    def test_stack_push_thrice_pop_twice(self):
         stack = Stack()
         stack.push(1)
         stack.push(2)
@@ -72,7 +57,7 @@ class TestStackMethods(unittest.TestCase):
         self.assertEqual(stack.peek(), 1)
 
 
-    def testStackPushOncePopTwice(self):
+    def test_stack_push_once_pop_twice(self):
         stack = Stack()
         stack.push(1)
         stack.pop()
@@ -80,7 +65,7 @@ class TestStackMethods(unittest.TestCase):
         self.assertIsNone(stack.peek())
 
 
-    def testStackContains(self):
+    def test_stack_contains(self):
         stack = Stack()
         stack.push(1)
         stack.push(2)
@@ -88,12 +73,12 @@ class TestStackMethods(unittest.TestCase):
         self.assertTrue(stack.search(1))
 
 
-    def testStackContainsEmpty(self):
+    def test_stack_contains_empty(self):
         stack = Stack()
         self.assertFalse(stack.search(1))
 
 
-    def testStackContainsTrue(self):
+    def test_stack_contains_true(self):
         stack = Stack()
         stack.push(1)
         stack.push(2)
@@ -101,7 +86,7 @@ class TestStackMethods(unittest.TestCase):
         self.assertIn(2, stack)
 
 
-    def testStackContainsFalse(self):
+    def test_stack_contains_false(self):
         stack = Stack()
         stack.push(1)
         stack.push(2)
@@ -109,9 +94,10 @@ class TestStackMethods(unittest.TestCase):
         self.assertNotIn(4, stack)
 
 
-    def testStackContainsInitTrue(self):
+    def test_stack_contains_init_true(self):
         stack = Stack(1, 2, 3)
         self.assertIn(2, stack)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()
