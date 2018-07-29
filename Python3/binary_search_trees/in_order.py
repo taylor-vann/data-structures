@@ -1,12 +1,6 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- In order tree traversal
-
-Requirements:
-- None
+https://github.com/taylor-vann
 """
 
 def in_order(n, s = []):

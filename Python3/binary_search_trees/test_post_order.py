@@ -50,4 +50,5 @@ class TestPostOrderDefinitions(unittest.TestCase):
         self.assertEqual(t, expt)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()

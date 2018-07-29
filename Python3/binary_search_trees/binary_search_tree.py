@@ -3,14 +3,14 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
-class BSTNode(object):
+class Node(object):
     def __init__(self, value = None, left = None, right = None):
         self.data = value
         self.left = left
         self.right = right
 
 
-class BSTree(object):
+class BinarySearchTree(object):
     def __init__(self, *args):
         self._root = None
 
@@ -46,7 +46,7 @@ class BSTree(object):
         if curr:
             return
 
-        node = BSTNode(value)
+        node = Node(value)
 
         if not self._root:
             self._root = node

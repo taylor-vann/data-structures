@@ -1,14 +1,6 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Unit tests for in order module
-
-Requirements:
-- unittest
-- InOrder.py
-- BSTree.py
+https://github.com/taylor-vann
 """
 
 import unittest
@@ -18,9 +10,9 @@ from InOrder import itr_in_order
 from LevelOrder import level_order
 from BSTree import BSTree
 
-class TestPostOrderDefinitions(unittest.TestCase):
+class TestInOrderDefinitions(unittest.TestCase):
 
-    def testPostOrderRecursive(self):
+    def testInOrderRecursive(self):
         tree = BSTree(5, 3, 7, 1, 4, 6, 8)
 
         expt = [1, 3, 4, 5, 6, 7, 8]
@@ -28,13 +20,13 @@ class TestPostOrderDefinitions(unittest.TestCase):
         self.assertEqual(t, expt)
 
 
-    def testPostOrderRecursivePostOrder(self):
+    def testInOrderRecursivePostOrder(self):
         tree = BSTree(5, 3, 7, 1, 4, 6, 8)
 
         t = rec_in_order(tree._root)
 
 
-    def testPostOrderIterPostOrder(self):
+    def testInOrderIterPostOrder(self):
         tree = BSTree(5, 3, 7, 1, 4, 6, 8)
 
         expt = [1, 3, 4, 5, 6, 7, 8]
@@ -43,4 +35,5 @@ class TestPostOrderDefinitions(unittest.TestCase):
         self.assertEqual(t, expt)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()
