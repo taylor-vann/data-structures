@@ -4,123 +4,95 @@ https://github.com/taylor-vann
 """
 
 class DLNode(object):
-    def __init__(self, data = None, prev = None, nxt = None):
-        self.data = data
+    def __init__(self, value = None, prev = None, nxt = None):
+        self.value = value
         self.prev = prev
         self.nxt = nxt
 
 
 class DLList(object):
-
-    _head = None
-    _tail = None
-
     def __init__(self, *args):
+        self._head = DLNode()
+        self._tail = DLNode(None, self._head, None)
+        self._head.nxt = self._tail
+
         for var in args:
             self.append(var)
 
 
     def __contains__(self, value):
-        return self.find(value) != None
+        return self.find(value) is not None
 
 
-    def unshift(self, data):
-        node = DLNode(data)
-
-        if self._head and self._tail:
-            node.nxt = self._head
-            self._head.prev = node
-            self._head = node
-            return
-
-        self._head = node
-        self._tail = node
+    def unshift(self, value):
+        self._head.nxt = DLNode(value, self._head, self._head.nxt)
+        self._head.nxt.nxt.prev = self._head.nxt
 
 
     def shift(self):
-        if not self._head:
+        if self._head.nxt is self._tail:
             return
 
-        value = self._head.data
+        curr = self._head.nxt
+        self._head.nxt = self._head.nxt.nxt
+        self._head.nxt.nxt.prev = self._head.nxt
 
-        self._head.prev = None
-        self._head = self._head.nxt
-        self._head.prev = None
+        curr.nxt = None
+        curr.prev = None
 
-        return value
+        return curr.value
 
 
     def append(self, value):
-        node = DLNode(value, self._tail)
-
-        if self._head and self._tail:
-            self._tail.nxt = node
-            self._tail = node
-            return
-
-        self._head = node
-        self._tail = node
+        self._tail.prev = DLNode(value, self._tail.prev, self._tail)
+        self._tail.prev.prev.nxt = self._tail.prev
 
 
     def pop(self):
-        if not self._tail:
+        if self._tail.prev is self._head:
             return
 
-        value = self._tail.data
+        curr = self._tail.prev
 
-        if self._head is self._tail:
-            self._head = None
-            self._tail = None
-            return value
+        self._tail.prev.prev.nxt = self._tail
+        self._tail.prev = self._tail.prev.prev
 
-        prev = self._tail.prev
+        curr.nxt = None
+        curr.prev = None
 
-        self._tail.prev = None
-        self._tail = prev
-        self._tail.next = None
-
-        return value
+        return curr.value
 
 
     def remove(self, value):
-        node = self._head
+        past = self._head.nxt
+        curr = self._head.nxt.nxt
 
-        while node:
-            if node.data == value:
-                if node.prev:
-                    node.prev.nxt = node.nxt
-                if node.nxt:
-                    node.nxt.prev = node.prev
+        while curr:
+            if past.value == value:
+                past.prev.nxt = past.nxt
+                past.nxt.prev = past.prev
+                past.nxt = None
+                past.prev = None
 
-                if self._head is node:
-                    self._head = self._head.nxt
-                    self._head.prev = None
-
-                if self._tail is node:
-                    self._tail = self._tail.prev
-                    self._tail.nxt = None
-
-                node.prev = None
-                node.nxt = None
-
-            node = node.nxt
+            past = curr
+            curr = curr.nxt
 
 
     def peek(self):
-        if self._head:
-            return self._head.data
+        if self._head.nxt is not self._tail:
+            return self._head.nxt.value
 
 
     def peek_last(self):
-        if self._tail:
-            return self._tail.data
+        if self._tail.prev is not self._head:
+            return self._tail.prev.value
 
 
     def find(self, value):
-        node = self._head
+        curr = self._head.nxt
 
-        while node:
-            if node.data == value:
-                return node
+        while curr is not self._tail:
+            if curr.value == value:
+                return curr
 
-            node = node.nxt
+            curr = curr.nxt

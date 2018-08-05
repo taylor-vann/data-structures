@@ -59,7 +59,7 @@ class TestDLListMethods(unittest.TestCase):
         self.assertEqual(dlist.peek(), 3)
 
 
-    def test_dellist_push_three_pop_one_correct(self):
+    def test_dllist_push_three_pop_one_correct(self):
         dlist = DLList()
         dlist.unshift(1)
         dlist.unshift(2)
@@ -151,7 +151,7 @@ class TestDLListMethods(unittest.TestCase):
     def test_dllist_get_node_equals(self):
         dlist = DLList(1, 2, 3, 4)
         bit = dlist.find(4)
-        self.assertEqual(bit.data, 4)
+        self.assertEqual(bit.value, 4)
 
 
     def test_dllist_pop_node_is_none(self):
@@ -185,7 +185,7 @@ class TestDLListMethods(unittest.TestCase):
 
 
     def test_DLList_unshift_remove_all_fours(self):
-        dlist = DLList(1, 3, 4)
+        dlist = DLList(1, 4, 4, 4, 3, 4)
         bit = dlist.remove(4)
         self.assertNotIn(4, dlist)
 

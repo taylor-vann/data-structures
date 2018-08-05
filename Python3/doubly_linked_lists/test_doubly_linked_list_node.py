@@ -16,12 +16,12 @@ class TestDLNodeMethods(unittest.TestCase):
 
     def test_node_value_none(self):
         dlnode = DLNode()
-        self.assertIsNone(dlnode.data)
+        self.assertIsNone(dlnode.value)
 
 
     def test_node_value_init(self):
         dlnode = DLNode(3)
-        self.assertEqual(dlnode.data, 3)
+        self.assertEqual(dlnode.value, 3)
 
 
     def test_node_next_is_none(self):
@@ -44,7 +44,7 @@ class TestDLNodeMethods(unittest.TestCase):
     def test_node_next_value_equal(self):
         dlnode = DLNode()
         dlnode.nxt = DLNode(3)
-        self.assertEqual(dlnode.nxt.data, 3)
+        self.assertEqual(dlnode.nxt.value, 3)
 
 
     def test_node_prev_is_none(self):
@@ -70,7 +70,7 @@ class TestDLNodeMethods(unittest.TestCase):
         dlnode1 = DLNode(2)
         dlnode.prev = dlnode1
         bit = dlnode.prev
-        bit = bit.data
+        bit = bit.value
         self.assertEqual(bit, 2)
 
 
