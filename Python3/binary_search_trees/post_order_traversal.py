@@ -1,12 +1,6 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Tree traversal by level
-
-Requirements:
-- None
+https://github.com/taylor-vann
 """
 
 def post_order(n, s = []):

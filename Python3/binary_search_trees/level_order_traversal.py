@@ -1,13 +1,8 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Tree traversal by level
-
-Requirements:
-- None
+https://github.com/taylor-vann
 """
+
 
 def level_order(n):
     lvl = [n]

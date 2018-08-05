@@ -1,13 +1,8 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Pre order tree traversal
-
-Requirements:
-- None
+https://github.com/taylor-vann
 """
+
 
 def pre_order(n, s = []):
     if n == None:
@@ -24,7 +19,7 @@ def rec_pre_order(n):
     if n == None:
         return
 
-    print(n.get_data())    
+    print(n.get_data())
     pre_order(n.get_left())
     pre_order(n.get_right())
 
