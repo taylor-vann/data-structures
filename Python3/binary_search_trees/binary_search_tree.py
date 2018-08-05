@@ -3,14 +3,14 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
-class BSTNode(object):
+class Node(object):
     def __init__(self, value = None, left = None, right = None):
         self.data = value
         self.left = left
         self.right = right
 
 
-class BSTree(object):
+class BinarySearchTree(object):
     def __init__(self, *args):
         self._root = None
 
@@ -38,13 +38,7 @@ class BSTree(object):
 
 
     def insert(self, value):
-        if value == None:
-            return
-
-        node = BSTNode(value)
-
-        if not self._root:
-            self._root = node
+        if not value:
             return
 
         prev, curr = self._search(value)
@@ -52,16 +46,17 @@ class BSTree(object):
         if curr:
             return
 
-        if prev.data < node.data:
+        node = Node(value)
+
+        if not self._root:
+            self._root = node
+        elif prev.data < node.data:
             prev.right = node
         else:
             prev.left = node
 
 
     def remove(self, value):
-        if not self._root:
-            return
-
         prev, curr = self._search(value)
 
         if not curr:
@@ -83,34 +78,26 @@ class BSTree(object):
 
                 if self._root is not left:
                     self._root.left = left
-
-            return
-
-        # there is no children on found node
-        if not curr.left and not curr.right:
-            if curr.data < prev.data:
+        elif curr.data < prev.data:
+            if not curr.left and not curr.right:
                 prev.left = None
-            else:
-                prev.right = None
-        # if there's only one child
-        elif not curr.left:
-            if curr.data < prev.data:
+            elif not curr.left:
                 prev.left = curr.right
-            else:
-                prev.right = curr.right
-        elif not curr.right:
-            if curr.data < prev.data:
+            elif not curr.right:
                 prev.left = curr.left
             else:
-                prev.right = curr.left
-        # there's two children
-        else:
-            replacement = self._get_rightmost_left(None, curr.left)
-
-            if curr.data < prev.data:
+                replacement = self._get_rightmost_left(None, curr.left)
                 replacement.left = curr.left
                 prev.left = replacement
+        else:
+            if not curr.left and not curr.right:
+                prev.right = None
+            elif not curr.left:
+                prev.right = curr.left
+            elif not curr.right:
+                prev.left = curr.right
             else:
+                replacement = self._get_rightmost_left(None, curr.left)
                 replacement.right = curr.right
                 prev.right = replacement
 
