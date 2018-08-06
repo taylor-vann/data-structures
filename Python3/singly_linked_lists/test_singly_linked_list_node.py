@@ -16,12 +16,12 @@ class TestSLLNodeMethods(unittest.TestCase):
 
     def test_node_value_is_none(self):
         node = SLNode()
-        self.assertIsNone(node.data)
+        self.assertIsNone(node.value)
 
 
     def test_node_value_is_not_none(self):
         node = SLNode("yo")
-        self.assertIsNotNone(node.data)
+        self.assertIsNotNone(node.value)
 
 
     def test_next_is_none(self):
@@ -39,8 +39,8 @@ class TestSLLNodeMethods(unittest.TestCase):
         node = SLNode()
         node1 = SLNode(2)
         node.nxt = node1
-        self.assertEqual(node.nxt.data, 2)
+        self.assertEqual(node.nxt.value, 2)
 
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     unittest.main()

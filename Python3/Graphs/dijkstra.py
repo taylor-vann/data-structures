@@ -8,6 +8,33 @@ from queue import PriorityQueue
 
 def dijkstra(graph, start, finish):
     pq = PriorityQueue()
+    visited = {}
+    path = []
 
-    for vertice in graph.keys():
-        pq.put(float("-inf"), vertice)
+    pq.put((0, start))
+
+    while not pq.empty():
+        weight, vertice = pq.get()
+
+        if vertice is finish:
+            break
+
+        for dest, dist in graph[vertice]:
+            total_dist = weight + dist
+
+            if not dest in visited or total_dist < visited[dest][0]:
+                visited[dest] = (total_dist, vertice)
+                pq.put((total_dist, dest))
+
+    if not finish in visited:
+        return float("-inf"), []
+
+    curr = finish
+
+    while finish in visited and not curr is start:
+        path.append(curr)
+        curr = visited[curr][1]
+
+    path.append(start)
+
+    return visited[finish][0], list(reversed(path))

@@ -40,5 +40,6 @@ class TestGraph(unittest.TestCase):
 
         self.assertEqual(create_graph(vertices, edges), result)
 
+
 if __name__ == "__main__":
     unittest.main()

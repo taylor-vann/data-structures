@@ -64,8 +64,7 @@ class DLList(object):
 
 
     def remove(self, value):
-        past = self._head.nxt
-        curr = self._head.nxt.nxt
+        past, curr = self._head.nxt, self._head.nxt.nxt
 
         while curr:
             if past.value == value:
