@@ -72,6 +72,7 @@ class BinarySearchTree(object):
             else:
                 left = self._root.left
                 right = self._root.right
+                
                 self._root = self._get_rightmost_left(None, curr.left)
                 self._root.left = None
                 self._root.right = right

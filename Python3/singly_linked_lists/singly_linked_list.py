@@ -4,91 +4,61 @@ https://github.com/taylor-vann
 """
 
 class SLNode(object):
-    def __init__(self, bit = None, nxt = None):
-        self.data = bit
+    def __init__(self, value = None, nxt = None):
+        self.value = value
         self.nxt = nxt
 
 
 class SLList(object):
-
-    _head = None
-
     def __init__(self, *args):
+        self._head = SLNode()
+
         for var in args:
-            self.insert(var)
+            self.append(var)
 
 
-    def __contains__(self, bit):
-        node = self._head
-
-        while node:
-            if node.data == bit:
-                return True
-
-            node = node.nxt
-
-        return False
+    def __contains__(self, value):
+        return self._find(value) is not None
 
 
-    def insert(self, data):
-        if not self._head:
-            self._head = SLNode(data)
+    def append(self, value):
+        self._head.nxt = SLNode(value, self._head.nxt)
+
+
+    def pop(self):
+        if not self._head.nxt:
             return
 
-        node = self._head
+        curr = self._head.nxt
+        self._head.nxt = self._head.nxt.nxt
+        curr.nxt = None
 
-        while node.nxt:
-            node = node.nxt
-
-        node.nxt = SLNode(data)
-
-
-    def insert_after(self, data, bit):
-        if not self._head:
-            self._head = SLNode(data)
-            return
-
-        prev, curr = self._head, self._head.nxt
-
-        while prev.data != bit:
-            if not curr:
-                break
-
-            prev, curr = curr, prev.nxt
-
-        prev.nxt = SLNode(data)
-        prev.nxt.nxt = curr
+        return curr.value
 
 
-    def remove(self):
-        if not self._head:
-            return
-
-        bit = self._head.data
-        self._head = self._head.nxt
-
-        return bit
-
-
-    def remove_data(self, data):
-        if not self._head:
-            return
-        if self._head.data == data:
-            self._head = self._head.nxt
-            return data
-
-        prev, curr = self._head, self._head.nxt
+    def remove(self, value):
+        past, curr = self._head, self._head.nxt
 
         while curr:
-            if curr.data == data:
-                prev.nxt = curr.nxt
+            if curr.value == value:
+                past.nxt = past.nxt.nxt
                 curr.nxt = None
-                return data
-
-            prev = curr
-            curr = prev.nxt
+                curr = past.nxt
+            else:
+                past = curr
+                curr = curr.nxt
 
 
     def peek(self):
-        if self._head:
-            return self._head.data
+        if self._head.nxt:
+            return self._head.nxt.value
+
+
+    def _find(self, value):
+        curr = self._head.nxt
+
+        while curr:
+            if curr.value == value:
+                return curr
+
+            curr = curr.nxt
