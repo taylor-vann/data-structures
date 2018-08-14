@@ -1,98 +1,75 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- MaxHeap structure class
-
-Methods:
-- __len__
-- __contains__
-
-- peak()
-- push(<data>)
-- pop()
-- remove(<val>)
+https://github.com/taylor-vann
 """
 
 
 class MaxHeap(object):
-
-    _h = None
-    _k = None
-
-    #overwritten methods
     def __init__(self, *args):
-        self._h = []
+        self._bucket = []
         self._k = 2
 
         for var in args:
             self.push(var)
 
 
-    def __contains__(self, bit):
-        return self._search(bit)
+    def __contains__(self, target):
+        return target in self._bucket
 
 
     def __len__(self):
-        return len(self._h)
+        return len(self._bucket)
 
 
     #custom methods
-    def push(self, bit):
-        self._h.insert(0, bit)
+    def push(self, target):
+        self._bucket.insert(0, target)
         self._perc_down(0)
 
 
     def pop(self):
-        l = len(self._h)
+        l = len(self._bucket)
 
         if l == 0:
             return None
 
         if l == 1:
-            return self._h.pop()
+            return self._bucket.pop()
 
-        bit = self._h.pop(0)
+        target = self._bucket.pop(0)
         self._perc_down(0)
 
-        return bit
+        return target
 
 
-    def remove(self, bit):
-        l = len(self._h) - 1
+    def remove(self, target):
+        l = len(self._bucket) - 1
 
-        for i in range(0, len(self._h)):
-            if self._h[i] == bit:
-                self._h[i], self._h[l] = self._h[l], self._h[i]
-                pip = self._h.pop(i)
+        for i in range(0, len(self._bucket)):
+            if self._bucket[i] == target:
+                self._bucket[i], self._bucket[l] = self._bucket[l], self._bucket[i]
+                pip = self._bucket.pop(i)
                 self._perc_down(i)
 
                 return pip
 
 
     def peek(self):
-        if len(self._h):
-            return self._h[0]
-
-
-    def _search(self, bit):
-        for var in self._h:
-            if var == bit:
-                return var
+        if len(self._bucket):
+            return self._bucket[0]
 
 
     def _perc_down(self, i = 0):
-        c = i
-        n = self._k * c + 1
+        curr = i
+        nxt = self._k * curr + 1
 
-        while n < len(self._h):
-            if n < len(self._h) - 1 and self._h[n] < self._h[n + 1]:
-                n += 1
+        while nxt < len(self._bucket):
+            if nxt < len(self._bucket) - 1 and self._bucket[nxt] < self._bucket[nxt + 1]:
+                nxt += 1
 
-            if self._h[c] < self._h[n]:
-                self._h[c], self._h[n] = self._h[n], self._h[c]
-                c = n
-                n = n * self._k + 1
+            if self._bucket[curr] < self._bucket[nxt]:
+                self._bucket[curr], self._bucket[nxt] = self._bucket[nxt], self._bucket[curr]
+                curr = nxt
+                nxt = nxt * self._k + 1
             else:
                 break

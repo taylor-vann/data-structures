@@ -4,20 +4,20 @@ Practice with algortithms and data structures.
 
 ### Sorts ###
 
-* BubbleSort
-* InsertionSort
-* SelectionSort
-* ShellSort
-* QuickSort
-* MergeSort
-* HeapSort
-* RadixSort
+* Bubble
+* Insertion
+* Selection
+* Shell
+* Quick
+* Merge
+* Heap
+* Radix
 
 ### Searches ###
 
-* Binary Search
-* Breadth First Search
-* Depth First Search
+* Binary
+* Breadth First
+* Depth First
 
 ### Stacks, Queues, & Lists ###
 
@@ -29,8 +29,14 @@ Practice with algortithms and data structures.
 
 ### Heaps ###
 
-* MaxHeap
-* MinHeap
+* Max Heap
+* Min Heap
+* Priority Queue
+
+### Hashes ###
+
+* Simple Hash
+* LRU Cache
 
 
 ### Trees ###
@@ -38,7 +44,7 @@ Practice with algortithms and data structures.
 * BSTree
 * AVLTree
 * Breadth first search
-* Depth rist search
+* Depth first search
 * Level-order traversal
 * In-order traversal
 * Pre-order traversal
@@ -51,16 +57,18 @@ Practice with algortithms and data structures.
 * DiGraph
 * MultiGraph
 * MultiDiGraph
-* Breadth first search
-* Depth first search
+* Dijkstra
+* Bellman-Ford
+* Breadth First search
+* Depth First search
 
 ### Numbers ###
 
 * Babylonian Square Root
 * Newtonian Square Root
-* Sieve of Erotosthenes
+* Sieve of Eratosthenes
 * Greatest Common Denominator
-* Largest Common Multiple
+* Least Common Multiple
 
 
 ## License ##

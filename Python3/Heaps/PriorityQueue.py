@@ -5,80 +5,62 @@ https://github.com/taylor-vann
 
 
 class PriorityQueue(object):
-
-    _h = None
-    _k = None
-
-    #overwritten methods
-    def __init__(self):
-        self._h = []
+    def __init__(self, comparator):
+        self._queue = []
+        self._cmp = comparator
         self._k = 2
 
 
-    def __contains__(self, bit):
-        return self._search(bit)
+    def __contains__(self, value):
+        def _search(self, bit):
+            for var in self._queue:
+                if var["data"] == bit:
+                    return True
+
+        return False
 
 
     def __len__(self):
-        return len(self._h)
+        return len(self._queue)
 
 
-    #custom methods
     def push(self, data = None, weight = None):
-        self._h.insert(0, {"data": data, "weight": weight})
+        self._queue.insert(0, {"data": data, "weight": weight})
         self._perc_down(0)
 
 
     def pop(self):
-        l = len(self._h)
+        l = len(self._queue)
 
         if l == 0:
             return None
 
         if l == 1:
-            return self._h.pop()
+            return self._queue.pop()
 
-        bit = self._h.pop(0)
+        bit = self._queue.pop(0)
         self._perc_down(0)
 
         return bit
 
 
-    def remove(self, bit):
-        l = len(self._h) - 1
-
-        for i in range(0, len(self._h)):
-            if self._h[i]["data"] == bit:
-                self._h[i], self._h[l] = self._h[l], self._h[i]
-                pip = self._h.pop()
-                self._perc_down(i)
-
-                return pip
-
-
     def peek(self):
-        if len(self._h):
-            return self._h[0]["data"]
-
-
-    def _search(self, bit):
-        for var in self._h:
-            if var["data"] == bit:
-                return var["data"]
+        if len(self._queue):
+            return self._queue[0]["data"]
 
 
     def _perc_down(self, i = 0):
         c = i
         n = self._k * c + 1
 
-        while n < len(self._h):
-            if n < len(self._h) - 1 and \
-                self._h[n]["weight"] > self._h[n + 1]["weight"]:
+        while n < len(self._queue):
+            if n < len(self._queue) - 1 and \
+                self._queue[n]["weight"] > self._queue[n + 1]["weight"]:
 
                 n += 1
 
-            if self._h[c]["weight"] > self._h[n]["weight"]:
-                self._h[c], self._h[n] = self._h[n], self._h[c]
+            if self._queue[c]["weight"] > self._queue[n]["weight"]:
+                self._queue[c], self._queue[n] = self._queue[n], self._queue[c]
                 c = n
                 n = n * self._k + 1
             else:

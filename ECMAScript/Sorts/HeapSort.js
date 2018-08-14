@@ -10,46 +10,46 @@ Requirements:
 */
 
 
-function heapSort(a) {
-  l = a.length;
+const heapSort = (arr) => {
+  l = arr.length;
   h = Math.floor(l / 2);
 
   if(l < 2) {
-    return a;
+    return arr;
   }
 
   // from last parent to first, sift down so largest value on top
   while(h > -1) {
-    siftDown(a, h, l);
+    siftDown(arr, h, l);
     h -= 1;
   }
 
   // walk back and swap first and index and sift new first down
   for(var j = l - 1; j > -1; j--) {
-    var tmp = a[0];
-    a[0] = a[j];
-    a[j] = tmp;
+    var tmp = arr[0];
+    arr[0] = arr[j];
+    arr[j] = tmp;
 
-    siftDown(a, 0, j);
+    siftDown(arr, 0, j);
   }
 
-  return a;
+  return arr;
 }
 
 
-function siftDown(a, i, l) {
+function siftDown(arr, i, l) {
   var c = i;
   var n = 2 * c + 1;
 
   while(n < l) {
-    if(n < l - 1 && a[n] < a[n + 1]) {
+    if(n < l - 1 && arr[n] < arr[n + 1]) {
       n += 1;
     }
 
-    if(a[c] < a[n]) {
-      var tmp = a[c];
-      a[c] = a[n];
-      a[n] = tmp;
+    if(arr[c] < arr[n]) {
+      var tmp = arr[c];
+      arr[c] = arr[n];
+      arr[n] = tmp;
 
       c = n;
       n = c * 2 + 1;

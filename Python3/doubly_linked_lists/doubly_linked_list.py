@@ -20,8 +20,8 @@ class DLList(object):
             self.append(var)
 
 
-    def __contains__(self, value):
-        return self.find(value) is not None
+    def __contains__(self, target):
+        return self.find(target) is not None
 
 
     def unshift(self, value):
@@ -54,8 +54,8 @@ class DLList(object):
 
         curr = self._tail.prev
 
-        self._tail.prev.prev.nxt = self._tail
         self._tail.prev = self._tail.prev.prev
+        self._tail.prev.nxt = self._tail
 
         curr.nxt = None
         curr.prev = None
@@ -87,11 +87,11 @@ class DLList(object):
             return self._tail.prev.value
 
 
-    def find(self, value):
+    def find(self, target):
         curr = self._head.nxt
 
         while curr is not self._tail:
-            if curr.value == value:
+            if curr.value == target:
                 return curr
 
             curr = curr.nxt
