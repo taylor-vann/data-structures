@@ -25,9 +25,8 @@ Practice with algortithms and data structures.
 * Queue
 * Singly Linked List
 * Doubly Linked List
-* Circular List
 
-### Heaps ###
+### Heaps and Priority Queues ###
 
 * Max Heap
 * Min Heap
@@ -38,10 +37,9 @@ Practice with algortithms and data structures.
 * Simple Hash
 * LRU Cache
 
-
 ### Trees ###
 
-* BSTree
+* Binary Search Tree
 * AVLTree
 * Breadth first search
 * Depth first search

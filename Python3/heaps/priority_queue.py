@@ -18,10 +18,6 @@ class PriorityQueue():
         return False
 
 
-    def __len__(self):
-        return len(self._q)
-
-
     def push(self, weight, data):
         self._q.append((weight, data))
         self._perc_up()
