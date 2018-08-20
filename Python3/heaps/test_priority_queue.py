@@ -141,7 +141,7 @@ class TestPriorityQueue(unittest.TestCase):
 
         pq.pop()
 
-        self.assertEqual(len(pq._q), 6)
+        self.assertEqual(len(pq._que), 6)
 
 
     def test_pq_pop_in_order_still(self):
@@ -156,7 +156,7 @@ class TestPriorityQueue(unittest.TestCase):
 
         popped = []
 
-        for var in range(len(pq._q)):
+        for var in range(len(pq._que)):
             popped.append(pq.pop())
 
         self.assertEqual(popped, [2, 3, 4, 5, 6, 7])

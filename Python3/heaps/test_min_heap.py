@@ -141,7 +141,7 @@ class TestMinHeap(unittest.TestCase):
 
         hp.pop()
 
-        self.assertEqual(len(hp._q), 6)
+        self.assertEqual(len(hp._que), 6)
 
 
     def test_heap_pop_in_order_still(self):
@@ -156,7 +156,7 @@ class TestMinHeap(unittest.TestCase):
 
         popped = []
 
-        for var in range(len(hp._q)):
+        for var in range(len(hp._que)):
             popped.append(hp.pop())
 
         self.assertEqual(popped, [2, 3, 4, 5, 6, 7])
