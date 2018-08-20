@@ -1,24 +1,21 @@
 # Brian Taylor Vann
-# github.com/taylor-vann
+# https://github.com/taylor-vann
 
-def bubble_sort(a)
-  return a if a.length < 2
+def bubble_sort(arr)
+  return arr if arr.length < 2
 
   swpd = true
 
-  # until list is traversed without swapping ...
   while swpd
     swpd = false
 
-    # compare one element to the next for the list ...
-    for j in 0..(a.length - 2)
-      # if prev is less than next then swap ...
-      if a[j] > a[j + 1]
-        a[j], a[j + 1] = a[j + 1], a[j]
+    for j in 0..(arr.length - 2)
+      if arr[j] > arr[j + 1]
+        arr[j], arr[j + 1] = ar[j + 1], arr[j];
         swpd = true
       end
     end
   end
 
-  return a
+  return arr
 end

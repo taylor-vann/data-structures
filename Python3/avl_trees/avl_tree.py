@@ -12,9 +12,6 @@ class AVLNode(object):
 
 
 class AVLTree(object):
-
-    _root = None
-
     def __init__(self, *args):
         for value in args:
             self.insert(value)

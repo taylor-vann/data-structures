@@ -5,6 +5,15 @@ https://github.com/taylor-vann
 
 
 def radix_sort(arr, base = 10):
+    def digit_sort(arr, position, modulo, base):
+        bckt = [[] for j in range(base)]
+
+        for value in arr:
+            indx = (value % position) // modulo
+            bckt[indx].append(value)
+
+        return sum(bckt, [])
+
     if len(arr) < 2:
         return arr
 
@@ -19,13 +28,3 @@ def radix_sort(arr, base = 10):
         modulo *= base
 
     return srtd
-
-
-def digit_sort(arr, position, modulo, base):
-    bckt = [[] for j in range(base)]
-
-    for value in arr:
-        indx = (value % position) // modulo
-        bckt[indx].append(value)
-
-    return sum(bckt, [])

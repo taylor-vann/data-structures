@@ -3,67 +3,57 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
-class SLNode(object):
-    def __init__(self, value = None, nxt = None):
-        self.data = value
+class DLNode(object):
+    def __init__(self, value = None, prev = None, nxt = None):
+        self.value = value
+        self.prev = prev
         self.nxt = nxt
 
 
 class Queue(object):
-
-    _head = None
-    _tail = None
-
     def __init__(self, *args):
+        self._head = DLNode()
+        self._tail = DLNode(None, self._head)
+        self._head.nxt = self._tail
+
         for arg in args:
             self.enqueue(arg)
 
 
-    def __contains__(self, value):
-        return self.search(value)
+    def __contains__(self, target):
+        return self.find(target) is not None
 
 
     def enqueue(self, value):
-        node = SLNode(value)
-
-        if self._tail and self._head:
-            self._head.nxt = node
-            self._head = node
-            return
-
-        self._tail = node
-        self._head = node
+        self._head.nxt = DLNode(value, self._head, self._head.nxt)
+        self._head.nxt.nxt.prev = self._head.nxt
 
 
     def dequeue(self):
-        if self._tail is None:
-            return None
+        if self._head.nxt is self._tail:
+            return
 
-        value = self._tail.data
+        curr = self._tail.prev
 
-        if self._tail is self._head:
-            self._head = None
+        self._tail.prev = self._tail.prev.prev
+        self._tail.prev.nxt = self._tail
 
-        self._tail = self._tail.nxt
+        curr.nxt = None
+        curr.prev = None
 
-        return value
+        return curr.value
 
 
     def peek(self):
-        if self._head:
-            return self._head.data
+        if self._head.nxt:
+            return self._head.nxt.value
 
 
-    def search(self, value):
-        if not self._head:
-            return False
+    def find(self, target):
+        curr = self._head.nxt
 
-        node = self._tail
+        while curr is not self._tail:
+            if curr.value == target:
+                return curr
 
-        while node:
-            if node.data == value:
-                return True
-
-            node = node.nxt
-
-        return False
+            curr = curr.nxt

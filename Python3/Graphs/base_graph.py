@@ -12,7 +12,7 @@ edges can have weight
 [("A", "B", 10), ...]
 """
 
-def create_graph(vertices, edges):
+def create_base_graph(vertices, edges):
     graph = dict(zip(vertices, [[] for _ in vertices]))
 
     for edge in edges:

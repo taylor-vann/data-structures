@@ -3,8 +3,8 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
-def greatest_common_denominator(n, m):
+def gcd(n, m):
     if m == 0:
         return n
 
-    return greatest_common_denominator(m, n % m)
+    return gcd(m, n % m)

@@ -5,57 +5,49 @@ https://github.com/taylor-vann
 
 class SLNode(object):
     def __init__(self, value = None, nxt = None):
-        self.data = value
+        self.value = value
         self.nxt = nxt
 
 
 class Stack(object):
-
-    _head = None
-
     def __init__(self, *args):
+        self._head = SLNode()
+
         for value in args:
             self.push(value)
 
 
-    def __contains__(self, value):
-        return self.search(value)
+    def __contains__(self, target):
+        return self.find(target)
 
 
     def push(self, value):
-        node = SLNode(value)
-
-        if not self._head:
-            self._head = node
-            return
-
-        node.nxt = self._head
-        self._head = node
+        self._head.nxt = SLNode(value, self._head.nxt)
 
 
     def pop(self):
-        if not self._head:
-            return None
+        if not self._head.nxt:
+            return
 
-        node = self._head
-        self._head = self._head.nxt
+        node = self._head.nxt
+        self._head.nxt = self._head.nxt.nxt
         node.nxt = None
 
-        return node.data
+        return node.value
 
 
     def peek(self):
-        if self._head:
-            return self._head.data
+        if self._head.nxt:
+            return self._head.nxt.value
 
 
-    def search(self, value):
-        index = self._head
+    def find(self, target):
+        curr = self._head.nxt
 
-        while index is not None:
-            if index.data == value:
+        while curr:
+            if curr.value == target:
                 break
 
-            index = index.nxt;
+            curr = curr.nxt;
 
-        return index
+        return curr

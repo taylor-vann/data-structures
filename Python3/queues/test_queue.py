@@ -90,25 +90,25 @@ class TestQueueMethods(unittest.TestCase):
         self.assertIsNone(queue.dequeue())
 
 
-    def test_queue_search_true(self):
+    def test_queue_find_true(self):
         queue = Queue()
         queue.enqueue(1)
         queue.enqueue(2)
         queue.enqueue(3)
-        self.assertTrue(queue.search(3))
+        self.assertTrue(queue.find(3))
 
 
-    def test_queue_search_false(self):
+    def test_queue_find_false(self):
         queue = Queue()
         queue.enqueue(1)
         queue.enqueue(2)
         queue.enqueue(3)
-        self.assertFalse(queue.search(4))
+        self.assertFalse(queue.find(4))
 
 
-    def test_queue_search_empty_false(self):
+    def test_queue_find_empty_false(self):
         queue = Queue()
-        self.assertFalse(queue.search(4))
+        self.assertFalse(queue.find(4))
 
 
     def test_queue_contains_true(self):
