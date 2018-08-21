@@ -9,7 +9,6 @@ class SimpleHash(object):
         self._prime = prime
         self._delta = delta
         self._length = 0
-
         self._bucket = [[] for _ in range(self._prime)]
 
 
@@ -38,7 +37,6 @@ class SimpleHash(object):
     def insert(self, key, value):
         self.delete(key)
         self._length += 1
-
         self._bucket[self._hash(key)].append((key, value))
 
 
