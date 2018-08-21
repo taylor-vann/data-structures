@@ -70,12 +70,12 @@ class TestStackMethods(unittest.TestCase):
         stack.push(1)
         stack.push(2)
         stack.push(3)
-        self.assertTrue(stack.find(1))
+        self.assertIn(1, stack)
 
 
     def test_stack_contains_empty(self):
         stack = Stack()
-        self.assertFalse(stack.find(1))
+        self.assertNotIn(1, stack)
 
 
     def test_stack_contains_true(self):

@@ -18,7 +18,15 @@ class Stack(object):
 
 
     def __contains__(self, target):
-        return self.find(target)
+        curr = self._head.nxt
+
+        while curr:
+            if curr.value == target:
+                return True
+
+            curr = curr.nxt;
+
+        return False
 
 
     def push(self, value):
@@ -39,15 +47,3 @@ class Stack(object):
     def peek(self):
         if self._head.nxt:
             return self._head.nxt.value
-
-
-    def find(self, target):
-        curr = self._head.nxt
-
-        while curr:
-            if curr.value == target:
-                break
-
-            curr = curr.nxt;
-
-        return curr
