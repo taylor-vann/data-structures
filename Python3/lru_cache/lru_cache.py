@@ -3,34 +3,29 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
+class Node(object):
+    def __init__(self, value = None, left = None, right = None):
+        self.value = value
+        self.prev = left
+        self.nxt = right
+
+
 class LRUCache(object):
-    class Node(object):
-        def __init__(self, value = None, left = None, right = None):
-            self.value = value
-            self.prev = left
-            self.nxt = right
-
-
     def __init__(self, count = 10):
         self._count = count
         self._entries = {}
 
-        self._head = self.Node()
-        self._tail = self.Node(None, self._head, None)
+        self._head = Node()
+        self._tail = Node(None, self._head, None)
         self._head.nxt = self._tail
 
 
     def __contains__(self, value):
-        return self.find(value) is not None
-
-
-    def find(self, value):
-        if value in self._entries:
-            return self._entries[value]
+        return value in self._entries
 
 
     def insert(self, value):
-        self._entries[value] = self.Node(value)
+        self._entries[value] = Node(value)
         self._send_to_head(self._entries[value])
 
         if self._count < len(self._entries):
@@ -48,9 +43,7 @@ class LRUCache(object):
 
 
     def remove(self, value):
-        node = self.find(value)
-
-        if node:
+        if value in self._entries:
             self._remove_from_list(node)
             self._entries.pop(value, None)
 

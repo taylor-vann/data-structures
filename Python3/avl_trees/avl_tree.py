@@ -6,9 +6,10 @@ https://github.com/taylor-vann
 
 class AVLNode(object):
     def __init__(self, value = None, left = None, right = None):
-        self.data = value
+        self.value = value
         self.left = left
         self.right = right
+        self.height = 0
 
 
 class AVLTree(object):
@@ -25,10 +26,10 @@ class AVLTree(object):
         if not node:
             return
 
-        if node.data == value:
+        if node.value == value:
             return node
 
-        if node.data < value:
+        if node.value < value:
             return self.search(node.right, value)
 
         return self.search(node.left, value)
@@ -48,14 +49,14 @@ class AVLTree(object):
         while c != None:
             s.append(c)
 
-            if c.data > value:
+            if c.value > value:
                 c = c.left
             else:
                 c = c.right
 
         l = len(s) - 1
 
-        if s[l].data > value:
+        if s[l].value > value:
             s[l].set_left(n)
         else:
             s[l].set_right(n)
@@ -73,10 +74,10 @@ class AVLTree(object):
         while c != None:
             s.append(c)
 
-            if c.data == value:
+            if c.value == value:
                 break
 
-            if c.data > value:
+            if c.value > value:
                 c = c.left
             else:
                 c = c.right
@@ -99,7 +100,7 @@ class AVLTree(object):
             t.set_right(s[l].right)
 
             if s[l - 1]:
-                if s[l - 1].data > t.data:
+                if s[l - 1].value > t.value:
                     s[l - 1].set_left(t)
                 else:
                     s[l - 1].set_right(t)
@@ -222,7 +223,7 @@ class AVLTree(object):
             self._root = c
 
         if a:
-            if a.data > c.data:
+            if a.value > c.value:
                 a.set_left(c)
             else:
                 a.set_right(c)
@@ -238,7 +239,7 @@ class AVLTree(object):
             self._root = p
 
         if e:
-            if e.data > a.data:
+            if e.value > a.value:
                 e.set_left(p)
             else:
                 e.set_right(p)
@@ -254,7 +255,7 @@ class AVLTree(object):
             self._root = p
 
         if e:
-            if e.data > p.data:
+            if e.value > p.value:
                 e.set_left(p)
             else:
                 e.set_right(p)

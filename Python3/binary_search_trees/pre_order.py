@@ -3,18 +3,16 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
-def pre_order(n, order):
+def pre_order(n, func=lambda x: print(x)):
     if not n:
-        return order
+        return
 
-    order.append(n.data)
-    pre_order(n.left, order)
-    pre_order(n.right, order)
-
-    return order
+    func(n)
+    pre_order(n.left, func)
+    pre_order(n.right, func)
 
 
-def iterative_pre_order(n):
+def pre_order_iterative(n):
     if not n:
         return []
 
@@ -23,7 +21,7 @@ def iterative_pre_order(n):
 
     while stack:
         node = stack.pop()
-        results.append(node.data)
+        results.append(node.value)
 
         if node.right:
             stack.append(node.right)
