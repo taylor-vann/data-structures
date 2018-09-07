@@ -10,7 +10,7 @@ from pre_order import pre_order
 from pre_order import pre_order_iterative
 
 
-class TestPreOrderDefinitions(unittest.TestCase):
+class TestPreOrder(unittest.TestCase):
 
     def test_pre_order_recursive_exits(self):
         self.assertIsNotNone(pre_order)
