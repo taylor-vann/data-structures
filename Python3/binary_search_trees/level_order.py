@@ -3,35 +3,25 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
-def level_order(n):
-    lvl = [n]
-    nxt_lvl = []
-    sets = [n.get_data()]
-    b = True
+def level_order(n, func=lambda x: print(x)):
+    if not n:
+        return
+    
+    curr = [n]
+    nxt = []
+    level = []
 
-    while b:
-        print(sets)
+    while curr:
+        for node in curr:
+            if node.left:
+                nxt.append(node.left)
+            if node.right:
+                nxt.append(node.right)
 
-        b = False
-        sets = []
-        nxt_lvl = []
+            level.append(node.value)
 
-        for m in lvl:
-            if  m != None:
-                nxt_lvl.append(m.get_left())
-                nxt_lvl.append(m.get_right())
-            else:
-                nxt_lvl.append(None)
-                nxt_lvl.append(None)
+        func(level)
 
-        for o in nxt_lvl:
-            if o != None:
-                sets.append(o.get_data())
-            else:
-                sets.append(o)
-
-        for o in sets:
-            if o != None:
-                b = True
-
-        lvl = nxt_lvl
+        curr = nxt
+        nxt = []
+        level = []
