@@ -1,53 +1,113 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Unit tests for post order module
-
-Requirements:
-- unittest
-- PostOrder.py
-- BSTree.py
+https://github.com/taylor-vann
 """
 
 import unittest
-from PostOrder import post_order
-from PostOrder import rec_post_order
-from PostOrder import itr_post_order
-from LevelOrder import level_order
-from BSTree import BSTree
 
-class TestPostOrderDefinitions(unittest.TestCase):
-
-    def testPostOrderRecursive(self):
-        tree = BSTree(5, 3, 7, 1, 4, 6, 8)
-
-        expt = [1, 4, 3, 6, 8, 7, 5]
-        t = post_order(tree._root)
-        self.assertEqual(t, expt)
+from binary_search_tree import BinarySearchTree
+from post_order import post_order
+from post_order import post_order_iterative
 
 
-    def testPostOrderRecursivePostOrder(self):
-        tree = BSTree(5, 3, 7, 1, 4, 6, 8)
+class TestPreOrder(unittest.TestCase):
 
-        t = rec_post_order(tree._root)
-
-
-    def testPostOrderIterPostOrder(self):
-        tree = BSTree(5, 3, 7, 1, 4, 6, 8)
-
-        expt = [1, 4, 3, 6, 8, 7, 5]
-        t = itr_post_order(tree._root)
-        self.assertEqual(t, expt)
+    def test_post_order_recursive_exits(self):
+        self.assertIsNotNone(post_order)
 
 
-    def testFiveIterPostOrder(self):
-        tree = BSTree(5, 7, 1, 6, 8)
+    def test_post_order_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
 
-        expt = [1, 6, 8, 7, 5]
-        t = itr_post_order(tree._root)
-        self.assertEqual(t, expt)
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_correct_one(self):
+        result = [1]
+        tree = BinarySearchTree(1)
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_correct_four(self):
+        result = [4, 3, 2, 1]
+        tree = BinarySearchTree(1, 2, 3, 4)
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_correct_seven(self):
+        result = [1, 4, 3, 6, 8, 7, 5]
+        tree = BinarySearchTree(5, 3, 1, 4, 7, 6, 8)
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_iterative_exists(self):
+        self.assertIsNotNone(post_order_iterative)
+
+
+    def test_post_order_iterative_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_iterative_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_iterative_correct_one(self):
+        result = [1]
+        tree = BinarySearchTree(1)
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_iterative_correct_four(self):
+        result = [4, 3, 2, 1]
+        tree = BinarySearchTree(1, 2, 3, 4)
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
+
+
+    def test_post_order_iterative_correct_seven(self):
+        result = [1, 4, 3, 6, 8, 7, 5]
+        tree = BinarySearchTree(5, 3, 1, 4, 7, 6, 8)
+        post_result = []
+        post_order(tree._root, func=lambda x: post_result.append(x.value))
+
+        self.assertEqual(result, post_result)
 
 
 if __name__ == "__main__":

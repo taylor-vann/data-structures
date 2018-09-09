@@ -3,47 +3,31 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
-def post_order(n, s = []):
-    if n == None:
+def post_order(curr, func=lambda x: print(x.value)):
+    if not curr:
         return
 
-    post_order(n.get_left())
-    post_order(n.get_right())
-    s.append(n.get_data())
-
-    return s
+    post_order(curr.left, func)
+    post_order(curr.right, func)
+    func(curr)
 
 
-def rec_post_order(n):
-    if n == None:
+def post_order_iterative(curr, func=lambda x: print(x.value)):
+    if not curr:
         return
 
-    rec_post_order(n.get_left())
-    rec_post_order(n.get_right())
-    print(n.get_data())
+    stack = [curr]
+    posts = []
 
+    while stack:
+        posts.append(stack.pop())
 
-def itr_post_order(n):
-    if n == None:
-        return
-
-    s = []
-    p = []
-    f = []
-
-    s.append(n)
-
-    while s:
-        n = s.pop()
-        p.append(n)
-
-        if n.get_left():
-            s.append(n.get_left())
-        if n.get_right():
-            s.append(n.get_right())
+        if posts[-1].left:
+            stack.append(posts[-1].left)
+        if posts[-1].right:
+            stack.append(posts[-1].right)
 
     while p:
-        n = p.pop()
-        f.append(n.get_data())
+        func(p.pop())
 
     return f

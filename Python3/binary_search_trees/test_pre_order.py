@@ -68,36 +68,46 @@ class TestPreOrder(unittest.TestCase):
     def test_pre_order_iterative_correct_none(self):
         result = []
         tree = BinarySearchTree()
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
 
-        self.assertEqual(result, pre_order_iterative(tree._root))
+        self.assertEqual(result, pre_result)
 
 
     def test_pre_order_iterative_correct_none(self):
         result = []
         tree = BinarySearchTree()
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
 
-        self.assertEqual(result, pre_order_iterative(tree._root))
+        self.assertEqual(result, pre_result)
 
 
     def test_pre_order_iterative_correct_one(self):
         result = [1]
         tree = BinarySearchTree(1)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
 
-        self.assertEqual(result, pre_order_iterative(tree._root))
+        self.assertEqual(result, pre_result)
 
 
     def test_pre_order_iterative_correct_four(self):
         result = [1, 2, 3, 4]
         tree = BinarySearchTree(1, 2, 3, 4)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
 
-        self.assertEqual(result, pre_order_iterative(tree._root))
+        self.assertEqual(result, pre_result)
 
 
     def test_pre_order_iterative_correct_seven(self):
         result = [5, 3, 1, 4, 7, 6, 8]
         tree = BinarySearchTree(5, 3, 1, 4, 7, 6, 8)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
 
-        self.assertEqual(result, pre_order_iterative(tree._root))
+        self.assertEqual(result, pre_result)
 
 
 if __name__ == "__main__":

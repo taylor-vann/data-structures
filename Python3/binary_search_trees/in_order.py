@@ -7,18 +7,18 @@ def in_order(curr, func=lambda x: print(x.value)):
     if not curr:
         return
 
-    in_order(curr.left)
+    in_order(curr.left, func)
     func(curr)
-    in_order(curr.right)
+    in_order(curr.right, func)
 
 
 def in_order_iterative(curr, func=lambda x: print(x.value)):
-    stack = [curr]
+    stack = []
 
-    while stack or curr not None:
-        if curr.left:
+    while stack or curr:
+        if curr:
+            stack.append(curr)
             curr = curr.left
-            stack.append(curr.left)
         else:
             curr = stack.pop()
             func(curr)
