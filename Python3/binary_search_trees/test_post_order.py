@@ -69,7 +69,7 @@ class TestPreOrder(unittest.TestCase):
         result = []
         tree = BinarySearchTree()
         post_result = []
-        post_order(tree._root, func=lambda x: post_result.append(x.value))
+        post_order_iterative(tree._root, func=lambda x: post_result.append(x.value))
 
         self.assertEqual(result, post_result)
 
@@ -78,7 +78,7 @@ class TestPreOrder(unittest.TestCase):
         result = []
         tree = BinarySearchTree()
         post_result = []
-        post_order(tree._root, func=lambda x: post_result.append(x.value))
+        post_order_iterative(tree._root, func=lambda x: post_result.append(x.value))
 
         self.assertEqual(result, post_result)
 
@@ -87,7 +87,7 @@ class TestPreOrder(unittest.TestCase):
         result = [1]
         tree = BinarySearchTree(1)
         post_result = []
-        post_order(tree._root, func=lambda x: post_result.append(x.value))
+        post_order_iterative(tree._root, func=lambda x: post_result.append(x.value))
 
         self.assertEqual(result, post_result)
 
@@ -96,7 +96,7 @@ class TestPreOrder(unittest.TestCase):
         result = [4, 3, 2, 1]
         tree = BinarySearchTree(1, 2, 3, 4)
         post_result = []
-        post_order(tree._root, func=lambda x: post_result.append(x.value))
+        post_order_iterative(tree._root, func=lambda x: post_result.append(x.value))
 
         self.assertEqual(result, post_result)
 
@@ -105,7 +105,7 @@ class TestPreOrder(unittest.TestCase):
         result = [1, 4, 3, 6, 8, 7, 5]
         tree = BinarySearchTree(5, 3, 1, 4, 7, 6, 8)
         post_result = []
-        post_order(tree._root, func=lambda x: post_result.append(x.value))
+        post_order_iterative(tree._root, func=lambda x: post_result.append(x.value))
 
         self.assertEqual(result, post_result)
 
