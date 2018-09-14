@@ -12,11 +12,12 @@ def post_order(curr, func=lambda x: print(x.value)):
     func(curr)
 
 
-def post_order_iterative(curr, func=lambda x: print(x.value)):
-    if not curr:
+def post_order_iterative(node, func=lambda x: print(x.value)):
+    if not node:
         return
 
-    stack = [curr]
+    stack = [node]
+    curr = node
     # posts = []
     #
     # while stack:
@@ -31,14 +32,12 @@ def post_order_iterative(curr, func=lambda x: print(x.value)):
     #     func(p.pop())
 
     while stack:
-        curr = stack.pop()
+        node = stack.pop()
 
-        if curr.left:
-            if stack and stack[-1].left != curr:
-                if curr.right and stack[-1] != curr.right:
-                    stack.append(curr.right)
-                    stack.append(curr)
-                stack.append(curr)
-                stack.append(curr.left)
+        if stack and node.right != stack[-1]:
+            stack.append(node.right)
+            stack.append(node)
+            print(node.value)
         else:
-            func(curr)
+            # print(node.value)
+            pass
