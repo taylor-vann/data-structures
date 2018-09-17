@@ -17,27 +17,16 @@ def post_order_iterative(node, func=lambda x: print(x.value)):
         return
 
     stack = [node]
-    curr = node
-    # posts = []
-    #
-    # while stack:
-    #     posts.append(stack.pop())
-    #
-    #     if posts[-1].left:
-    #         stack.append(posts[-1].left)
-    #     if posts[-1].right:
-    #         stack.append(posts[-1].right)
-    #
-    # while p:
-    #     func(p.pop())
+    curr = None
+    sentinel = None
 
     while stack:
-        node = stack.pop()
+        curr = stack.pop()
 
-        if stack and node.right != stack[-1]:
-            stack.append(node.right)
-            stack.append(node)
-            print(node.value)
+        sentinel = None
+        if stack:
+            sentinel = stack[-1]
+
+        if sentinel and sentinel.left != curr:
+            print("post order start")
         else:
-            # print(node.value)
-            pass
