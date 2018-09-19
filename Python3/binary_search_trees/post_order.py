@@ -16,22 +16,24 @@ def post_order_iterative(curr, func=lambda x: print(x.value)):
     if not curr:
         return
 
-    stack = [curr]
+    stack = []
+
+    if curr.right:
+        stack.append(curr.right)
+    stack.append(curr)
+
     scout = curr.left
 
     while stack or scout:
         if scout:
+            if scout.right:
+                stack.append(scout.right)
+
             stack.append(scout)
             scout = scout.left
         else:
-            curr = stack[-1].right
-
-            if not curr:
-                curr = stack.pop()
-                func(curr)
-
-                while stack and stack[-1].right != curr:
-                    curr = stack.pop()
-                    func(curr)
+            if len(stack) > 1 and stack[-2] == stack[-1].right:
+                stack[-1], stack[-2] = stack[-2], stack[-1]
+                scout = stack.pop()
             else:
-                scout = curr
+                func(stack.pop())
