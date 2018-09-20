@@ -1,17 +1,10 @@
 """
 Brian Taylor Vann
-github.com/taylor-vann
-
-Description:
-- Unit tests for the SimpleHash structure class
-
-Requirements:
-- unittest
-- MaxHeap.py
+https://github.com/taylor-vann
 """
 
 import unittest
-from SimpleHash import SimpleHash
+from simple_hash import SimpleHash
 
 
 class TestSimpleHash(unittest.TestCase):
@@ -23,26 +16,30 @@ class TestSimpleHash(unittest.TestCase):
 
     def testHashHasOne(self):
         sh = SimpleHash()
+
         sh.insert("hello", "world")
 
-        self.assertEqual(sh.search("hello"), "world")
+        self.assertEqual(sh["hello"], "world")
 
     def testHashHasNone(self):
         sh = SimpleHash()
+
         sh.insert("hello", "world")
         sh.insert("hello", "homefry")
 
-        self.assertNotEqual(sh.search("hello"), "world")
+        self.assertNotEqual(sh["hello"], "world")
 
     def testHashHasTwo(self):
         sh = SimpleHash()
+
         sh.insert("hello", "world")
         sh.insert("yo", "homefry")
 
-        self.assertEqual(sh.search("yo"), "homefry")
+        self.assertEqual(sh["yo"], "homefry")
 
     def testHashHasFour(self):
         sh = SimpleHash()
+
         sh.insert("hello", "world")
         sh.insert("goodbye", "buster")
         sh.insert("1", "one")
@@ -50,11 +47,12 @@ class TestSimpleHash(unittest.TestCase):
         sh.delete("hello")
         sh.delete("2")
 
-        self.assertEqual(sh.search("goodbye"), "buster")
+        self.assertIn("goodbye", sh)
 
 
     def testHashHasFourHello(self):
         sh = SimpleHash()
+
         sh.insert("hello", "world")
         sh.insert("goodbye", "buster")
         sh.insert("1", "one")
@@ -62,11 +60,12 @@ class TestSimpleHash(unittest.TestCase):
         sh.delete("hello")
         sh.delete("2")
 
-        self.assertEqual(sh.search("1"), "one")
+        self.assertIn("1", sh)
 
 
     def testHashHasFourThriteen(self):
         sh = SimpleHash(13, 7)
+
         sh.insert("hello", "world")
         sh.insert("goodbye", "buster")
         sh.insert("1", "one")
@@ -74,10 +73,11 @@ class TestSimpleHash(unittest.TestCase):
         sh.delete("hello")
         sh.delete("2")
 
-        self.assertEqual(sh.search("goodbye"), "buster")
+        self.assertIn("goodbye", sh)
 
     def testHashHasSizeFiveOverload(self):
         sh = SimpleHash(5, 3)
+
         sh.insert("hello", "world")
         sh.insert("goodbye", "buster")
         sh.insert("1", "one")
@@ -86,7 +86,7 @@ class TestSimpleHash(unittest.TestCase):
         sh.insert(17, "seventeen")
         sh.insert("doggo", "pup pup")
 
-        self.assertEqual(sh.search("3"), "three")
+        self.assertIn(3, sh)
 
     def testHashContains(self):
         sh = SimpleHash(5, 3)
@@ -132,4 +132,5 @@ class TestSimpleHash(unittest.TestCase):
         self.assertEqual(len(sh), 7)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()

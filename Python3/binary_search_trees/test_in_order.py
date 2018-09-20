@@ -4,35 +4,110 @@ https://github.com/taylor-vann
 """
 
 import unittest
-from InOrder import in_order
-from InOrder import rec_in_order
-from InOrder import itr_in_order
-from LevelOrder import level_order
-from BSTree import BSTree
 
-class TestInOrderDefinitions(unittest.TestCase):
-
-    def testInOrderRecursive(self):
-        tree = BSTree(5, 3, 7, 1, 4, 6, 8)
-
-        expt = [1, 3, 4, 5, 6, 7, 8]
-        t = in_order(tree._root)
-        self.assertEqual(t, expt)
+from binary_search_tree import BinarySearchTree
+from in_order import in_order
+from in_order import in_order_iterative
 
 
-    def testInOrderRecursivePostOrder(self):
-        tree = BSTree(5, 3, 7, 1, 4, 6, 8)
+class TestInOrder(unittest.TestCase):
 
-        t = rec_in_order(tree._root)
+    def test_in_order_recursive_exits(self):
+        self.assertIsNotNone(in_order)
 
 
-    def testInOrderIterPostOrder(self):
-        tree = BSTree(5, 3, 7, 1, 4, 6, 8)
+    def test_in_order_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        in_result = []
+        in_order(tree._root, func=lambda x: in_result.append(x.value))
 
-        expt = [1, 3, 4, 5, 6, 7, 8]
-        t = itr_in_order(tree._root)
-        level_order(tree._root)
-        self.assertEqual(t, expt)
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        in_result = []
+        in_order(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_correct_one(self):
+        result = [1]
+        tree = BinarySearchTree(1)
+        in_result = []
+        in_order(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_correct_four(self):
+        result = [1, 2, 3, 4]
+        tree = BinarySearchTree(1, 2, 3, 4)
+        in_result = []
+        in_order(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_correct_seven(self):
+        result = [1, 3, 4, 5, 6, 7, 8]
+        tree = BinarySearchTree(5, 3, 1, 4, 7, 6, 8)
+        in_result = []
+        in_order(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_iterative_exists(self):
+        self.assertIsNotNone(in_order_iterative)
+
+
+    def test_in_order_iterative_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        in_result = []
+        in_order_iterative(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_iterative_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        in_result = []
+        in_order_iterative(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_iterative_correct_one(self):
+        result = [1]
+        tree = BinarySearchTree(1)
+        in_result = []
+        in_order_iterative(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_iterative_correct_four(self):
+        result = [1, 2, 3, 4]
+        tree = BinarySearchTree(1, 2, 3, 4)
+        in_result = []
+        in_order_iterative(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
+
+
+    def test_in_order_iterative_correct_seven(self):
+        result = [1, 3, 4, 5, 6, 7, 8]
+        tree = BinarySearchTree(5, 3, 1, 4, 7, 6, 8)
+        in_result = []
+        in_order_iterative(tree._root, func=lambda x: in_result.append(x.value))
+
+        self.assertEqual(result, in_result)
 
 
 if __name__ == "__main__":

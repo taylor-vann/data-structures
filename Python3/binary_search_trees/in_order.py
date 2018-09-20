@@ -3,42 +3,23 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
-def in_order(n, s = []):
-    if n == None:
+def in_order(curr, func=lambda x: print(x.value)):
+    if not curr:
         return
 
-    in_order(n.get_left())
-    s.append(n.get_data())
-    in_order(n.get_right())
-
-    return s
+    in_order(curr.left, func)
+    func(curr)
+    in_order(curr.right, func)
 
 
-def rec_in_order(n):
-    if n == None:
-        return
+def in_order_iterative(curr, func=lambda x: print(x.value)):
+    stack = []
 
-    in_order(n.get_left())
-    print(n.get_data())
-    in_order(n.get_right())
-
-
-def itr_in_order(n):
-    s = [n]
-    f = []
-
-    while s:
-        while n:
-            n = n.get_left()
-            s.append(n)
-
-        t = s.pop()
-
-        if t:
-            f.append(t.get_data())
-
-            if t.get_right():
-                n = t.get_right()
-                s.append(n)
-
-    return f
+    while stack or curr:
+        if curr:
+            stack.append(curr)
+            curr = curr.left
+        else:
+            curr = stack.pop()
+            func(curr)
+            curr = curr.right

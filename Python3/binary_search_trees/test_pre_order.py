@@ -7,50 +7,108 @@ import unittest
 
 from binary_search_tree import BinarySearchTree
 from pre_order import pre_order
-from pre_order import iterative_pre_order
-
-class TestPreOrderDefinitions(unittest.TestCase):
-
-    def test_pre_order_recursive(self):
-        tree = BinarySearchTree(5, 3, 7, 1, 4, 6, 8)
-        expected = [5, 3, 1, 4, 7, 6, 8]
-
-        self.assertEqual(pre_order(tree._root, []), expected)
+from pre_order import pre_order_iterative
 
 
-    def test_pre_order_recursive_one(self):
-        tree = BinarySearchTree(5)
-        expected = [5]
+class TestPreOrder(unittest.TestCase):
 
-        self.assertEqual(pre_order(tree._root, []), expected)
+    def test_pre_order_recursive_exits(self):
+        self.assertIsNotNone(pre_order)
 
 
-    def test_pre_order_recursive_none(self):
+    def test_pre_order_correct_none(self):
+        result = []
         tree = BinarySearchTree()
-        expected = []
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
 
-        self.assertEqual(pre_order(tree._root, []), expected)
-
-
-    def test_pre_order_iterartive(self):
-        tree = BinarySearchTree(5, 3, 7, 1, 4, 6, 8)
-        expected = [5, 3, 1, 4, 7, 6, 8]
-
-        self.assertEqual(iterative_pre_order(tree._root), expected)
+        self.assertEqual(result, pre_result)
 
 
-    def test_pre_order_iterartive_one(self):
-        tree = BinarySearchTree(5)
-        expected = [5]
-
-        self.assertEqual(iterative_pre_order(tree._root), expected)
-
-
-    def test_pre_order_iterartive_none(self):
+    def test_pre_order_correct_none(self):
+        result = []
         tree = BinarySearchTree()
-        expected = []
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
 
-        self.assertEqual(iterative_pre_order(tree._root), expected)
+        self.assertEqual(result, pre_result)
+
+
+    def test_pre_order_correct_one(self):
+        result = [1]
+        tree = BinarySearchTree(1)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
+
+        self.assertEqual(result, pre_result)
+
+
+    def test_pre_order_correct_four(self):
+        result = [1, 2, 3, 4]
+        tree = BinarySearchTree(1, 2, 3, 4)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
+
+        self.assertEqual(result, pre_result)
+
+
+    def test_pre_order_correct_seven(self):
+        result = [5, 3, 1, 4, 7, 6, 8]
+        tree = BinarySearchTree(5, 3, 1, 4, 7, 6, 8)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
+
+        self.assertEqual(result, pre_result)
+
+
+    def test_pre_order_iterative_exists(self):
+        self.assertIsNotNone(pre_order_iterative)
+
+
+    def test_pre_order_iterative_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
+
+        self.assertEqual(result, pre_result)
+
+
+    def test_pre_order_iterative_correct_none(self):
+        result = []
+        tree = BinarySearchTree()
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
+
+        self.assertEqual(result, pre_result)
+
+
+    def test_pre_order_iterative_correct_one(self):
+        result = [1]
+        tree = BinarySearchTree(1)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
+
+        self.assertEqual(result, pre_result)
+
+
+    def test_pre_order_iterative_correct_four(self):
+        result = [1, 2, 3, 4]
+        tree = BinarySearchTree(1, 2, 3, 4)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
+
+        self.assertEqual(result, pre_result)
+
+
+    def test_pre_order_iterative_correct_seven(self):
+        result = [5, 3, 1, 4, 7, 6, 8]
+        tree = BinarySearchTree(5, 3, 1, 4, 7, 6, 8)
+        pre_result = []
+        pre_order(tree._root, func=lambda x: pre_result.append(x.value))
+
+        self.assertEqual(result, pre_result)
+
 
 if __name__ == "__main__":
     unittest.main()

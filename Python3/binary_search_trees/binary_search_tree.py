@@ -5,7 +5,7 @@ https://github.com/taylor-vann
 
 class Node(object):
     def __init__(self, value = None, left = None, right = None):
-        self.data = value
+        self.value = value
         self.left = left
         self.right = right
 
@@ -26,10 +26,10 @@ class BinarySearchTree(object):
         prev, curr = None, self._root
 
         while curr:
-            if curr.data == value:
+            if curr.value == value:
                 return prev, curr
 
-            if curr.data < value:
+            if curr.value < value:
                 prev, curr = curr, curr.right
             else:
                 prev, curr = curr, curr.left
@@ -50,7 +50,7 @@ class BinarySearchTree(object):
 
         if not self._root:
             self._root = node
-        elif prev.data < node.data:
+        elif prev.value < node.value:
             prev.right = node
         else:
             prev.left = node
@@ -72,14 +72,14 @@ class BinarySearchTree(object):
             else:
                 left = self._root.left
                 right = self._root.right
-                
+
                 self._root = self._get_rightmost_left(None, curr.left)
                 self._root.left = None
                 self._root.right = right
 
                 if self._root is not left:
                     self._root.left = left
-        elif curr.data < prev.data:
+        elif curr.value < prev.value:
             if not curr.left and not curr.right:
                 prev.left = None
             elif not curr.left:
