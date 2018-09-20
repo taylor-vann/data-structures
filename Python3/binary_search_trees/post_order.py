@@ -3,6 +3,7 @@ Brian Taylor Vann
 https://github.com/taylor-vann
 """
 
+
 def post_order(curr, func=lambda x: print(x.value)):
     if not curr:
         return
@@ -24,7 +25,7 @@ def post_order_iterative(curr, func=lambda x: print(x.value)):
 
     scout = curr.left
 
-    while stack or scout:
+    while stack:
         if scout:
             if scout.right:
                 stack.append(scout.right)
