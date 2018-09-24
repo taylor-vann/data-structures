@@ -5,11 +5,11 @@ https://github.com/taylor-vann
 
 
 class AVLNode(object):
-    def __init__(self, value = None, left = None, right = None):
+    def __init__(self, value=None, left=None, right=None, balance=0):
         self.value = value
         self.left = left
         self.right = right
-        self.height = 0
+        self.balance = balance
 
 
 class AVLTree(object):
