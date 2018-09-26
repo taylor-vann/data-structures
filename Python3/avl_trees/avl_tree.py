@@ -14,7 +14,9 @@ class AVLNode(object):
 
 class AVLTree(object):
     def __init__(self, *args):
-        for value in args:
+        self._root = args[0]
+
+        for value in args[1:]:
             self.insert(value)
 
 
@@ -23,7 +25,19 @@ class AVLTree(object):
 
 
     def search(self, node, value):
-        pass
+        if not self._root:
+            return
+
+        curr = self._root
+
+        while curr:
+            if curr.value == value:
+                return curr
+
+            if value < curr.value:
+                curr = curr.left
+            else:
+                curr = curr.right
 
 
     def insert(self, value):
