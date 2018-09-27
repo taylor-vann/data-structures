@@ -48,14 +48,22 @@ class AVLTree(object):
         pass
 
 
-    def _left(self, e, a, p):
+    def _left(self, curr):
         # rotate left
-        pass
+        node = curr.right
+        curr.right = node.left
+        node.left = curr
+
+        return node
 
 
-    def _right(self, e, a, p, c):
+    def _right(self, curr):
         # rotate right
-        pass
+        node = curr.left
+        curr.left = node.right
+        node.right = curr
+
+        return node
 
 
     def _clr(self, n):
