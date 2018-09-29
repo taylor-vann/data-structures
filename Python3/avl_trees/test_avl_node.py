@@ -13,28 +13,22 @@ class TestAVLNodeMethods(unittest.TestCase):
         nd = AVLNode()
         self.assertIsNotNone(nd)
 
-
-    def testAVLDataNone(self):
+    def testAVLValueNone(self):
         nd = AVLNode()
-        self.assertIsNone(nd.data)
+        self.assertIsNone(nd.value)
 
-
-    def testAVLData(self):
+    def testAVLValue(self):
         nd = AVLNode()
-        nd.data = 3
-        bit = nd.data
-        self.assertEqual(nd.data, 3)
-
+        nd.value = 3
+        self.assertEqual(nd.value, 3)
 
     def testAVLNodeLeftNone(self):
         nd = AVLNode()
         self.assertIsNone(nd.left)
 
-
     def testAVLNodeRightNone(self):
         nd = AVLNode()
         self.assertIsNone(nd.right)
-
 
     def testAVLNodeLeft(self):
         nd = AVLNode()
@@ -42,6 +36,11 @@ class TestAVLNodeMethods(unittest.TestCase):
         nd.left = nd
         self.assertIsInstance(nd.left, AVLNode)
 
+    def testAVLNodeRight(self):
+        nd = AVLNode()
+        nd1 = AVLNode()
+        nd.right = nd1
+        self.assertIsInstance(nd.right, AVLNode)
 
     def testAVLNodeRight(self):
         nd = AVLNode()
@@ -49,6 +48,14 @@ class TestAVLNodeMethods(unittest.TestCase):
         nd.right = nd1
         self.assertIsInstance(nd.right, AVLNode)
 
+    def testAVLBalanceNone(self):
+        nd = AVLNode()
+        self.assertEqual(nd.balance, 0)
+
+    def testAVLBalance(self):
+        nd = AVLNode()
+        nd.balance = 3
+        self.assertEqual(nd.balance, 3)
 
 if __name__ == "__main__":
     unittest.main()

@@ -14,10 +14,11 @@ class AVLNode(object):
 
 class AVLTree(object):
     def __init__(self, *args):
-        self._root = args[0]
+        self._root = None
 
-        for value in args[1:]:
-            self.insert(value)
+        if args:
+            for value in args:
+                self.insert(value)
 
 
     def __contains__(self, value):
@@ -25,31 +26,47 @@ class AVLTree(object):
 
 
     def search(self, node, value):
-        if not self._root:
+        if not node:
             return
 
-        curr = self._root
+        if node.value == value:
+            return node
 
-        while curr:
-            if curr.value == value:
-                return curr
-
-            if value < curr.value:
-                curr = curr.left
-            else:
-                curr = curr.right
+        if node.value < value:
+            return self.search(node.right, value)
+        else:
+            return self.search(node.left, value)
 
 
     def insert(self, value):
-        pass
+        self._root = self._insert_rec(self._root, value)
+
+
+    def _insert_rec(self, node, value):
+        if not node:
+            return AVLNode(value)
+
+        if node.value < value:
+            node.right = self._insert_rec(node.right, value)
+            node.balance += 1
+        else:
+            node.left = self._insert_rec(node.left, value)
+            node.balance -= 1
+
+        if abs(node.balance) < 1:
+            return self._balance(node)
+
+        return node
 
 
     def remove(self, value):
         pass
 
 
+    def _balance(self, node):
+        pass
+
     def _left(self, curr):
-        # rotate left
         node = curr.right
         curr.right = node.left
         node.left = curr
@@ -58,7 +75,6 @@ class AVLTree(object):
 
 
     def _right(self, curr):
-        # rotate right
         node = curr.left
         curr.left = node.right
         node.right = curr
