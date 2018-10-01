@@ -53,13 +53,17 @@ class AVLTree(object):
             node.left = self._insert_rec(node.left, value)
             node.balance -= 1
 
-        if abs(node.balance) < 1:
+        if abs(node.balance) > 1:
             return self._balance(node)
 
         return node
 
 
     def remove(self, value):
+        pass
+
+
+    def _remove_rec(self, value):
         pass
 
 
