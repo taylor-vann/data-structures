@@ -59,6 +59,11 @@ class AVLTree(object):
         return node
 
 
+    def _balance(self, node):
+        print(node.balance)
+        return node
+
+
     def remove(self, value):
         pass
 
@@ -66,9 +71,6 @@ class AVLTree(object):
     def _remove_rec(self, value):
         pass
 
-
-    def _balance(self, node):
-        pass
 
     def _left(self, curr):
         node = curr.right
