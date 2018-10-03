@@ -28,13 +28,93 @@ class TestAVLTreeMethods(unittest.TestCase):
 
         self.assertIn(2, avl)
 
-    def test_avl_insert_two_adjust_one(self):
+    def test_avl_insert_three_adjust_one_right_heavy(self):
         avl = AVLTree(1, 2, 3)
         result = []
         expected = [[2], [1, 3]]
         level_order(avl._root, func=lambda x: result.append(x))
 
         self.assertEqual(result, expected)
+
+
+    def test_avl_insert_three_adjust_one_left_heavy(self):
+        avl = AVLTree(3, 2, 1)
+        result = []
+        expected = [[2], [1, 3]]
+        level_order(avl._root, func=lambda x: result.append(x))
+
+        self.assertEqual(result, expected)
+
+
+    def test_avl_insert_three_adjust_one_right_left_heavy(self):
+        avl = AVLTree(2, 3, 1)
+        result = []
+        expected = [[2], [1, 3]]
+        level_order(avl._root, func=lambda x: result.append(x))
+
+        self.assertEqual(result, expected)
+
+
+    def test_avl_insert_three_adjust_one_left_right_heavy(self):
+        avl = AVLTree(3, 1, 2)
+        result = []
+        expected = [[2], [1, 3]]
+        level_order(avl._root, func=lambda x: result.append(x))
+
+        self.assertEqual(result, expected)
+
+
+    def test_avl_insert_one_balance_zero(self):
+        avl = AVLTree(1)
+
+        self.assertEqual(avl._root.balance, 0)
+
+
+    def test_avl_insert_two_balance_one(self):
+        avl = AVLTree(1, 2)
+
+        self.assertEqual(avl._root.balance, 1)
+
+
+    def test_avl_insert_two_balance_negative_one(self):
+        avl = AVLTree(2, 1)
+
+        self.assertEqual(avl._root.balance, -1)
+
+    def test_avl_insert_three_rotate_left_balance_zero(self):
+        avl = AVLTree(1, 2, 3)
+
+        self.assertEqual(avl._root.balance, 0)
+
+
+    def test_avl_insert_three_rotate_right_balance_zero(self):
+        avl = AVLTree(3, 2, 1)
+
+        self.assertEqual(avl._root.balance, 0)
+
+
+    def test_avl_insert_three_left_balance_zero(self):
+        avl = AVLTree(1, 2, 3)
+
+        self.assertEqual(avl._root.left.balance, 0)
+
+
+    def test_avl_insert_three_right_balance_zero(self):
+        avl = AVLTree(1, 2, 3)
+
+        self.assertEqual(avl._root.right.balance, 0)
+
+
+    def test_avl_insert_three_left_balance_zero(self):
+        avl = AVLTree(3, 2, 1)
+
+        self.assertEqual(avl._root.left.balance, 0)
+
+
+    def test_avl_insert_three_right_balance_zero(self):
+        avl = AVLTree(3, 2, 1)
+
+        self.assertEqual(avl._root.right.balance, 0)
 
 
 if __name__ == "__main__":

@@ -60,7 +60,17 @@ class AVLTree(object):
 
 
     def _balance(self, node):
-        print(node.balance)
+        if node.balance > 1:
+            if node.right.balance < 0:
+                node.right = self._tally(self._right(node.right))
+
+            return self._tally(self._left(node))
+        elif node.balance < -1:
+            if node.left.balance > 0:
+                node.left = self._tally(self._left(node.left))
+
+            return self._tally(self._right(node))
+
         return node
 
 
@@ -77,6 +87,9 @@ class AVLTree(object):
         curr.right = node.left
         node.left = curr
 
+        node.left.balance -= 1
+        node.balance -= 1
+
         return node
 
 
@@ -85,9 +98,17 @@ class AVLTree(object):
         curr.left = node.right
         node.right = curr
 
+        node.right.balance += 1
+        node.balance += 1
+
         return node
 
 
-    def _clr(self, n):
-        n.set_left(None)
-        n.set_right(None)
+    def _tally(self, node):
+        if node.left:
+            node.balance += node.left.balance
+
+        if node.right:
+            node.balance += node.right.balance
+
+        return node

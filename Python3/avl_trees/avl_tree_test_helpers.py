@@ -1,4 +1,3 @@
-
 def post_order(curr, func=lambda x: print(x.value)):
     if not curr:
         return
@@ -30,3 +29,13 @@ def level_order(n, func=lambda x: print(x)):
         curr = nxt
         nxt = []
         level = []
+
+
+def get_tree_height(node, height=0):
+    if not node:
+        return height
+
+    return max(
+        get_tree_height(node.left, height + 1),
+        get_tree_height(node.right, height + 1)
+    )
