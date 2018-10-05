@@ -48,14 +48,14 @@ class TestAVLNodeMethods(unittest.TestCase):
         nd.right = nd1
         self.assertIsInstance(nd.right, AVLNode)
 
-    def testAVLBalanceNone(self):
+    def testAVLHeightNone(self):
         nd = AVLNode()
-        self.assertEqual(nd.balance, 0)
+        self.assertEqual(nd.height, 1)
 
-    def testAVLBalance(self):
+    def testAVLHeight(self):
         nd = AVLNode()
-        nd.balance = 3
-        self.assertEqual(nd.balance, 3)
+        nd.height = 3
+        self.assertEqual(nd.height, 3)
 
 if __name__ == "__main__":
     unittest.main()

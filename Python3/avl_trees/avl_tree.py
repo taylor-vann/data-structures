@@ -5,11 +5,11 @@ https://github.com/taylor-vann
 
 
 class AVLNode(object):
-    def __init__(self, value=None, left=None, right=None, balance=0):
+    def __init__(self, value=None, left=None, right=None, height=1):
         self.value = value
         self.left = left
         self.right = right
-        self.balance = balance
+        self.height = height
 
 
 class AVLTree(object):
@@ -48,30 +48,26 @@ class AVLTree(object):
 
         if node.value < value:
             node.right = self._insert_rec(node.right, value)
-            node.balance += 1
         else:
             node.left = self._insert_rec(node.left, value)
-            node.balance -= 1
 
-        if abs(node.balance) > 1:
-            return self._balance(node)
+        if abs(node.height) > 1:
+            return self._tally(self._balance(node))
 
-        return node
+        return self._tally(node)
 
 
     def _balance(self, node):
-        if node.balance > 1:
-            if node.right.balance < 0:
-                node.right = self._tally(self._right(node.right))
+        if node.height > 1:
+            if node.right.height < 0:
+                node.right = self._right(node.right)
 
-            return self._tally(self._left(node))
-        elif node.balance < -1:
-            if node.left.balance > 0:
-                node.left = self._tally(self._left(node.left))
+            return self._left(node)
+        else:
+            if node.left.height > 0:
+                node.left = self._left(node.left)
 
-            return self._tally(self._right(node))
-
-        return node
+            return self._right(node)
 
 
     def remove(self, value):
@@ -87,9 +83,6 @@ class AVLTree(object):
         curr.right = node.left
         node.left = curr
 
-        node.left.balance -= 1
-        node.balance -= 1
-
         return node
 
 
@@ -98,17 +91,13 @@ class AVLTree(object):
         curr.left = node.right
         node.right = curr
 
-        node.right.balance += 1
-        node.balance += 1
-
         return node
 
 
     def _tally(self, node):
         if node.left:
-            node.balance += node.left.balance
-
+            node.height += node.left.height
         if node.right:
-            node.balance += node.right.balance
+            node.height = max(node.right.height, node.height)
 
         return node
