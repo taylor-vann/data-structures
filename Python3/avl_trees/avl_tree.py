@@ -5,7 +5,7 @@ https://github.com/taylor-vann
 
 
 class AVLNode(object):
-    def __init__(self, value=None, left=None, right=None, height=1):
+    def __init__(self, value=None, left=None, right=None, height=0):
         self.value = value
         self.left = left
         self.right = right
@@ -34,8 +34,8 @@ class AVLTree(object):
 
         if node.value < value:
             return self.search(node.right, value)
-        else:
-            return self.search(node.left, value)
+
+        return self.search(node.left, value)
 
 
     def insert(self, value):
@@ -69,21 +69,16 @@ class AVLTree(object):
         if not node:
             return 0
 
-        return (
-            self._get_height(node.right)
-            - self._get_height(node.left)
-        )
+        return self._get_height(node.right) - self._get_height(node.left)
 
 
     def _balance(self, node):
         if self._get_balance(node) < -1:
-            print("about to rotate right")
-            if self._get_balance(node.right) > 0:
+            if self._get_balance(node.left) > 0:
                 node.left = self._left(node.left)
 
             return self._right(node)
         else:
-            print("about to rotate left")
             if self._get_balance(node.right) < 0:
                 node.right = self._right(node.right)
 
@@ -91,36 +86,23 @@ class AVLTree(object):
 
 
     def _left(self, curr):
-        print("rotate left")
+        righter = curr.right
+        curr.right = righter.left
+        righter.left = curr
 
-        node = curr.right
-        curr.right = node.left
-        node.left = curr
+        self._tally(righter.left)
 
-        self._tally(node.left)
-        self._tally(node.right)
-
-        return node
+        return self._tally(righter)
 
 
     def _right(self, curr):
-        print("rotate left")
+        lefter = curr.left
+        curr.left = lefter.right
+        lefter.right = curr
 
-        node = curr.left
-        curr.left = node.right
-        node.right = curr
+        self._tally(lefter.right)
 
-        self._tally(node.left)
-        self._tally(node.right)
-
-        return node
-
-
-    def _get_height(self, node):
-        if not node:
-            return 0
-
-        return node.height
+        return self._tally(lefter)
 
 
     def _tally(self, node):
@@ -133,3 +115,10 @@ class AVLTree(object):
         ) + 1
 
         return node
+
+
+    def _get_height(self, node):
+        if not node:
+            return -1
+
+        return node.height

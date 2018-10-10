@@ -17,13 +17,24 @@ def level_order(n, func=lambda x: print(x)):
 
     while curr:
         for node in curr:
-            if node.left:
-                nxt.append(node.left)
-            if node.right:
-                nxt.append(node.right)
+            if not node:
+                level.append(None)
+            elif node:
+                if node.left:
+                    nxt.append(node.left)
+                else:
+                    nxt.append(None)
 
-            level.append(node.value)
+                if node.right:
+                    nxt.append(node.right)
+                else:
+                    nxt.append(None)
 
+                level.append(node.value)
+
+        if not any(level):
+            break
+        
         func(level)
 
         curr = nxt

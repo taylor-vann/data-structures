@@ -50,7 +50,7 @@ class TestAVLNodeMethods(unittest.TestCase):
 
     def testAVLHeightNone(self):
         nd = AVLNode()
-        self.assertEqual(nd.height, 1)
+        self.assertEqual(nd.height, 0)
 
     def testAVLHeight(self):
         nd = AVLNode()
