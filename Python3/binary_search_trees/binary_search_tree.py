@@ -17,99 +17,68 @@ class BinarySearchTree(object):
         for var in args:
             self.insert(var)
 
-
     def __contains__(self, value):
-        return self._search(value)[-1]
+        return self._search(self._root, value) is not None
 
+    def _search(self, node, value):
+        if not node:
+            return
 
-    def _search(self, value):
-        prev, curr = None, self._root
+        if node.value == value:
+            return node
 
-        while curr:
-            if curr.value == value:
-                return prev, curr
+        if node.value < value:
+            return self._search(node.right, value)
 
-            if curr.value < value:
-                prev, curr = curr, curr.right
-            else:
-                prev, curr = curr, curr.left
-
-        return prev, curr
-
+        return self._search(node.left, value)
 
     def insert(self, value):
-        if not value:
-            return
+        self._root = self._insert_rec(self._root, value)
 
-        prev, curr = self._search(value)
+    def _insert_rec(self, node, value):
+        if not node:
+            return Node(value)
 
-        if curr:
-            return
-
-        node = Node(value)
-
-        if not self._root:
-            self._root = node
-        elif prev.value < node.value:
-            prev.right = node
+        if node.value < value:
+            node.right = self._insert_rec(node.right, value)
         else:
-            prev.left = node
+            node.left = self._insert_rec(node.left, value)
 
+        return node
 
     def remove(self, value):
-        prev, curr = self._search(value)
+        self._root = self._remove_rec(self._root, value)
 
-        if not curr:
+    def _remove_rec(self, node, value):
+        if not node:
             return
 
-        if curr is self._root:
-            if not curr.left and not curr.right:
-                self._root = None
-            elif not curr.left:
-                self._root = curr.right
-            elif not curr.right:
-                self._root = curr.left
-            else:
-                left = self._root.left
-                right = self._root.right
+        if node.value == value:
+            return self._replace(node)
 
-                self._root = self._get_rightmost_left(None, curr.left)
-                self._root.left = None
-                self._root.right = right
-
-                if self._root is not left:
-                    self._root.left = left
-        elif curr.value < prev.value:
-            if not curr.left and not curr.right:
-                prev.left = None
-            elif not curr.left:
-                prev.left = curr.right
-            elif not curr.right:
-                prev.left = curr.left
-            else:
-                replacement = self._get_rightmost_left(None, curr.left)
-                replacement.left = curr.left
-                prev.left = replacement
+        if node.value < value:
+            node.right = self._remove_rec(node.right, value)
         else:
-            if not curr.left and not curr.right:
-                prev.right = None
-            elif not curr.left:
-                prev.right = curr.left
-            elif not curr.right:
-                prev.left = curr.right
-            else:
-                replacement = self._get_rightmost_left(None, curr.left)
-                replacement.right = curr.right
-                prev.right = replacement
+            node.left = self._remove_rec(node.left, value)
 
+        return node
 
-    def _get_rightmost_left(self, prev, curr):
-        if not curr:
-            return curr
+    def _replace(self, node):
+        if not node:
+            return
+        if not node.left:
+            return node.right
 
-        if not curr.right:
-            if prev:
-                prev.right = curr.left
-            return curr
+        rightmost = self._get_rightmost(node.left)
+        rightmost.right = node.right
 
-        return self._get_rightmost_left(curr, curr.right)
+        node.left = None
+        node.right = None
+
+        return rightmost
+
+    def _get_rightmost(self, node):
+        if not node.right:
+            return node
+
+        return self._get_rightmost(node.right)
