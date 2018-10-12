@@ -58,18 +58,51 @@ class AVLTree(object):
 
 
     def remove(self, value):
-        pass
+        self._root = self._remove_rec(self._root, value)
 
 
-    def _remove_rec(self, value):
-        pass
-
-
-    def _get_balance(self, node):
+    def _remove_rec(self, node, value):
         if not node:
-            return 0
+            return
 
-        return self._get_height(node.right) - self._get_height(node.left)
+        if node.value == value:
+            return self._replace(node)
+
+        if node.value < value:
+            node.right = self._remove_rec(node.right, value)
+        else:
+            node.left = self._remove_rec(node.left, value)
+
+        if abs(self._get_balance(node)) > 1:
+            return self._tally(self._balance(node))
+
+        return self._tally(node)
+
+
+    def _replace(self, node):
+        if not node:
+            return
+        if not node.left:
+            return node.right
+
+        rightmost = self._get_rightmost(node.left)
+        rightmost.right = node.right
+
+        node.left = None
+        node.right = None
+
+        return rightmost
+
+
+    def _get_rightmost(self, node):
+        if not node.right:
+            return node
+
+        return self._tally(
+            self._balance(
+                self._get_rightmost(node.right)
+            )
+        )
 
 
     def _balance(self, node):
@@ -78,11 +111,18 @@ class AVLTree(object):
                 node.left = self._left(node.left)
 
             return self._right(node)
-        else:
-            if self._get_balance(node.right) < 0:
-                node.right = self._right(node.right)
 
-            return self._left(node)
+        if self._get_balance(node.right) < 0:
+            node.right = self._right(node.right)
+
+        return self._left(node)
+
+
+    def _get_balance(self, node):
+        if not node:
+            return 0
+
+        return self._get_height(node.right) - self._get_height(node.left)
 
 
     def _left(self, curr):

@@ -34,7 +34,7 @@ def level_order(n, func=lambda x: print(x)):
 
         if not any(level):
             break
-        
+
         func(level)
 
         curr = nxt
@@ -44,9 +44,9 @@ def level_order(n, func=lambda x: print(x)):
 
 def get_tree_height(node, height=0):
     if not node:
-        return height
+        return -1
 
     return max(
-        get_tree_height(node.left, height + 1),
-        get_tree_height(node.right, height + 1)
-    )
+        get_tree_height(node.left, height),
+        get_tree_height(node.right, height)
+    ) + 1
