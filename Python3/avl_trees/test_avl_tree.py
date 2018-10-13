@@ -158,14 +158,58 @@ class TestAVLTreeMethods(unittest.TestCase):
         avl = AVLTree()
         avl.remove(7)
 
-        self.assertNotIn(7, avl)
+        self.assertLessEqual(get_tree_height(avl._root), 0)
 
 
     def test_avl_tree_insert_one_remove_one(self):
         avl = AVLTree(7)
         avl.remove(7)
 
-        self.assertNotIn(7, avl)
+        self.assertLessEqual(get_tree_height(avl._root), 0)
+
+
+    def test_avl_tree_insert_one_remove_two(self):
+        avl = AVLTree(7, 8, 1, 3, 5, 9)
+
+        avl.remove(7)
+        avl.remove(3)
+
+        self.assertLessEqual(get_tree_height(avl._root), 3)
+
+
+    def test_avl_tree_insert_one_remove_three(self):
+        avl = AVLTree(7, 8, 1, 3, 5, 9)
+
+        avl.remove(7)
+        avl.remove(3)
+        avl.remove(9)
+
+        self.assertLessEqual(get_tree_height(avl._root), 3)
+
+
+    def test_avl_tree_insert_one_remove_five_height_one(self):
+        avl = AVLTree(7, 8, 1, 3, 5, 9)
+
+        avl.remove(7)
+        avl.remove(3)
+        avl.remove(9)
+        avl.remove(1)
+        avl.remove(8)
+
+        self.assertLessEqual(get_tree_height(avl._root), 1)
+
+
+    def test_avl_tree_insert_one_remove_six(self):
+        avl = AVLTree(7, 8, 1, 3, 5, 9)
+
+        avl.remove(7)
+        avl.remove(3)
+        avl.remove(9)
+        avl.remove(1)
+        avl.remove(8)
+        avl.remove(5)
+
+        self.assertLessEqual(get_tree_height(avl._root), 0)
 
 
 if __name__ == "__main__":

@@ -67,9 +67,16 @@ class BinarySearchTree(object):
         if not node:
             return
         if not node.left:
-            return node.right
+            rightmost = node.right
+            node.right = None
 
-        rightmost = self._get_rightmost(node.left)
+            return rightmost
+
+        rightmost = self._get_rightmost(None, node.left)
+
+        if rightmost is not node.left:
+            rightmost.left = node.left
+
         rightmost.right = node.right
 
         node.left = None
@@ -77,8 +84,11 @@ class BinarySearchTree(object):
 
         return rightmost
 
-    def _get_rightmost(self, node):
-        if not node.right:
-            return node
+    def _get_rightmost(self, prev, curr):
+        if not curr.right:
+            if prev:
+                prev.right = None
 
-        return self._get_rightmost(node.right)
+            return curr
+
+        return self._get_rightmost(curr, curr.right)
