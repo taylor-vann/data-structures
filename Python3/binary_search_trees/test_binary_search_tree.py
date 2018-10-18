@@ -5,6 +5,7 @@ https://github.com/taylor-vann
 
 import unittest
 from binary_search_tree import BinarySearchTree
+from level_order import level_order
 
 
 class TestBSTreeMethods(unittest.TestCase):
@@ -151,8 +152,15 @@ class TestBSTreeMethods(unittest.TestCase):
         self.assertNotIn(4, bstree)
 
 
-    def test_bstree_remove_root_has(self):
+    def test_bstree_remove_root_has_eight(self):
         bstree = BinarySearchTree(4, 2, 3, 1, 6, 10, 9, 7, 8, 11)
+        bstree.remove(4)
+        bstree.remove(10)
+        self.assertIn(8, bstree)
+
+
+    def test_bstree_remove_root_still_has_eight(self):
+        bstree = BinarySearchTree(4, 2, 1, 6, 10, 9, 7, 8, 11)
         bstree.remove(4)
         bstree.remove(10)
         self.assertIn(8, bstree)

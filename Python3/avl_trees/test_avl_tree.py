@@ -4,132 +4,212 @@ https://github.com/taylor-vann
 """
 
 import unittest
-import math
-from random import randrange
 from avl_tree import AVLTree
+from avl_tree_test_helpers import post_order
+from avl_tree_test_helpers import level_order
+from avl_tree_test_helpers import get_tree_height
 
 
-class TestAVLNodeMethods(unittest.TestCase):
 
-    def testAVLNodeNotNone(self):
+class TestAVLTreeMethods(unittest.TestCase):
+
+    def test_avl_not_none(self):
         avl = AVLTree()
 
         self.assertIsNotNone(avl)
 
-
-    def testAVLInsertOne(self):
+    def test_avl_insert_one(self):
         avl = AVLTree(1)
 
         self.assertIn(1, avl)
 
+    def test_avl_insert_one_height_zero(self):
+        avl = AVLTree(1)
 
-    def testAVLInsertTwo(self):
+        self.assertEqual(avl._root.height, 0)
+
+    def test_avl_insert_two(self):
         avl = AVLTree(1, 2)
 
         self.assertIn(2, avl)
 
+    def test_avl_insert_two_height_one(self):
+        avl = AVLTree(1, 2)
 
-    def testAVLInsertThree(self):
-        avl = AVLTree(1, 3)
-        avl.insert(2)
+        self.assertEqual(avl._root.height, 1)
 
-        self.assertIn(2, avl)
+    def test_avl_insert_two_right_height_one(self):
+        avl = AVLTree(1, 2)
 
+        self.assertEqual(avl._root.right.height, 0)
 
-    def testAVLInsertFiveDepthLessThanTwo(self):
+    def test_avl_insert_two_left_height_one(self):
+        avl = AVLTree(2, 1)
+
+        self.assertEqual(avl._root.left.height, 0)
+
+    def test_avl_insert_two_balance_negative_one(self):
+        avl = AVLTree(2, 1)
+
+        self.assertEqual(avl._get_balance(avl._root), -1)
+
+    def test_avl_insert_two_balance_negative_one(self):
+        avl = AVLTree(1, 2)
+
+        self.assertEqual(avl._get_balance(avl._root), 1)
+
+    def test_avl_insert_three_adjust_one_right_heavy(self):
+        avl = AVLTree(1, 2, 3)
+        result = []
+        expected = [[2], [1, 3]]
+        level_order(avl._root, func=lambda x: result.append(x))
+
+        self.assertEqual(result, expected)
+
+    def test_avl_insert_three_adjust_one_left_heavy(self):
+        avl = AVLTree(3, 2, 1)
+        result = []
+        expected = [[2], [1, 3]]
+        level_order(avl._root, func=lambda x: result.append(x))
+
+        self.assertEqual(result, expected)
+
+    def test_avl_insert_three_adjust_one_right_left_heavy(self):
+        avl = AVLTree(2, 4, 3)
+        result = []
+        expected = [[3], [2, 4]]
+        level_order(avl._root, func=lambda x: result.append(x))
+
+        self.assertEqual(result, expected)
+
+    def test_avl_insert_three_adjust_one_left_right_heavy(self):
+        avl = AVLTree(3, 1, 2)
+        result = []
+        expected = [[2], [1, 3]]
+        level_order(avl._root, func=lambda x: result.append(x))
+
+        self.assertEqual(result, expected)
+
+    def test_avl_insert_three_left_right_root_height(self):
+        avl = AVLTree(3, 1, 2)
+
+        self.assertEqual(avl._root.height, 1)
+
+    def test_avl_insert_three_left_right_height_of_right(self):
+        avl = AVLTree(3, 1, 2)
+
+        self.assertEqual(avl._root.right.height, 0)
+
+    def test_avl_insert_three_left_right_height_of_right(self):
+        avl = AVLTree(3, 1, 2)
+
+        self.assertEqual(avl._root.left.height, 0)
+
+    def test_avl_insert_three_root_height_one(self):
+        avl = AVLTree(1, 2, 3)
+
+        self.assertEqual(avl._root.height, 1)
+
+    def test_avl_insert_four_to_left_height_two(self):
+        avl = AVLTree(4, 3, 2, 1)
+
+        self.assertEqual(avl._root.height, 2)
+
+    def test_avl_insert_four_to_right_height_two(self):
+        avl = AVLTree(1, 2, 3, 4)
+
+        self.assertEqual(avl._root.height, 2)
+
+    def test_avl_insert_four_to_right_correct_levels(self):
+        avl = AVLTree(1, 2, 3, 4)
+
+        self.assertEqual(get_tree_height(avl._root), 2)
+
+    def test_avl_insert_four_to_left_correct_levels(self):
+        avl = AVLTree(4, 3, 2, 1)
+
+        self.assertEqual(get_tree_height(avl._root), 2)
+
+    def test_avl_insert_five_to_left_correct_levels(self):
+        avl = AVLTree(5, 4, 3, 2, 1)
+
+        self.assertLessEqual(get_tree_height(avl._root), 2)
+
+    def test_avl_insert_five_to_right_correct_levels(self):
+        avl = AVLTree(1, 2, 3, 4, 5)
+
+        self.assertLessEqual(get_tree_height(avl._root), 2)
+
+    def test_avl_insert_ten_to_left_correct_levels(self):
+        avl = AVLTree(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+        self.assertLessEqual(get_tree_height(avl._root), 3)
+
+    def test_avl_insert_hundred_correct_levels(self):
         avl = AVLTree()
 
-        for v in range(5):
-            avl.insert(randrange(50))
+        for j in range(100):
+            avl.insert(j)
 
-        l = 0
-        r = 0
-
-        if avl._r.get_left():
-            l = avl._r.get_left().get_height()
-        if avl._r.get_right():
-            r = avl._r.get_right().get_height()
-
-        self.assertLess(abs(l - r), 2)
+        self.assertLessEqual(get_tree_height(avl._root), 6)
 
 
-    def testAVLInsertThirtyDepthLessThanTwo(self):
+    def test_avl_insert_none_remove_one(self):
         avl = AVLTree()
-
-        l = 0
-        r = 0
-
-        for v in range(30):
-            avl.insert(randrange(50))
-
-        if avl._r.get_left():
-            l = avl._r.get_left().get_height()
-        if avl._r.get_right():
-            r = avl._r.get_right().get_height()
-
-        self.assertLess(abs(l - r), math.log(30, 2))
-
-
-    def testAVLInsertTwoDepthRemoveOne(self):
-        avl = AVLTree(5, 7)
-        avl.remove(5)
-
-        self.assertNotIn(1, avl)
-
-
-    def testAVLInsertThreeDepthRemoveRoot(self):
-        avl = AVLTree(5, 7, 4)
-        avl.remove(5)
-
-        self.assertNotIn(5, avl)
-
-
-    def testAVLInsertFiveDepthTwoChildNode(self):
-        avl = AVLTree(5, 7, 4, 6, 8)
         avl.remove(7)
 
-        self.assertNotIn(7, avl)
+        self.assertLessEqual(get_tree_height(avl._root), 0)
 
 
-    def testAVLInsertFiveDepthRemoveNoChildNode(self):
-        avl = AVLTree(5, 7, 1, 6, 8, 9)
-        avl.remove(1)
+    def test_avl_tree_insert_one_remove_one(self):
+        avl = AVLTree(7)
+        avl.remove(7)
 
-        self.assertNotIn(1, avl)
+        self.assertLessEqual(get_tree_height(avl._root), 0)
 
 
-    def testAVLInsertFiveDepthRemoveParentLeftChild(self):
-        avl = AVLTree(5, 7, 1, 6, 8, 9)
+    def test_avl_tree_insert_one_remove_two(self):
+        avl = AVLTree(7, 8, 1, 3, 5, 9)
+
+        avl.remove(7)
+        avl.remove(3)
+
+        self.assertLessEqual(get_tree_height(avl._root), 3)
+
+
+    def test_avl_tree_insert_one_remove_three(self):
+        avl = AVLTree(7, 8, 1, 3, 5, 9)
+
+        avl.remove(7)
+        avl.remove(3)
         avl.remove(9)
 
-        self.assertNotIn(9, avl)
+        self.assertLessEqual(get_tree_height(avl._root), 3)
 
 
-    def testAVLInsertFiveDepthRemoveParentRightChild(self):
-        avl = AVLTree(5, 7, 1, 6, 8, 10)
-        avl.remove(10)
+    def test_avl_tree_insert_one_remove_five_height_one(self):
+        avl = AVLTree(7, 8, 1, 3, 5, 9)
 
-        self.assertNotIn(10, avl)
+        avl.remove(7)
+        avl.remove(3)
+        avl.remove(9)
+        avl.remove(1)
+        avl.remove(8)
 
-
-    def testAVLInsertFiveDepthRemoveRootParentTwoChild(self):
-        avl = AVLTree(12, 4, 11, 7, 1, 6, 5, 8, 10)
-        avl.remove(6)
-
-        self.assertNotIn(6, avl)
+        self.assertLessEqual(get_tree_height(avl._root), 1)
 
 
-    def testAVLInsertTenDepthRemoveParentTwoChild(self):
-        avl = AVLTree(12, 4, 11, 7, 1, 6, 5, 8, 10)
-        avl.remove(4)
+    def test_avl_tree_insert_one_remove_six(self):
+        avl = AVLTree(7, 8, 1, 3, 5, 9)
 
-        self.assertNotIn(4, avl)
-
-    def testAVLInsertTenDepthRemoveLeftParentTwoChild(self):
-        avl = AVLTree(17, 5, 39, 0, 15, 29, 49, 29, 45)
+        avl.remove(7)
+        avl.remove(3)
+        avl.remove(9)
+        avl.remove(1)
+        avl.remove(8)
         avl.remove(5)
 
-        self.assertNotIn(5, avl)
+        self.assertLessEqual(get_tree_height(avl._root), 0)
 
 
 if __name__ == "__main__":

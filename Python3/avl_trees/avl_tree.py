@@ -5,22 +5,22 @@ https://github.com/taylor-vann
 
 
 class AVLNode(object):
-    def __init__(self, value = None, left = None, right = None):
+    def __init__(self, value=None, left=None, right=None, height=0):
         self.value = value
         self.left = left
         self.right = right
-        self.height = 0
+        self.height = height
 
 
 class AVLTree(object):
     def __init__(self, *args):
+        self._root = None
+
         for value in args:
             self.insert(value)
 
-
     def __contains__(self, value):
-        return self.search(self._root, value)
-
+        return self.search(self._root, value) is not None
 
     def search(self, node, value):
         if not node:
@@ -34,236 +34,122 @@ class AVLTree(object):
 
         return self.search(node.left, value)
 
-
     def insert(self, value):
-        n = AVLNode(value)
+        self._root = self._insert_rec(self._root, value)
 
-        if self._root == None:
-            self._root = n
+    def _insert_rec(self, node, value):
+        if not node:
+            return AVLNode(value)
 
-            return
-
-        s = [None, None, None]
-        c = self._r
-
-        while c != None:
-            s.append(c)
-
-            if c.value > value:
-                c = c.left
-            else:
-                c = c.right
-
-        l = len(s) - 1
-
-        if s[l].value > value:
-            s[l].set_left(n)
+        if node.value < value:
+            node.right = self._insert_rec(node.right, value)
         else:
-            s[l].set_right(n)
+            node.left = self._insert_rec(node.left, value)
 
-        s.append(n)
-
-        self._balance(s)
-
+        return self._try_balance(node)
 
     def remove(self, value):
-        c = self._r
+        self._root = self._remove_rec(self._root, value)
 
-        s = [None, None, None]
-
-        while c != None:
-            s.append(c)
-
-            if c.value == value:
-                break
-
-            if c.value > value:
-                c = c.left
-            else:
-                c = c.right
-
-        if c == None:
+    def _remove_rec(self, node, value):
+        if not node:
             return
 
-        self._replace(s)
+        if node.value == value:
+            return self._replace(node)
 
-
-    def _replace(self, s):
-        t = None
-        l = len(s) - 1
-
-        # two leaf branch, find the left most right leaf.
-        if s[l].left and s[l].right:
-            t = self._get_tail(s)
-
-            t.set_left(s[l].left)
-            t.set_right(s[l].right)
-
-            if s[l - 1]:
-                if s[l - 1].value > t.value:
-                    s[l - 1].set_left(t)
-                else:
-                    s[l - 1].set_right(t)
-            else:
-                self._root = t
-        # left leaf branch
-        elif s[l].left:
-            t = s[l].left
-
-            self._replace_node(s[l - 1], s[l], t)
-            self._balance(s)
-        # leaf
+        if node.value < value:
+            node.right = self._remove_rec(node.right, value)
         else:
-            self._replace_node(s[l - 1], s[l])
+            node.left = self._remove_rec(node.left, value)
 
-            if s[l - 1].right:
-                s.append(s[l - 1].right)
-                self._balance(s)
+        return self._try_balance(node)
 
-
-    def _get_tail(self, s):
-        stk = s
-        l = len(stk) - 1
-        c = stk[l].right
-
-        stk.append(c)
-
-        while c.left:
-            c = c.left
-            stk.append(c)
-
-        l = len(stk) - 1
-
-        if stk[l - 3]:
-            stk[l - 1].set_left(None)
-        else:
-            stk[l - 1].set_right(None)
-
-        if stk[l - 1].right:
-            self._clr(stk.pop())
-
-            stk.append(stk[l - 1].right)
-            self._balance(stk)
-
-        self._clr(c)
-
-        return c
-
-
-    def _replace_node(self, p, c, r = None):
-        if p == None:
-            self._replace_root(c, r)
-
+    def _replace(self, node):
+        if not node:
             return
-        else:
-            if p.left == c:
-                p.set_left(r)
-            else:
-                p.set_right(r)
+        if not node.left:
+            rightmost = node.right
+            node.right = None
 
-        self._clr(c)
+            return rightmost
 
+        rightmost = self._get_rightmost(None, node.left)
 
-    def _replace_root(self, c, r = None):
-        if r:
-            r.set_left(c.left)
-            r.set_right(c.right)
+        if rightmost is not node.left:
+            rightmost.left = node.left
 
-        self._root = r
+        rightmost.right = node.right
 
+        node.left = None
+        node.right = None
 
-    def _balance(self, s):
-        l = len(s) - 1
+        return self._tally(rightmost)
 
-        # no leafs
-        if s[l - 1] == None:
-           return
+    def _get_rightmost(self, prev, curr):
+        if not curr.right:
+            if prev:
+                prev.right = None
 
-        # leaf is right heavy
-        if s[l - 1].left == None and s[l - 1].right:
-            self._shift(s[l - 2], s[l - 1], s[l])
-            s[l - 1], s[l] = s[l], s[l - 1]
+            return curr
 
-        # walk back stack, compare heights, rotate when necessary
-        while s[l - 2] != None:
-            left = 0
-            rgt = 0
+        return self._get_rightmost(curr, curr.right)
 
-            # get branch heights
-            if s[l - 2].left:
-                left = s[l - 2].left
-                left = left.get_height()
-            if s[l - 2].right:
-                rgt = s[l - 2].right
-                rgt = rgt.get_height()
+    def _try_balance(self, node):
+        if abs(self._get_balance(node)) > 1:
+            return self._tally(self._balance(node))
 
-            # branch is right heavy, shit to left heavy
-            if left - rgt > 1:
-                p = s[l - 1].left
-                c = s[l].right
+        return self._tally(node)
 
-                self._right(s[l - 3], s[l - 2], s[l - 1], s[l])
-                s[l - 2], s[l - 1] = s[l - 1], s[l - 2]
+    def _balance(self, node):
+        if self._get_balance(node) < -1:
+            if self._get_balance(node.left) > 0:
+                node.left = self._left(node.left)
 
-            # branch is left heavy
-            if left - rgt < -1:
-                p = s[l - 1].right
-                n = s[l].left
+            return self._right(node)
 
-                self._left(s[l - 3], s[l - 2], s[l - 1])
-                s[l - 2], s[l - 1] = s[l - 1], s[l - 2]
+        if self._get_balance(node.right) < 0:
+            node.right = self._right(node.right)
 
-            self._clr(s.pop())
+        return self._left(node)
 
-            l -= 1
+    def _get_balance(self, node):
+        if not node:
+            return 0
 
+        return self._get_height(node.right) - self._get_height(node.left)
 
-    def _shift(self, a, p, c):
-        if p == self._r:
-            self._root = c
+    def _left(self, curr):
+        righter = curr.right
+        curr.right = righter.left
+        righter.left = curr
 
-        if a:
-            if a.value > c.value:
-                a.set_left(c)
-            else:
-                a.set_right(c)
+        self._tally(righter.left)
 
-        c.set_left(p)
-        p.set_right(None)
+        return self._tally(righter)
 
+    def _right(self, curr):
+        lefter = curr.left
+        curr.left = lefter.right
+        lefter.right = curr
 
-    def _left(self, e, a, p):
-        l = p.left
+        self._tally(lefter.right)
 
-        if self._root == a:
-            self._root = p
+        return self._tally(lefter)
 
-        if e:
-            if e.value > a.value:
-                e.set_left(p)
-            else:
-                e.set_right(p)
+    def _tally(self, node):
+        if not node:
+            return
 
-        a.set_right(l)
-        p.set_left(a)
+        node.height = max(
+            self._get_height(node.right),
+            self._get_height(node.left)
+        ) + 1
 
+        return node
 
-    def _right(self, e, a, p, c):
-        r = p.right
+    def _get_height(self, node):
+        if not node:
+            return -1
 
-        if a == self._r:
-            self._root = p
-
-        if e:
-            if e.value > p.value:
-                e.set_left(p)
-            else:
-                e.set_right(p)
-
-        a.set_left(r)
-        p.set_right(a)
-
-
-    def _clr(self, n):
-        n.set_left(None)
-        n.set_right(None)
+        return node.height
