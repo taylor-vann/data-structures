@@ -12,10 +12,10 @@ int main(int argc, const char* argv[]) {
   printf("the node's value is: %d\n", new_node->value);
 
   stack *new_stack = malloc(sizeof(stack));
-  //
   push(&new_node, 5);
-  // stack_interface *stack_int = malloc(sizeof(stack_interface));
-  // create_stack_interface(&stack_int);
+  
+  stack_interface *stack_int = malloc(sizeof(stack_interface));
+  create_stack_interface(&stack_int);
 
   return 0;
 };
