@@ -1,3 +1,6 @@
+# general ignores
+.DS_Store
+
 # python ignores
 __pycache__/
 *.pyc
