@@ -4,6 +4,13 @@
 #include "node.h"
 #include "stack.h"
 
+struct stack {
+  node *header;
+};
+
+struct stack_interface {
+  void (*push)(node *n, int value);
+};
 
 int push(node *n, int value)
 {
