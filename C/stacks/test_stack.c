@@ -26,6 +26,5 @@ int main(int argc, const char* argv[]) {
   stck_interface->pop(new_stack);
   printf("top of the stack: %d\n", stck_interface->peek(new_stack));
 
-
   return 0;
 };

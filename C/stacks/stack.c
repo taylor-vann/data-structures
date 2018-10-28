@@ -4,7 +4,7 @@
 #include "stack.h"
 
 
-stack create_stack()
+static stack create_stack()
 {
   stack *stck = malloc(sizeof(stack));
   stck->header = malloc(sizeof(node));
@@ -15,7 +15,7 @@ stack create_stack()
 };
 
 
-stack push(stack *s, int value)
+static stack push(stack *s, int value)
 {
   node *n = malloc(sizeof(node));
   n->value = value;
@@ -27,7 +27,7 @@ stack push(stack *s, int value)
 };
 
 
-int pop(stack *s)
+static int pop(stack *s)
 {
   if (s->header->next == NULL) {
     return -1;
@@ -43,7 +43,7 @@ int pop(stack *s)
 };
 
 
-int peek(stack *s)
+static int peek(stack *s)
 {
   if (s->header->next == NULL) {
     return -1;
