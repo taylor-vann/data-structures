@@ -1,13 +1,20 @@
 #ifndef STACK_H
 #define STACK_H
 
-class Stack {
+template <class type> class Stack {
+    typedef struct node {
+      type value;
+      node *next;
+    } Node;
+
+    Node *header;
+
   public:
-    void push(int);
-    int pop();
-    int peek();
-  private:
-    node *header;
+    Stack();
+    bool push(type);
+    type pop();
+    type peek();
+    bool is_empty();
 };
 
 #endif
